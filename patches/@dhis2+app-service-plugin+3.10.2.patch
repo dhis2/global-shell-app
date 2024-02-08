@@ -1,0 +1,15 @@
+diff --git a/node_modules/@dhis2/app-service-plugin/build/es/Plugin.js b/node_modules/@dhis2/app-service-plugin/build/es/Plugin.js
+index eb805b0..7cf056a 100644
+--- a/node_modules/@dhis2/app-service-plugin/build/es/Plugin.js
++++ b/node_modules/@dhis2/app-service-plugin/build/es/Plugin.js
+@@ -124,8 +124,8 @@ export const Plugin = (_ref3) => {
+   if (pluginEntryPoint) {
+     return /*#__PURE__*/React.createElement("div", {
+       style: {
+-        height: `${pluginHeight}px`,
+-        width: `${pluginWidth}px`
++        height: `${pluginHeight}`,
++        width: `${pluginWidth}`
+       }
+     }, /*#__PURE__*/React.createElement("iframe", {
+       ref: iframeRef,
