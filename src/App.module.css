@@ -7,3 +7,8 @@
     justify-content: center;
     font-size: 1rem;
 }
+
+/* During development, hide the App Adapter's header bar to use this app's */
+:global div.app-shell-adapter > header:not(.global-shell-header) {
+    display: none;
+}
