@@ -25,7 +25,11 @@ const injectHeaderbarHidingStyles = (event) => {
             'div.app-shell-adapter > header { display: none; }'
         doc.head.appendChild(styleElement)
     } catch (err) {
-        console.error(err)
+        console.error(
+            'Failed to apply styles to the client app to hide its header bar. ' +
+                'This could be due to the client app being hosted on a different domain.',
+            err
+        )
     }
 }
 
