@@ -8,7 +8,7 @@
         "build": "d2-app-scripts build",
         "start": "d2-app-scripts start",
         "test": "d2-app-scripts test",
-        "deploy": "D2_PASSWORD=district d2-app-scripts deploy https://debug.dhis2.org/dev --username admin",
+        "deploy": "d2-app-scripts deploy http://localhost:8080 --username admin",
         "postinstall": "patch-package"
     },
     "devDependencies": {
@@ -20,6 +20,7 @@
     },
     "dependencies": {
         "@dhis2/app-runtime": "^3.10.2",
+        "@dhis2/ui": "^8.16.0",
         "react-router-dom": "^6.22.0"
     }
 }
