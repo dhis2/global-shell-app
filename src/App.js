@@ -46,28 +46,42 @@ Layout.propTypes = { children: PropTypes.node }
 // Save this so it can be used after browser URL changes
 const originalLocation = new URL(window.location.href)
 
-// todo: handle "whiffs" and fall-backs if 'app.html' isn't available
-const getPluginSource = (appName, baseUrl) => {
+const getPluginSource = async (appName, baseUrl) => {
     const absoluteBaseUrl = new URL(baseUrl, originalLocation)
 
     if (appName.startsWith('dhis-web')) {
         return new URL(`./${appName}/`, absoluteBaseUrl).href
     }
 
-    return new URL(`./api/apps/${appName}/app.html`, absoluteBaseUrl).href
+    const appBasePath = appName.startsWith('dhis-web')
+        ? `./${appName}`
+        : `./api/apps/${appName}/`
+    const appRootUrl = new URL(appBasePath, absoluteBaseUrl)
+    const pluginifiedAppEntrypoint = new URL('./app.html', appRootUrl)
+
+    const pluginifiedAppResponse = await fetch(pluginifiedAppEntrypoint)
+    if (pluginifiedAppResponse.ok) {
+        return pluginifiedAppEntrypoint.href
+    }
+    // If pluginified app is not found, fall back to app root
+    return appRootUrl.href
 }
 
 const PluginLoader = () => {
     const params = useParams()
     const location = useLocation()
     const { baseUrl } = useConfig()
+    const [pluginSource, setPluginSource] = React.useState()
 
-    const pluginSource = React.useMemo(() => {
-        const pluginSource =
-            params.appName === 'localApp'
-                ? 'http://localhost:3001/app.html'
-                : getPluginSource(params.appName, baseUrl)
-        return pluginSource + location.hash
+    React.useEffect(() => {
+        const asyncWork = async () => {
+            const pluginSource =
+                params.appName === 'localApp'
+                    ? 'http://localhost:3001/app.html'
+                    : await getPluginSource(params.appName, baseUrl)
+            setPluginSource(pluginSource + location.hash)
+        }
+        asyncWork()
     }, [params.appName, baseUrl, location.hash])
 
     return (
