@@ -90,6 +90,7 @@ const PluginLoader = () => {
             height={'100%'}
             pluginSource={pluginSource}
             onLoad={injectHeaderbarHidingStyles}
+            key={pluginSource} // Rerender this component when source changes to set up communication channels for the new iframe window
         />
     )
 }
@@ -105,6 +106,7 @@ const MyApp = () => {
         }
         const absoluteBaseUrl = new URL(baseUrl, originalLocation)
         return new URL(`./api/apps/${appName}/`, absoluteBaseUrl).pathname
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     return (
