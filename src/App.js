@@ -75,22 +75,24 @@ const PluginLoader = () => {
 
     React.useEffect(() => {
         const asyncWork = async () => {
-            const pluginSource =
+            const newPluginSource =
                 params.appName === 'localApp'
                     ? 'http://localhost:3001/app.html'
                     : await getPluginSource(params.appName, baseUrl)
-            setPluginSource(pluginSource + location.hash)
+            setPluginSource(newPluginSource)
         }
         asyncWork()
-    }, [params.appName, baseUrl, location.hash])
+    }, [params.appName, baseUrl])
 
     return (
         <Plugin
             width={'100%'}
             height={'100%'}
-            pluginSource={pluginSource}
+            // pass URL hash down to the client app
+            pluginSource={pluginSource + location.hash}
             onLoad={injectHeaderbarHidingStyles}
-            key={pluginSource} // Rerender this component when source changes to set up communication channels for the new iframe window
+            // Reset this component when source changes to set up communication channels for the new iframe window
+            key={pluginSource}
         />
     )
 }
