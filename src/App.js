@@ -33,15 +33,23 @@ const injectHeaderbarHidingStyles = (event) => {
     }
 }
 
-const Layout = ({ children }) => {
+const Layout = ({ children, clientPwaUpdateAvailable, onApplyUpdate }) => {
     return (
         <>
-            <HeaderBar className={'global-shell-header'} />
+            <HeaderBar
+                className={'global-shell-header'}
+                updateAvailable={clientPwaUpdateAvailable}
+                onApplyAvailableUpdate={onApplyUpdate}
+            />
             <div className={styles.container}>{children}</div>
         </>
     )
 }
-Layout.propTypes = { children: PropTypes.node }
+Layout.propTypes = {
+    children: PropTypes.node,
+    clientPwaUpdateAvailable: PropTypes.bool,
+    onApplyUpdate: PropTypes.func,
+}
 
 // Save this so it can be used after browser URL changes
 const originalLocation = new URL(window.location.href)
@@ -67,7 +75,7 @@ const getPluginSource = async (appName, baseUrl) => {
     return appRootUrl.href
 }
 
-const PluginLoader = () => {
+const PluginLoader = ({ setClientPwaUpdateAvailable, setOnApplyUpdate }) => {
     const params = useParams()
     const location = useLocation()
     const { baseUrl } = useConfig()
@@ -93,14 +101,34 @@ const PluginLoader = () => {
             onLoad={injectHeaderbarHidingStyles}
             // Reset this component when source changes to set up communication channels for the new iframe window
             key={pluginSource}
+            // Other props
+            reportPWAUpdateStatus={(options) => {
+                const { updateAvailable, onApplyUpdate } = options
+
+                setClientPwaUpdateAvailable(updateAvailable)
+                if (onApplyUpdate) {
+                    // Return function from a function -- otherwise, setState tries to invoke the function
+                    // to evaluate its next state
+                    setOnApplyUpdate(() => onApplyUpdate)
+                }
+            }}
         />
     )
+}
+PluginLoader.propTypes = {
+    setClientPwaUpdateAvailable: PropTypes.func,
+    setOnApplyUpdate: PropTypes.func,
 }
 
 // todo: also listen to navigations inside iframe (e.g. "Open this dashboard item in DV" links)
 // (Could the `window` prop on BrowserRouter help here?)
 const MyApp = () => {
     const { baseUrl, appName } = useConfig()
+    // todo: maybe pare this down to just onApplyUpdate?
+    // todo: reset upon switching to a new client app
+    const [clientPwaUpdateAvailable, setClientPwaUpdateAvailable] =
+        React.useState(false)
+    const [onApplyUpdate, setOnApplyUpdate] = React.useState()
 
     const basename = React.useMemo(() => {
         if (process.env.NODE_ENV === 'development') {
@@ -113,13 +141,26 @@ const MyApp = () => {
 
     return (
         <BrowserRouter basename={basename}>
-            <Layout>
+            <Layout
+                clientPwaUpdateAvailable={clientPwaUpdateAvailable}
+                onApplyUpdate={onApplyUpdate}
+            >
                 <Routes>
                     <Route
                         path="*"
                         element={<Link to="/app/localApp">Local App</Link>}
                     ></Route>
-                    <Route path="/app/:appName" element={<PluginLoader />} />
+                    <Route
+                        path="/app/:appName"
+                        element={
+                            <PluginLoader
+                                setClientPwaUpdateAvailable={
+                                    setClientPwaUpdateAvailable
+                                }
+                                setOnApplyUpdate={setOnApplyUpdate}
+                            />
+                        }
+                    />
                 </Routes>
             </Layout>
         </BrowserRouter>
