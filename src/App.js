@@ -58,11 +58,19 @@ const getPluginSource = async (appName, baseUrl) => {
     const absoluteBaseUrl = new URL(baseUrl, originalLocation)
 
     if (appName.startsWith('dhis-web')) {
-        return new URL(`./${appName}/`, absoluteBaseUrl).href
+        console.log({ appName })
+
+        // todo: this could be done with smarter apps info API
+        // (neither api/apps/menu nor getModules.action have all correct answers)
+        const relativePath =
+            appName === 'dhis-web-dataentry'
+                ? `./${appName}/index.action`
+                : `./${appName}/`
+        return new URL(relativePath, absoluteBaseUrl).href
     }
 
     const appBasePath = appName.startsWith('dhis-web')
-        ? `./${appName}`
+        ? `./${appName}/`
         : `./api/apps/${appName}/`
     const appRootUrl = new URL(appBasePath, absoluteBaseUrl)
     const pluginifiedAppEntrypoint = new URL('./app.html', appRootUrl)
@@ -99,11 +107,10 @@ const PluginLoader = ({ setClientPwaUpdateAvailable, setOnApplyUpdate }) => {
             // pass URL hash down to the client app
             pluginSource={pluginSource + location.hash}
             onLoad={injectHeaderbarHidingStyles}
-            // Reset this component when source changes to set up communication channels for the new iframe window
-            key={pluginSource}
             // Other props
-            reportPWAUpdateStatus={(options) => {
-                const { updateAvailable, onApplyUpdate } = options
+            reportPWAUpdateStatus={(data) => {
+                const { updateAvailable, onApplyUpdate } = data
+                console.log('recieved PWA status', { data })
 
                 setClientPwaUpdateAvailable(updateAvailable)
                 if (onApplyUpdate) {
