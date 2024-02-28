@@ -1,7 +1,6 @@
 import { useConfig } from '@dhis2/app-runtime'
 // eslint-disable-next-line import/no-unresolved
 import { Plugin } from '@dhis2/app-runtime/experimental'
-import { HeaderBar } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React from 'react'
 import {
@@ -13,6 +12,7 @@ import {
     useParams,
 } from 'react-router-dom'
 import styles from './App.module.css'
+import { ConnectedHeaderBar } from './components/ConnectedHeaderbar.js'
 
 // Doesn't work on maintenance app
 // Doesn't work cross-domain
@@ -33,13 +33,16 @@ const injectHeaderbarHidingStyles = (event) => {
     }
 }
 
-const Layout = ({ children, clientPwaUpdateAvailable, onApplyUpdate }) => {
+const Layout = ({
+    children,
+    clientPWAUpdateAvailable,
+    onApplyClientUpdate,
+}) => {
     return (
         <>
-            <HeaderBar
-                className={'global-shell-header'}
-                updateAvailable={clientPwaUpdateAvailable}
-                onApplyAvailableUpdate={onApplyUpdate}
+            <ConnectedHeaderBar
+                clientPWAUpdateAvailable={clientPWAUpdateAvailable}
+                onApplyClientUpdate={onApplyClientUpdate}
             />
             <div className={styles.container}>{children}</div>
         </>
@@ -47,8 +50,8 @@ const Layout = ({ children, clientPwaUpdateAvailable, onApplyUpdate }) => {
 }
 Layout.propTypes = {
     children: PropTypes.node,
-    clientPwaUpdateAvailable: PropTypes.bool,
-    onApplyUpdate: PropTypes.func,
+    clientPWAUpdateAvailable: PropTypes.bool,
+    onApplyClientUpdate: PropTypes.func,
 }
 
 // Save this so it can be used after browser URL changes
@@ -83,11 +86,21 @@ const getPluginSource = async (appName, baseUrl) => {
     return appRootUrl.href
 }
 
-const PluginLoader = ({ setClientPwaUpdateAvailable, setOnApplyUpdate }) => {
+const PluginLoader = ({
+    setClientPWAUpdateAvailable,
+    setOnApplyClientUpdate,
+}) => {
     const params = useParams()
     const location = useLocation()
     const { baseUrl } = useConfig()
     const [pluginSource, setPluginSource] = React.useState()
+
+    // test prop messaging and updates
+    const [color, setColor] = React.useState('blue')
+    const toggleColor = React.useCallback(
+        () => setColor((prev) => (prev === 'blue' ? 'red' : 'blue')),
+        []
+    )
 
     React.useEffect(() => {
         const asyncWork = async () => {
@@ -104,6 +117,8 @@ const PluginLoader = ({ setClientPwaUpdateAvailable, setOnApplyUpdate }) => {
         <Plugin
             width={'100%'}
             height={'100%'}
+            // todo: only for apps without header bars
+            // height={'calc(100% - 48px)'}
             // pass URL hash down to the client app
             pluginSource={pluginSource + location.hash}
             onLoad={injectHeaderbarHidingStyles}
@@ -112,19 +127,22 @@ const PluginLoader = ({ setClientPwaUpdateAvailable, setOnApplyUpdate }) => {
                 const { updateAvailable, onApplyUpdate } = data
                 console.log('recieved PWA status', { data })
 
-                setClientPwaUpdateAvailable(updateAvailable)
+                setClientPWAUpdateAvailable(updateAvailable)
                 if (onApplyUpdate) {
                     // Return function from a function -- otherwise, setState tries to invoke the function
                     // to evaluate its next state
-                    setOnApplyUpdate(() => onApplyUpdate)
+                    setOnApplyClientUpdate(() => onApplyUpdate)
                 }
             }}
+            // props test
+            color={color}
+            toggleColor={toggleColor}
         />
     )
 }
 PluginLoader.propTypes = {
-    setClientPwaUpdateAvailable: PropTypes.func,
-    setOnApplyUpdate: PropTypes.func,
+    setClientPWAUpdateAvailable: PropTypes.func,
+    setOnApplyClientUpdate: PropTypes.func,
 }
 
 // todo: also listen to navigations inside iframe (e.g. "Open this dashboard item in DV" links)
@@ -133,9 +151,9 @@ const MyApp = () => {
     const { baseUrl, appName } = useConfig()
     // todo: maybe pare this down to just onApplyUpdate?
     // todo: reset upon switching to a new client app
-    const [clientPwaUpdateAvailable, setClientPwaUpdateAvailable] =
+    const [clientPWAUpdateAvailable, setClientPWAUpdateAvailable] =
         React.useState(false)
-    const [onApplyUpdate, setOnApplyUpdate] = React.useState()
+    const [onApplyClientUpdate, setOnApplyClientUpdate] = React.useState()
 
     const basename = React.useMemo(() => {
         if (process.env.NODE_ENV === 'development') {
@@ -149,8 +167,8 @@ const MyApp = () => {
     return (
         <BrowserRouter basename={basename}>
             <Layout
-                clientPwaUpdateAvailable={clientPwaUpdateAvailable}
-                onApplyUpdate={onApplyUpdate}
+                clientPWAUpdateAvailable={clientPWAUpdateAvailable}
+                onApplyClientUpdate={onApplyClientUpdate}
             >
                 <Routes>
                     <Route
@@ -161,10 +179,10 @@ const MyApp = () => {
                         path="/app/:appName"
                         element={
                             <PluginLoader
-                                setClientPwaUpdateAvailable={
-                                    setClientPwaUpdateAvailable
+                                setClientPWAUpdateAvailable={
+                                    setClientPWAUpdateAvailable
                                 }
-                                setOnApplyUpdate={setOnApplyUpdate}
+                                setOnApplyClientUpdate={setOnApplyClientUpdate}
                             />
                         }
                     />
