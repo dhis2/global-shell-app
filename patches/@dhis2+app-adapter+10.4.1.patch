@@ -47,10 +47,10 @@ index c509393..1ea9b65 100644
  };
 \ No newline at end of file
 diff --git a/node_modules/@dhis2/app-adapter/build/cjs/components/ConnectedHeaderBar.js b/node_modules/@dhis2/app-adapter/build/cjs/components/ConnectedHeaderBar.js
-index b6f4228..902230d 100644
+index b6f4228..680a2f2 100644
 --- a/node_modules/@dhis2/app-adapter/build/cjs/components/ConnectedHeaderBar.js
 +++ b/node_modules/@dhis2/app-adapter/build/cjs/components/ConnectedHeaderBar.js
-@@ -7,16 +7,18 @@ exports.ConnectedHeaderBar = ConnectedHeaderBar;
+@@ -7,12 +7,12 @@ exports.ConnectedHeaderBar = ConnectedHeaderBar;
  
  var _appRuntime = require("@dhis2/app-runtime");
  
@@ -65,13 +65,7 @@ index b6f4228..902230d 100644
  var _ConfirmUpdateModal = require("./ConfirmUpdateModal");
  
  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
- 
-+// import { usePWAUpdateState } from '../utils/usePWAUpdateState'
-+
- /**
-  * Check for SW updates or a first activation, displaying an update notification
-  * message in the HeaderBar profile menu. When an update is applied, if there are
-@@ -35,7 +37,7 @@ function ConnectedHeaderBar() {
+@@ -35,7 +35,7 @@ function ConnectedHeaderBar() {
      clientsCount,
      onConfirmUpdate,
      onCancelUpdate
@@ -80,35 +74,11 @@ index b6f4228..902230d 100644
    return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement(_ui.HeaderBar, {
      appName: appName,
      updateAvailable: updateAvailable,
-diff --git a/node_modules/@dhis2/app-adapter/build/cjs/components/OfflineInterfaceContext.js b/node_modules/@dhis2/app-adapter/build/cjs/components/OfflineInterfaceContext.js
-index 7c0b47c..4d85b89 100644
---- a/node_modules/@dhis2/app-adapter/build/cjs/components/OfflineInterfaceContext.js
-+++ b/node_modules/@dhis2/app-adapter/build/cjs/components/OfflineInterfaceContext.js
-@@ -5,8 +5,6 @@ Object.defineProperty(exports, "__esModule", {
- });
- exports.useOfflineInterface = exports.OfflineInterfaceProvider = void 0;
- 
--var _pwa = require("@dhis2/pwa");
--
- var _propTypes = _interopRequireDefault(require("prop-types"));
- 
- var _react = _interopRequireWildcard(require("react"));
-@@ -17,7 +15,9 @@ function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj &&
- 
- function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
- 
--const theOfflineInterface = new _pwa.OfflineInterface();
-+// import { OfflineInterface } from '@dhis2/pwa'
-+const theOfflineInterface = null; // new OfflineInterface()
-+
- const OfflineInterfaceContext = /*#__PURE__*/(0, _react.createContext)(theOfflineInterface);
- 
- const OfflineInterfaceProvider = _ref => {
 diff --git a/node_modules/@dhis2/app-adapter/build/cjs/components/PWALoadingBoundary.js b/node_modules/@dhis2/app-adapter/build/cjs/components/PWALoadingBoundary.js
-index b75c873..8951e1f 100644
+index b75c873..90e61e0 100644
 --- a/node_modules/@dhis2/app-adapter/build/cjs/components/PWALoadingBoundary.js
 +++ b/node_modules/@dhis2/app-adapter/build/cjs/components/PWALoadingBoundary.js
-@@ -11,16 +11,16 @@ var _propTypes = _interopRequireDefault(require("prop-types"));
+@@ -11,8 +11,6 @@ var _propTypes = _interopRequireDefault(require("prop-types"));
  
  var _react = require("react");
  
@@ -116,10 +86,8 @@ index b75c873..8951e1f 100644
 -
  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
  
-+// import { useOfflineInterface } from '@dhis2/pwa'
-+// import { useOfflineInterface } from './OfflineInterfaceContext'
  const PWALoadingBoundary = _ref => {
-   let {
+@@ -20,7 +18,7 @@ const PWALoadingBoundary = _ref => {
      children
    } = _ref;
    const [pwaReady, setPWAReady] = (0, _react.useState)(false);
@@ -128,51 +96,63 @@ index b75c873..8951e1f 100644
    (0, _react.useEffect)(() => {
      const checkRegistration = async () => {
        const registrationState = await offlineInterface.getRegistrationState();
-diff --git a/node_modules/@dhis2/app-adapter/build/cjs/components/PluginPWAUpdateManager.js b/node_modules/@dhis2/app-adapter/build/cjs/components/PluginPWAUpdateManager.js
-new file mode 100644
-index 0000000..1dfc130
---- /dev/null
+diff --git a/node_modules/@dhis2/app-adapter/build/cjs/components/OfflineInterfaceContext.js b/node_modules/@dhis2/app-adapter/build/cjs/components/PluginPWAUpdateManager.js
+similarity index 51%
+rename from node_modules/@dhis2/app-adapter/build/cjs/components/OfflineInterfaceContext.js
+rename to node_modules/@dhis2/app-adapter/build/cjs/components/PluginPWAUpdateManager.js
+index 7c0b47c..7f0e0e3 100644
+--- a/node_modules/@dhis2/app-adapter/build/cjs/components/OfflineInterfaceContext.js
 +++ b/node_modules/@dhis2/app-adapter/build/cjs/components/PluginPWAUpdateManager.js
-@@ -0,0 +1,67 @@
-+"use strict";
-+
-+Object.defineProperty(exports, "__esModule", {
-+  value: true
-+});
+@@ -3,7 +3,7 @@
+ Object.defineProperty(exports, "__esModule", {
+   value: true
+ });
+-exports.useOfflineInterface = exports.OfflineInterfaceProvider = void 0;
 +exports.PluginPWAUpdateManager = PluginPWAUpdateManager;
-+
-+var _pwa = require("@dhis2/pwa");
-+
-+var _propTypes = _interopRequireDefault(require("prop-types"));
-+
-+var _react = _interopRequireWildcard(require("react"));
-+
+ 
+ var _pwa = require("@dhis2/pwa");
+ 
+@@ -11,29 +11,53 @@ var _propTypes = _interopRequireDefault(require("prop-types"));
+ 
+ var _react = _interopRequireWildcard(require("react"));
+ 
 +var _ConfirmUpdateModal = require("./ConfirmUpdateModal");
 +
-+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
-+
-+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-+
-+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-+
-+// import { usePWAUpdateState } from '../utils/usePWAUpdateState'
-+
+ function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+ 
+ function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+ 
+ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+ 
+-const theOfflineInterface = new _pwa.OfflineInterface();
+-const OfflineInterfaceContext = /*#__PURE__*/(0, _react.createContext)(theOfflineInterface);
+-
+-const OfflineInterfaceProvider = _ref => {
 +/**
 + * Analogous to the ConnectedHeaderbar, for use in plugins since they don't
 + * use a header bar. See the ConnectedHeaderBar for more
 + */
 +
 +/**
-+ * Check for SW updates or a first activation, displaying an update notification
-+ * message in the HeaderBar profile menu. When an update is applied, if there are
++ * Check for SW updates or a first activation, sending a message to the host
++ * app if an update is ready. When an update is applied, if there are
 + * multiple tabs of this app open, there's anadditional warning step because all
 + * clients of the service worker will reload when there's an update, which may
 + * cause data loss.
 + */
 +function PluginPWAUpdateManager(_ref) {
-+  let {
+   let {
+-    children
 +    reportPWAUpdateStatus
-+  } = _ref;
+   } = _ref;
+-  return /*#__PURE__*/_react.default.createElement(OfflineInterfaceContext.Provider, {
+-    value: theOfflineInterface
+-  }, children);
+-};
+-
+-exports.OfflineInterfaceProvider = OfflineInterfaceProvider;
+-OfflineInterfaceProvider.propTypes = {
+-  children: _propTypes.default.node
 +  const {
 +    updateAvailable,
 +    confirmReload,
@@ -182,8 +162,6 @@ index 0000000..1dfc130
 +    onCancelUpdate
 +  } = (0, _pwa.usePWAUpdateState)();
 +  (0, _react.useEffect)(() => {
-+    console.log('in adapter use effect');
-+
 +    if (reportPWAUpdateStatus) {
 +      reportPWAUpdateStatus({
 +        updateAvailable,
@@ -200,13 +178,18 @@ index 0000000..1dfc130
 +
 +PluginPWAUpdateManager.propTypes = {
 +  reportPWAUpdateStatus: _propTypes.default.func
-+};
+ };
+\ No newline at end of file
+-
+-const useOfflineInterface = () => (0, _react.useContext)(OfflineInterfaceContext);
+-
+-exports.useOfflineInterface = useOfflineInterface;
 \ No newline at end of file
 diff --git a/node_modules/@dhis2/app-adapter/build/cjs/components/ServerVersionProvider.js b/node_modules/@dhis2/app-adapter/build/cjs/components/ServerVersionProvider.js
-index c03212d..6ab8701 100644
+index c03212d..85ac055 100644
 --- a/node_modules/@dhis2/app-adapter/build/cjs/components/ServerVersionProvider.js
 +++ b/node_modules/@dhis2/app-adapter/build/cjs/components/ServerVersionProvider.js
-@@ -21,14 +21,16 @@ var _LoadingMask = require("./LoadingMask.js");
+@@ -21,14 +21,15 @@ var _LoadingMask = require("./LoadingMask.js");
  
  var _LoginModal = require("./LoginModal.js");
  
@@ -218,14 +201,13 @@ index c03212d..6ab8701 100644
  
  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
  
-+// import { useOfflineInterface } from './OfflineInterfaceContext.js'
 +// Save this location so that it's usable after client-side navigations
 +const originalWindowLocation = new URL(window.location);
 +
  const ServerVersionProvider = _ref => {
    let {
      appName,
-@@ -42,7 +44,7 @@ const ServerVersionProvider = _ref => {
+@@ -42,7 +43,7 @@ const ServerVersionProvider = _ref => {
      showAlertsInPlugin,
      children
    } = _ref;
@@ -234,7 +216,7 @@ index c03212d..6ab8701 100644
    const [systemInfoState, setSystemInfoState] = (0, _react.useState)({
      loading: true,
      error: undefined,
-@@ -163,15 +165,18 @@ const ServerVersionProvider = _ref => {
+@@ -163,15 +164,18 @@ const ServerVersionProvider = _ref => {
  
    if (systemInfoState.loading || baseUrlState.loading || offlineInterfaceLoading) {
      return /*#__PURE__*/_react.default.createElement(_LoadingMask.LoadingMask, null);
@@ -256,10 +238,10 @@ index c03212d..6ab8701 100644
        serverVersion,
        systemInfo,
 diff --git a/node_modules/@dhis2/app-adapter/build/cjs/index.js b/node_modules/@dhis2/app-adapter/build/cjs/index.js
-index 6d8f9c4..c8f5ae2 100644
+index 6d8f9c4..56df16b 100644
 --- a/node_modules/@dhis2/app-adapter/build/cjs/index.js
 +++ b/node_modules/@dhis2/app-adapter/build/cjs/index.js
-@@ -15,14 +15,15 @@ var _AppWrapper = require("./components/AppWrapper.js");
+@@ -15,8 +15,6 @@ var _AppWrapper = require("./components/AppWrapper.js");
  
  var _ErrorBoundary = require("./components/ErrorBoundary.js");
  
@@ -268,16 +250,7 @@ index 6d8f9c4..c8f5ae2 100644
  var _PWALoadingBoundary = require("./components/PWALoadingBoundary.js");
  
  var _ServerVersionProvider = require("./components/ServerVersionProvider.js");
- 
- function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
- 
-+// import { OfflineInterfaceProvider } from './components/OfflineInterfaceContext.js'
-+const offlineInterface = new _pwa.OfflineInterface();
-+
- const AppAdapter = _ref => {
-   let {
-     appName,
-@@ -35,13 +36,16 @@ const AppAdapter = _ref => {
+@@ -35,13 +33,14 @@ const AppAdapter = _ref => {
      showAlertsInPlugin,
      onPluginError,
      clearPluginError,
@@ -289,13 +262,11 @@ index 6d8f9c4..c8f5ae2 100644
      fullscreen: true,
      onRetry: _pwa.checkForSWUpdateAndReload
 -  }, /*#__PURE__*/_react.default.createElement(_OfflineInterfaceContext.OfflineInterfaceProvider, null, /*#__PURE__*/_react.default.createElement(_PWALoadingBoundary.PWALoadingBoundary, null, /*#__PURE__*/_react.default.createElement(_ServerVersionProvider.ServerVersionProvider, {
-+  }, /*#__PURE__*/_react.default.createElement(_pwa.OfflineInterfaceProvider, {
-+    offlineInterface: offlineInterface
-+  }, /*#__PURE__*/_react.default.createElement(_PWALoadingBoundary.PWALoadingBoundary, null, /*#__PURE__*/_react.default.createElement(_ServerVersionProvider.ServerVersionProvider, {
++  }, /*#__PURE__*/_react.default.createElement(_pwa.OfflineInterfaceProvider, null, /*#__PURE__*/_react.default.createElement(_PWALoadingBoundary.PWALoadingBoundary, null, /*#__PURE__*/_react.default.createElement(_ServerVersionProvider.ServerVersionProvider, {
      appName: appName,
      appVersion: appVersion,
      url: url,
-@@ -53,7 +57,8 @@ const AppAdapter = _ref => {
+@@ -53,7 +52,8 @@ const AppAdapter = _ref => {
    }, /*#__PURE__*/_react.default.createElement(_AppWrapper.AppWrapper, {
      plugin: plugin,
      onPluginError: onPluginError,
@@ -305,7 +276,7 @@ index 6d8f9c4..c8f5ae2 100644
    }, children)))));
  };
  
-@@ -66,6 +71,7 @@ AppAdapter.propTypes = {
+@@ -66,6 +66,7 @@ AppAdapter.propTypes = {
    parentAlertsAdd: _propTypes.default.func,
    plugin: _propTypes.default.bool,
    pwaEnabled: _propTypes.default.bool,
@@ -313,6 +284,77 @@ index 6d8f9c4..c8f5ae2 100644
    showAlertsInPlugin: _propTypes.default.func,
    url: _propTypes.default.string,
    onPluginError: _propTypes.default.func
+diff --git a/node_modules/@dhis2/app-adapter/build/cjs/utils/usePWAUpdateState.js b/node_modules/@dhis2/app-adapter/build/cjs/utils/usePWAUpdateState.js
+deleted file mode 100644
+index 14bf705..0000000
+--- a/node_modules/@dhis2/app-adapter/build/cjs/utils/usePWAUpdateState.js
++++ /dev/null
+@@ -1,64 +0,0 @@
+-"use strict";
+-
+-Object.defineProperty(exports, "__esModule", {
+-  value: true
+-});
+-exports.usePWAUpdateState = void 0;
+-
+-var _react = require("react");
+-
+-var _OfflineInterfaceContext = require("../components/OfflineInterfaceContext");
+-
+-const usePWAUpdateState = () => {
+-  const offlineInterface = (0, _OfflineInterfaceContext.useOfflineInterface)();
+-  const [updateAvailable, setUpdateAvailable] = (0, _react.useState)(false);
+-  const [clientsCount, setClientsCount] = (0, _react.useState)(null);
+-
+-  const onConfirmUpdate = () => {
+-    offlineInterface.useNewSW();
+-  };
+-
+-  const onCancelUpdate = () => {
+-    setClientsCount(null);
+-  };
+-
+-  const confirmReload = () => {
+-    offlineInterface.getClientsInfo().then(_ref => {
+-      let {
+-        clientsCount
+-      } = _ref;
+-
+-      if (clientsCount === 1) {
+-        // Just one client; go ahead and reload
+-        onConfirmUpdate();
+-      } else {
+-        // Multiple clients; warn about data loss before reloading
+-        setClientsCount(clientsCount);
+-      }
+-    }).catch(reason => {
+-      // Didn't get clients info
+-      console.warn(reason); // Go ahead with confirmation modal with `0` as clientsCount
+-
+-      setClientsCount(0);
+-    });
+-  };
+-
+-  (0, _react.useEffect)(() => {
+-    offlineInterface.checkForNewSW({
+-      onNewSW: () => {
+-        setUpdateAvailable(true);
+-      }
+-    });
+-  }, [offlineInterface]);
+-  const confirmationRequired = clientsCount !== null;
+-  return {
+-    updateAvailable,
+-    confirmReload,
+-    confirmationRequired,
+-    clientsCount,
+-    onConfirmUpdate,
+-    onCancelUpdate
+-  };
+-};
+-
+-exports.usePWAUpdateState = usePWAUpdateState;
+\ No newline at end of file
 diff --git a/node_modules/@dhis2/app-adapter/build/es/components/AppWrapper.js b/node_modules/@dhis2/app-adapter/build/es/components/AppWrapper.js
 index bc16337..7f5e5b5 100644
 --- a/node_modules/@dhis2/app-adapter/build/es/components/AppWrapper.js
@@ -362,61 +404,64 @@ index bc16337..7f5e5b5 100644
  export { AppWrapper };
 \ No newline at end of file
 diff --git a/node_modules/@dhis2/app-adapter/build/es/components/ConnectedHeaderBar.js b/node_modules/@dhis2/app-adapter/build/es/components/ConnectedHeaderBar.js
-index 0dfa9a8..ec9410c 100644
+index 0dfa9a8..4e6d387 100644
 --- a/node_modules/@dhis2/app-adapter/build/es/components/ConnectedHeaderBar.js
 +++ b/node_modules/@dhis2/app-adapter/build/es/components/ConnectedHeaderBar.js
-@@ -1,7 +1,8 @@
+@@ -1,7 +1,7 @@
  import { useConfig } from '@dhis2/app-runtime';
 +import { usePWAUpdateState } from '@dhis2/pwa';
  import { HeaderBar } from '@dhis2/ui';
--import React from 'react';
+ import React from 'react';
 -import { usePWAUpdateState } from '../utils/usePWAUpdateState';
-+import React from 'react'; // import { usePWAUpdateState } from '../utils/usePWAUpdateState'
-+
  import { ConfirmUpdateModal } from './ConfirmUpdateModal';
  /**
   * Check for SW updates or a first activation, displaying an update notification
 diff --git a/node_modules/@dhis2/app-adapter/build/es/components/OfflineInterfaceContext.js b/node_modules/@dhis2/app-adapter/build/es/components/OfflineInterfaceContext.js
-index d2c52f3..595e874 100644
+deleted file mode 100644
+index d2c52f3..0000000
 --- a/node_modules/@dhis2/app-adapter/build/es/components/OfflineInterfaceContext.js
-+++ b/node_modules/@dhis2/app-adapter/build/es/components/OfflineInterfaceContext.js
-@@ -1,7 +1,8 @@
++++ /dev/null
+@@ -1,17 +0,0 @@
 -import { OfflineInterface } from '@dhis2/pwa';
-+// import { OfflineInterface } from '@dhis2/pwa'
- import PropTypes from 'prop-types';
- import React, { createContext, useContext } from 'react';
+-import PropTypes from 'prop-types';
+-import React, { createContext, useContext } from 'react';
 -const theOfflineInterface = new OfflineInterface();
-+const theOfflineInterface = null; // new OfflineInterface()
-+
- const OfflineInterfaceContext = /*#__PURE__*/createContext(theOfflineInterface);
- export const OfflineInterfaceProvider = _ref => {
-   let {
+-const OfflineInterfaceContext = /*#__PURE__*/createContext(theOfflineInterface);
+-export const OfflineInterfaceProvider = _ref => {
+-  let {
+-    children
+-  } = _ref;
+-  return /*#__PURE__*/React.createElement(OfflineInterfaceContext.Provider, {
+-    value: theOfflineInterface
+-  }, children);
+-};
+-OfflineInterfaceProvider.propTypes = {
+-  children: PropTypes.node
+-};
+-export const useOfflineInterface = () => useContext(OfflineInterfaceContext);
+\ No newline at end of file
 diff --git a/node_modules/@dhis2/app-adapter/build/es/components/PWALoadingBoundary.js b/node_modules/@dhis2/app-adapter/build/es/components/PWALoadingBoundary.js
-index 42f7c5d..a5c6f7c 100644
+index 42f7c5d..3792138 100644
 --- a/node_modules/@dhis2/app-adapter/build/es/components/PWALoadingBoundary.js
 +++ b/node_modules/@dhis2/app-adapter/build/es/components/PWALoadingBoundary.js
-@@ -1,7 +1,8 @@
+@@ -1,7 +1,6 @@
 -import { REGISTRATION_STATE_WAITING, REGISTRATION_STATE_FIRST_ACTIVATION } from '@dhis2/pwa';
 +import { useOfflineInterface, REGISTRATION_STATE_WAITING, REGISTRATION_STATE_FIRST_ACTIVATION } from '@dhis2/pwa';
  import PropTypes from 'prop-types';
--import { useEffect, useState } from 'react';
+ import { useEffect, useState } from 'react';
 -import { useOfflineInterface } from './OfflineInterfaceContext';
-+import { useEffect, useState } from 'react'; // import { useOfflineInterface } from '@dhis2/pwa'
-+// import { useOfflineInterface } from './OfflineInterfaceContext'
-+
  export const PWALoadingBoundary = _ref => {
    let {
      children
 diff --git a/node_modules/@dhis2/app-adapter/build/es/components/PluginPWAUpdateManager.js b/node_modules/@dhis2/app-adapter/build/es/components/PluginPWAUpdateManager.js
 new file mode 100644
-index 0000000..c00a219
+index 0000000..49b1610
 --- /dev/null
 +++ b/node_modules/@dhis2/app-adapter/build/es/components/PluginPWAUpdateManager.js
-@@ -0,0 +1,49 @@
+@@ -0,0 +1,46 @@
 +import { usePWAUpdateState } from '@dhis2/pwa';
 +import PropTypes from 'prop-types';
-+import React, { useEffect } from 'react'; // import { usePWAUpdateState } from '../utils/usePWAUpdateState'
-+
++import React, { useEffect } from 'react';
 +import { ConfirmUpdateModal } from './ConfirmUpdateModal';
 +/**
 + * Analogous to the ConnectedHeaderbar, for use in plugins since they don't
@@ -424,8 +469,8 @@ index 0000000..c00a219
 + */
 +
 +/**
-+ * Check for SW updates or a first activation, displaying an update notification
-+ * message in the HeaderBar profile menu. When an update is applied, if there are
++ * Check for SW updates or a first activation, sending a message to the host
++ * app if an update is ready. When an update is applied, if there are
 + * multiple tabs of this app open, there's anadditional warning step because all
 + * clients of the service worker will reload when there's an update, which may
 + * cause data loss.
@@ -444,8 +489,6 @@ index 0000000..c00a219
 +    onCancelUpdate
 +  } = usePWAUpdateState();
 +  useEffect(() => {
-+    console.log('in adapter use effect');
-+
 +    if (reportPWAUpdateStatus) {
 +      reportPWAUpdateStatus({
 +        updateAvailable,
@@ -464,10 +507,10 @@ index 0000000..c00a219
 +};
 \ No newline at end of file
 diff --git a/node_modules/@dhis2/app-adapter/build/es/components/ServerVersionProvider.js b/node_modules/@dhis2/app-adapter/build/es/components/ServerVersionProvider.js
-index 513e332..6e787af 100644
+index 513e332..cd0082e 100644
 --- a/node_modules/@dhis2/app-adapter/build/es/components/ServerVersionProvider.js
 +++ b/node_modules/@dhis2/app-adapter/build/es/components/ServerVersionProvider.js
-@@ -1,12 +1,14 @@
+@@ -1,12 +1,13 @@
  import { Provider } from '@dhis2/app-runtime';
 -import { getBaseUrlByAppName, setBaseUrlByAppName } from '@dhis2/pwa';
 +import { getBaseUrlByAppName, setBaseUrlByAppName, useOfflineInterface } from '@dhis2/pwa';
@@ -478,14 +521,13 @@ index 513e332..6e787af 100644
  import { LoadingMask } from './LoadingMask.js';
 -import { LoginModal } from './LoginModal.js';
 -import { useOfflineInterface } from './OfflineInterfaceContext.js';
-+import { LoginModal } from './LoginModal.js'; // import { useOfflineInterface } from './OfflineInterfaceContext.js'
-+// Save this location so that it's usable after client-side navigations
++import { LoginModal } from './LoginModal.js'; // Save this location so that it's usable after client-side navigations
 +
 +const originalWindowLocation = new URL(window.location);
  export const ServerVersionProvider = _ref => {
    let {
      appName,
-@@ -141,15 +143,18 @@ export const ServerVersionProvider = _ref => {
+@@ -141,15 +142,18 @@ export const ServerVersionProvider = _ref => {
  
    if (systemInfoState.loading || baseUrlState.loading || offlineInterfaceLoading) {
      return /*#__PURE__*/React.createElement(LoadingMask, null);
@@ -507,26 +549,21 @@ index 513e332..6e787af 100644
        serverVersion,
        systemInfo,
 diff --git a/node_modules/@dhis2/app-adapter/build/es/index.js b/node_modules/@dhis2/app-adapter/build/es/index.js
-index 914deda..97e2e3b 100644
+index 914deda..4e4ac14 100644
 --- a/node_modules/@dhis2/app-adapter/build/es/index.js
 +++ b/node_modules/@dhis2/app-adapter/build/es/index.js
-@@ -1,11 +1,12 @@
+@@ -1,9 +1,8 @@
 -import { checkForSWUpdateAndReload } from '@dhis2/pwa';
-+import { checkForSWUpdateAndReload, OfflineInterface, OfflineInterfaceProvider } from '@dhis2/pwa';
++import { checkForSWUpdateAndReload, OfflineInterfaceProvider } from '@dhis2/pwa';
  import PropTypes from 'prop-types';
  import React from 'react';
  import { AppWrapper } from './components/AppWrapper.js';
--import { ErrorBoundary } from './components/ErrorBoundary.js';
+ import { ErrorBoundary } from './components/ErrorBoundary.js';
 -import { OfflineInterfaceProvider } from './components/OfflineInterfaceContext.js';
-+import { ErrorBoundary } from './components/ErrorBoundary.js'; // import { OfflineInterfaceProvider } from './components/OfflineInterfaceContext.js'
-+
  import { PWALoadingBoundary } from './components/PWALoadingBoundary.js';
  import { ServerVersionProvider } from './components/ServerVersionProvider.js';
-+const offlineInterface = new OfflineInterface();
  
- const AppAdapter = _ref => {
-   let {
-@@ -19,13 +20,16 @@ const AppAdapter = _ref => {
+@@ -19,6 +18,7 @@ const AppAdapter = _ref => {
      showAlertsInPlugin,
      onPluginError,
      clearPluginError,
@@ -534,17 +571,7 @@ index 914deda..97e2e3b 100644
      children
    } = _ref;
    return /*#__PURE__*/React.createElement(ErrorBoundary, {
-     plugin: plugin,
-     fullscreen: true,
-     onRetry: checkForSWUpdateAndReload
--  }, /*#__PURE__*/React.createElement(OfflineInterfaceProvider, null, /*#__PURE__*/React.createElement(PWALoadingBoundary, null, /*#__PURE__*/React.createElement(ServerVersionProvider, {
-+  }, /*#__PURE__*/React.createElement(OfflineInterfaceProvider, {
-+    offlineInterface: offlineInterface
-+  }, /*#__PURE__*/React.createElement(PWALoadingBoundary, null, /*#__PURE__*/React.createElement(ServerVersionProvider, {
-     appName: appName,
-     appVersion: appVersion,
-     url: url,
-@@ -37,7 +41,8 @@ const AppAdapter = _ref => {
+@@ -37,7 +37,8 @@ const AppAdapter = _ref => {
    }, /*#__PURE__*/React.createElement(AppWrapper, {
      plugin: plugin,
      onPluginError: onPluginError,
@@ -554,7 +581,7 @@ index 914deda..97e2e3b 100644
    }, children)))));
  };
  
-@@ -50,6 +55,7 @@ AppAdapter.propTypes = {
+@@ -50,6 +51,7 @@ AppAdapter.propTypes = {
    parentAlertsAdd: PropTypes.func,
    plugin: PropTypes.bool,
    pwaEnabled: PropTypes.bool,
@@ -562,3 +589,63 @@ index 914deda..97e2e3b 100644
    showAlertsInPlugin: PropTypes.func,
    url: PropTypes.string,
    onPluginError: PropTypes.func
+diff --git a/node_modules/@dhis2/app-adapter/build/es/utils/usePWAUpdateState.js b/node_modules/@dhis2/app-adapter/build/es/utils/usePWAUpdateState.js
+deleted file mode 100644
+index 78ae916..0000000
+--- a/node_modules/@dhis2/app-adapter/build/es/utils/usePWAUpdateState.js
++++ /dev/null
+@@ -1,53 +0,0 @@
+-import { useEffect, useState } from 'react';
+-import { useOfflineInterface } from '../components/OfflineInterfaceContext';
+-export const usePWAUpdateState = () => {
+-  const offlineInterface = useOfflineInterface();
+-  const [updateAvailable, setUpdateAvailable] = useState(false);
+-  const [clientsCount, setClientsCount] = useState(null);
+-
+-  const onConfirmUpdate = () => {
+-    offlineInterface.useNewSW();
+-  };
+-
+-  const onCancelUpdate = () => {
+-    setClientsCount(null);
+-  };
+-
+-  const confirmReload = () => {
+-    offlineInterface.getClientsInfo().then(_ref => {
+-      let {
+-        clientsCount
+-      } = _ref;
+-
+-      if (clientsCount === 1) {
+-        // Just one client; go ahead and reload
+-        onConfirmUpdate();
+-      } else {
+-        // Multiple clients; warn about data loss before reloading
+-        setClientsCount(clientsCount);
+-      }
+-    }).catch(reason => {
+-      // Didn't get clients info
+-      console.warn(reason); // Go ahead with confirmation modal with `0` as clientsCount
+-
+-      setClientsCount(0);
+-    });
+-  };
+-
+-  useEffect(() => {
+-    offlineInterface.checkForNewSW({
+-      onNewSW: () => {
+-        setUpdateAvailable(true);
+-      }
+-    });
+-  }, [offlineInterface]);
+-  const confirmationRequired = clientsCount !== null;
+-  return {
+-    updateAvailable,
+-    confirmReload,
+-    confirmationRequired,
+-    clientsCount,
+-    onConfirmUpdate,
+-    onCancelUpdate
+-  };
+-};
+\ No newline at end of file

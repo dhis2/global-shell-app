@@ -45,10 +45,10 @@ index e062c8c..2e88e4d 100644
 \ No newline at end of file
 diff --git a/node_modules/@dhis2/pwa/build/cjs/react/OfflineInterfaceContext.js b/node_modules/@dhis2/pwa/build/cjs/react/OfflineInterfaceContext.js
 new file mode 100644
-index 0000000..36a2cc2
+index 0000000..27e3b7a
 --- /dev/null
 +++ b/node_modules/@dhis2/pwa/build/cjs/react/OfflineInterfaceContext.js
-@@ -0,0 +1,45 @@
+@@ -0,0 +1,49 @@
 +"use strict";
 +
 +Object.defineProperty(exports, "__esModule", {
@@ -68,27 +68,31 @@ index 0000000..36a2cc2
 +
 +function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 +
-+const theOfflineInterface = null; // new OfflineInterface()
++const OfflineInterfaceContext = /*#__PURE__*/(0, _react.createContext)(null); // nb: instantiating an offline interface here creates a side-effect where
++// it is bundled in the service worker, which causes an error when the `window`
++// API is referenced.
++// It seems like some react and prop types leaks into the SW as well, which is
++// interesting because other exports like from registration.js don't
 +
-+const OfflineInterfaceContext = /*#__PURE__*/(0, _react.createContext)(theOfflineInterface);
++let theOfflineInterface = null;
 +
 +const OfflineInterfaceProvider = _ref => {
 +  let {
-+    offlineInterface,
 +    children
 +  } = _ref;
-+  console.log({
-+    offlineInterface
-+  });
++
++  if (theOfflineInterface === null) {
++    theOfflineInterface = new _offlineInterface.OfflineInterface();
++  }
++
 +  return /*#__PURE__*/_react.default.createElement(OfflineInterfaceContext.Provider, {
-+    value: offlineInterface
++    value: theOfflineInterface
 +  }, children);
 +};
 +
 +exports.OfflineInterfaceProvider = OfflineInterfaceProvider;
 +OfflineInterfaceProvider.propTypes = {
-+  children: _propTypes.default.node,
-+  offlineInterface: _propTypes.default.object
++  children: _propTypes.default.node
 +};
 +
 +const useOfflineInterface = () => (0, _react.useContext)(OfflineInterfaceContext);
@@ -198,31 +202,35 @@ index 960e2b2..4c8243f 100644
 \ No newline at end of file
 diff --git a/node_modules/@dhis2/pwa/build/es/react/OfflineInterfaceContext.js b/node_modules/@dhis2/pwa/build/es/react/OfflineInterfaceContext.js
 new file mode 100644
-index 0000000..db9bdcc
+index 0000000..9e4705a
 --- /dev/null
 +++ b/node_modules/@dhis2/pwa/build/es/react/OfflineInterfaceContext.js
-@@ -0,0 +1,23 @@
+@@ -0,0 +1,27 @@
 +import PropTypes from 'prop-types';
 +import React, { createContext, useContext } from 'react';
 +import { OfflineInterface } from '../offline-interface/offline-interface.js';
-+const theOfflineInterface = null; // new OfflineInterface()
++const OfflineInterfaceContext = /*#__PURE__*/createContext(null); // nb: instantiating an offline interface here creates a side-effect where
++// it is bundled in the service worker, which causes an error when the `window`
++// API is referenced.
++// It seems like some react and prop types leaks into the SW as well, which is
++// interesting because other exports like from registration.js don't
 +
-+const OfflineInterfaceContext = /*#__PURE__*/createContext(theOfflineInterface);
++let theOfflineInterface = null;
 +export const OfflineInterfaceProvider = _ref => {
 +  let {
-+    offlineInterface,
 +    children
 +  } = _ref;
-+  console.log({
-+    offlineInterface
-+  });
++
++  if (theOfflineInterface === null) {
++    theOfflineInterface = new OfflineInterface();
++  }
++
 +  return /*#__PURE__*/React.createElement(OfflineInterfaceContext.Provider, {
-+    value: offlineInterface
++    value: theOfflineInterface
 +  }, children);
 +};
 +OfflineInterfaceProvider.propTypes = {
-+  children: PropTypes.node,
-+  offlineInterface: PropTypes.object
++  children: PropTypes.node
 +};
 +export const useOfflineInterface = () => useContext(OfflineInterfaceContext);
 \ No newline at end of file
