@@ -1,18 +1,12 @@
 import { useConfig } from '@dhis2/app-runtime'
 import PropTypes from 'prop-types'
 import React from 'react'
-import {
-    BrowserRouter,
-    Routes,
-    Route,
-    Link,
-} from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Link, Outlet } from 'react-router-dom'
 import styles from './App.module.css'
 import { ConnectedHeaderBar } from './components/ConnectedHeaderbar.js'
 import { PluginLoader } from './components/PluginLoader.js'
 
 const Layout = ({
-    children,
     clientPWAUpdateAvailable,
     onApplyClientUpdate,
 }) => {
@@ -22,12 +16,13 @@ const Layout = ({
                 clientPWAUpdateAvailable={clientPWAUpdateAvailable}
                 onApplyClientUpdate={onApplyClientUpdate}
             />
-            <div className={styles.container}>{children}</div>
+            <div className={styles.container}>
+                <Outlet />
+            </div>
         </>
     )
 }
 Layout.propTypes = {
-    children: PropTypes.node,
     clientPWAUpdateAvailable: PropTypes.bool,
     onApplyClientUpdate: PropTypes.func,
 }
@@ -53,15 +48,19 @@ const MyApp = () => {
 
     return (
         <BrowserRouter basename={basename}>
-            <Layout
-                clientPWAUpdateAvailable={clientPWAUpdateAvailable}
-                onApplyClientUpdate={onApplyClientUpdate}
-            >
-                <Routes>
+            <Routes>
+                <Route
+                    element={
+                        <Layout
+                            clientPWAUpdateAvailable={clientPWAUpdateAvailable}
+                            onApplyClientUpdate={onApplyClientUpdate}
+                        />
+                    }
+                >
                     <Route
                         path="*"
                         element={<Link to="/app/localApp">Local App</Link>}
-                    ></Route>
+                    />
                     <Route
                         path="/app/:appName"
                         element={
@@ -73,8 +72,8 @@ const MyApp = () => {
                             />
                         }
                     />
-                </Routes>
-            </Layout>
+                </Route>
+            </Routes>
         </BrowserRouter>
     )
 }
