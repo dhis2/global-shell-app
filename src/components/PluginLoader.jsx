@@ -13,7 +13,7 @@ const injectHeaderbarHidingStyles = (event) => {
         const doc = iframe.contentDocument
         const styleElement = doc.createElement('style')
         styleElement.textContent =
-            'div.app-shell-adapter > header { display: none; }'
+            'div.app-shell-adapter header { display: none; }'
         doc.head.appendChild(styleElement)
     } catch (err) {
         console.error(
