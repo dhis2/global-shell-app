@@ -4,7 +4,7 @@ import { HeaderBar } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { useParams } from 'react-router-dom'
-import { ConfirmUpdateModal } from './ConfirmUpdateModal.js'
+import { ConfirmUpdateModal } from './ConfirmUpdateModal.jsx'
 
 /**
  * Copied from ConnectedHeaderBar in app adapter:

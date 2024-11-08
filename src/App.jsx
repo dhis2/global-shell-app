@@ -3,8 +3,8 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import { BrowserRouter, Routes, Route, Link, Outlet } from 'react-router-dom'
 import styles from './App.module.css'
-import { ConnectedHeaderBar } from './components/ConnectedHeaderbar.js'
-import { PluginLoader } from './components/PluginLoader.js'
+import { ConnectedHeaderBar } from './components/ConnectedHeaderbar.jsx'
+import { PluginLoader } from './components/PluginLoader.jsx'
 
 const Layout = ({
     clientPWAUpdateAvailable,

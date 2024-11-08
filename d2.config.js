@@ -6,7 +6,7 @@ const config = {
     pwa: { enabled: true },
 
     entryPoints: {
-        app: './src/App.js',
+        app: './src/App.jsx',
     },
 }
 
