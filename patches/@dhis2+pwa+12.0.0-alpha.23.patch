@@ -142,7 +142,7 @@ index 0000000..7dea937
 +exports.usePWAUpdateState = usePWAUpdateState;
 \ No newline at end of file
 diff --git a/node_modules/@dhis2/pwa/build/es/index.js b/node_modules/@dhis2/pwa/build/es/index.js
-index 960e2b2..4c8243f 100644
+index 960e2b2..5bbcbff 100644
 --- a/node_modules/@dhis2/pwa/build/es/index.js
 +++ b/node_modules/@dhis2/pwa/build/es/index.js
 @@ -2,3 +2,5 @@ export { setUpServiceWorker } from './service-worker/set-up-service-worker.js';
@@ -150,8 +150,7 @@ index 960e2b2..4c8243f 100644
  export { checkForUpdates, checkForSWUpdateAndReload, getRegistrationState, REGISTRATION_STATE_UNREGISTERED, REGISTRATION_STATE_WAITING, REGISTRATION_STATE_ACTIVE, REGISTRATION_STATE_FIRST_ACTIVATION } from './lib/registration.js';
  export { getBaseUrlByAppName, setBaseUrlByAppName } from './lib/base-url-db.js';
 +export { OfflineInterfaceProvider, useOfflineInterface } from './react/OfflineInterfaceContext.js';
-+export { usePWAUpdateState } from './react/usePWAUpdateState.js';
-\ No newline at end of file
++export { usePWAUpdateState } from './react/usePWAUpdateState.js'
 diff --git a/node_modules/@dhis2/pwa/build/es/react/OfflineInterfaceContext.js b/node_modules/@dhis2/pwa/build/es/react/OfflineInterfaceContext.js
 new file mode 100644
 index 0000000..ed7d292
