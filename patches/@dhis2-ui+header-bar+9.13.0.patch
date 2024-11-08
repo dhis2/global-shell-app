@@ -1,31 +1,24 @@
 diff --git a/node_modules/@dhis2-ui/header-bar/build/cjs/apps.js b/node_modules/@dhis2-ui/header-bar/build/cjs/apps.js
-index db5e003..3d07052 100644
+index aa2629d..6a17e55 100644
 --- a/node_modules/@dhis2-ui/header-bar/build/cjs/apps.js
 +++ b/node_modules/@dhis2-ui/header-bar/build/cjs/apps.js
-@@ -11,6 +11,10 @@ var _card = require("@dhis2-ui/card");
- 
+@@ -10,8 +10,11 @@ var _uiConstants = require("@dhis2/ui-constants");
+ var _uiIcons = require("@dhis2/ui-icons");
+ var _card = require("@dhis2-ui/card");
  var _input = require("@dhis2-ui/input");
- 
 +var _layer = require("@dhis2-ui/layer");
-+
 +var _popper = require("@dhis2-ui/popper");
-+
- var _appRuntime = require("@dhis2/app-runtime");
- 
- var _uiConstants = require("@dhis2/ui-constants");
-@@ -21,6 +25,8 @@ var _propTypes = _interopRequireDefault(require("prop-types"));
- 
+ var _propTypes = _interopRequireDefault(require("prop-types"));
  var _react = _interopRequireWildcard(require("react"));
- 
 +var _reactRouterDom = require("react-router-dom");
-+
  var _joinPath = require("./join-path.js");
- 
  var _index = _interopRequireDefault(require("./locales/index.js"));
-@@ -73,61 +79,103 @@ Search.propTypes = {
+ function _getRequireWildcardCache(e) { if ("function" != typeof WeakMap) return null; var r = new WeakMap(), t = new WeakMap(); return (_getRequireWildcardCache = function (e) { return e ? t : r; })(e); }
+@@ -57,58 +60,96 @@ Search.propTypes = {
    value: _propTypes.default.string.isRequired,
    onChange: _propTypes.default.func.isRequired
  };
+-function Item(_ref2) {
 +const {
 +  className,
 +  styles
@@ -35,8 +28,6 @@ index db5e003..3d07052 100644
 +  }, ["a.jsx-1293622891{-webkit-text-decoration:none;text-decoration:none;margin:8px;}"]),
 +  className: "jsx-1293622891"
 +};
- 
--function Item(_ref2) {
 +function ItemWrapper(_ref2) {
    let {
      name,
@@ -45,28 +36,24 @@ index db5e003..3d07052 100644
 +    children
    } = _ref2;
 +  const inRouterContext = (0, _reactRouterDom.useInRouterContext)();
-+
 +  if (inRouterContext) {
 +    // todo: client-side routing scheme
 +    return /*#__PURE__*/_react.default.createElement(_reactRouterDom.Link, {
-+      to: "/app/".concat(name),
++      to: `/app/${name}`,
 +      className: className
 +    }, children, styles);
 +  }
-+
    return /*#__PURE__*/_react.default.createElement("a", {
      href: path,
 -    className: _style.default.dynamic([["1412616027", [_uiConstants.theme.primary050]]])
 +    className: className
 +  }, children, styles);
 +}
-+
 +ItemWrapper.propTypes = {
 +  children: _propTypes.default.node,
 +  name: _propTypes.default.string,
 +  path: _propTypes.default.string
 +};
-+
 +function Item(_ref3) {
 +  let {
 +    displayName,
@@ -92,17 +79,15 @@ index db5e003..3d07052 100644
 +  }, displayName)), /*#__PURE__*/_react.default.createElement(_style.default, {
 +    id: "301406513",
      dynamic: [_uiConstants.theme.primary050]
--  }, ["a.__jsx-style-dynamic-selector{display:inline-block;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;-webkit-box-pack:center;-webkit-justify-content:center;-ms-flex-pack:center;justify-content:center;width:96px;margin:8px;border-radius:12px;-webkit-text-decoration:none;text-decoration:none;cursor:pointer;}", "a.__jsx-style-dynamic-selector:hover,a.__jsx-style-dynamic-selector:focus{background-color:".concat(_uiConstants.theme.primary050, ";cursor:pointer;}"), "a.__jsx-style-dynamic-selector:hover>div.__jsx-style-dynamic-selector{font-weight:500;cursor:pointer;}", "img.__jsx-style-dynamic-selector{width:48px;height:48px;margin:8px;cursor:pointer;}", "div.__jsx-style-dynamic-selector{overflow-wrap:anywhere;margin-top:14px;color:rgba(0,0,0,0.87);font-size:12px;-webkit-letter-spacing:0.01em;-moz-letter-spacing:0.01em;-ms-letter-spacing:0.01em;letter-spacing:0.01em;line-height:14px;text-align:center;cursor:pointer;}"]));
-+  }, ["div.wrapper.__jsx-style-dynamic-selector{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;-webkit-box-pack:center;-webkit-justify-content:center;-ms-flex-pack:center;justify-content:center;width:96px;border-radius:12px;cursor:pointer;}", "div.wrapper.__jsx-style-dynamic-selector:hover,div.wrapper.__jsx-style-dynamic-selector:focus{background-color:".concat(_uiConstants.theme.primary050, ";cursor:pointer;}"), "div.wrapper.__jsx-style-dynamic-selector:hover>div.name.__jsx-style-dynamic-selector{font-weight:500;cursor:pointer;}", "img.__jsx-style-dynamic-selector{width:48px;height:48px;margin:8px;cursor:pointer;}", "div.name.__jsx-style-dynamic-selector{overflow-wrap:anywhere;margin-top:14px;color:rgba(0,0,0,0.87);font-size:12px;-webkit-letter-spacing:0.01em;-moz-letter-spacing:0.01em;-ms-letter-spacing:0.01em;letter-spacing:0.01em;line-height:14px;text-align:center;cursor:pointer;}"]));
+-  }, ["a.__jsx-style-dynamic-selector{display:inline-block;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;-webkit-box-pack:center;-webkit-justify-content:center;-ms-flex-pack:center;justify-content:center;width:96px;margin:8px;border-radius:12px;-webkit-text-decoration:none;text-decoration:none;cursor:pointer;}", `a.__jsx-style-dynamic-selector:hover,a.__jsx-style-dynamic-selector:focus{background-color:${_uiConstants.theme.primary050};cursor:pointer;}`, "a.__jsx-style-dynamic-selector:hover>div.__jsx-style-dynamic-selector{font-weight:500;cursor:pointer;}", "img.__jsx-style-dynamic-selector{width:48px;height:48px;margin:8px;cursor:pointer;}", "div.__jsx-style-dynamic-selector{overflow-wrap:anywhere;margin-top:14px;color:rgba(0,0,0,0.87);font-size:12px;-webkit-letter-spacing:0.01em;-moz-letter-spacing:0.01em;-ms-letter-spacing:0.01em;letter-spacing:0.01em;line-height:14px;text-align:center;cursor:pointer;}"]));
++  }, ["div.wrapper.__jsx-style-dynamic-selector{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;-webkit-box-pack:center;-webkit-justify-content:center;-ms-flex-pack:center;justify-content:center;width:96px;border-radius:12px;cursor:pointer;}", `div.wrapper.__jsx-style-dynamic-selector:hover,div.wrapper.__jsx-style-dynamic-selector:focus{background-color:${_uiConstants.theme.primary050};cursor:pointer;}`, "div.wrapper.__jsx-style-dynamic-selector:hover>div.name.__jsx-style-dynamic-selector{font-weight:500;cursor:pointer;}", "img.__jsx-style-dynamic-selector{width:48px;height:48px;margin:8px;cursor:pointer;}", "div.name.__jsx-style-dynamic-selector{overflow-wrap:anywhere;margin-top:14px;color:rgba(0,0,0,0.87);font-size:12px;-webkit-letter-spacing:0.01em;-moz-letter-spacing:0.01em;-ms-letter-spacing:0.01em;letter-spacing:0.01em;line-height:14px;text-align:center;cursor:pointer;}"]));
  }
- 
  Item.propTypes = {
 +  displayName: _propTypes.default.string,
    img: _propTypes.default.string,
    name: _propTypes.default.string,
    path: _propTypes.default.string
  };
- 
 -function List(_ref3) {
 +function List(_ref4) {
    let {
@@ -112,7 +97,7 @@ index db5e003..3d07052 100644
 +  } = _ref4;
    return /*#__PURE__*/_react.default.createElement("div", {
      "data-test": "headerbar-apps-menu-list",
-     className: "jsx-2076871745"
+     className: "jsx-2424821176"
 -  }, apps.filter(_ref4 => {
 +  }, apps.filter(_ref5 => {
      let {
@@ -134,17 +119,17 @@ index db5e003..3d07052 100644
 -    } = _ref5;
 +    } = _ref6;
      return /*#__PURE__*/_react.default.createElement(Item, {
-       key: "app-".concat(name, "-").concat(idx),
+       key: `app-${name}-${idx}`,
 -      name: displayName || name,
 +      displayName: displayName || name,
 +      name: name,
        path: defaultAction,
        img: icon
      });
-@@ -141,24 +189,21 @@ List.propTypes = {
+@@ -120,55 +161,43 @@ List.propTypes = {
+   apps: _propTypes.default.array,
    filter: _propTypes.default.string
  };
- 
 -const AppMenu = _ref6 => {
 +const AppMenu = _ref7 => {
    let {
@@ -155,7 +140,7 @@ index db5e003..3d07052 100644
 +  } = _ref7;
    return /*#__PURE__*/_react.default.createElement("div", {
 -    "data-test": "headerbar-apps-menu",
--    className: "jsx-105953480"
+-    className: "jsx-3826299842"
 +    "data-test": "headerbar-apps-menu"
    }, /*#__PURE__*/_react.default.createElement(_card.Card, null, /*#__PURE__*/_react.default.createElement(Search, {
      value: filter,
@@ -164,16 +149,15 @@ index db5e003..3d07052 100644
      apps: apps,
      filter: filter
 -  })), /*#__PURE__*/_react.default.createElement(_style.default, {
--    id: "105953480"
--  }, ["div.jsx-105953480{z-index:10000;position:absolute;right:-4px;}"]));
+-    id: "3826299842"
+-  }, ["div.jsx-3826299842{z-index:10000;position:absolute;inset-inline-end:-4px;}"]));
 +  })));
  };
- 
  AppMenu.propTypes = {
-@@ -167,31 +212,22 @@ AppMenu.propTypes = {
+   apps: _propTypes.default.array.isRequired,
+   onFilterChange: _propTypes.default.func.isRequired,
    filter: _propTypes.default.string
  };
- 
 -const Apps = _ref7 => {
 +const Apps = _ref8 => {
    let {
@@ -207,10 +191,10 @@ index db5e003..3d07052 100644
 -    ref: containerEl,
 +    ref: containerRef,
      "data-test": "headerbar-apps",
-     className: _style.default.dynamic([["2891838412", [_uiConstants.spacers.dp4, _uiConstants.spacers.dp12]]])
+     className: _style.default.dynamic([["325245423", [_uiConstants.spacers.dp4, _uiConstants.spacers.dp12]]])
    }, /*#__PURE__*/_react.default.createElement("button", {
-@@ -200,11 +236,16 @@ const Apps = _ref7 => {
-     className: _style.default.dynamic([["2891838412", [_uiConstants.spacers.dp4, _uiConstants.spacers.dp12]]])
+@@ -177,11 +206,16 @@ const Apps = _ref7 => {
+     className: _style.default.dynamic([["325245423", [_uiConstants.spacers.dp4, _uiConstants.spacers.dp12]]])
    }, /*#__PURE__*/_react.default.createElement(_uiIcons.IconApps24, {
      color: _uiConstants.colors.white
 -  })), show ? /*#__PURE__*/_react.default.createElement(AppMenu, {
@@ -225,33 +209,29 @@ index db5e003..3d07052 100644
      onFilterChange: handleFilterChange
 -  }) : null, /*#__PURE__*/_react.default.createElement(_style.default, {
 +  }))) : null, /*#__PURE__*/_react.default.createElement(_style.default, {
-     id: "2891838412",
+     id: "325245423",
      dynamic: [_uiConstants.spacers.dp4, _uiConstants.spacers.dp12]
-   }, ["button.__jsx-style-dynamic-selector{display:block;background:transparent;padding:".concat(_uiConstants.spacers.dp4, " ").concat(_uiConstants.spacers.dp12, " 0;border:0;cursor:pointer;height:100%;}"), "button.__jsx-style-dynamic-selector:focus{outline:2px solid white;outline-offset:-2px;}", "button.__jsx-style-dynamic-selector:focus.__jsx-style-dynamic-selector:not(:focus-visible){outline:none;}", "button.__jsx-style-dynamic-selector:hover{background:#1a557f;}", "button.__jsx-style-dynamic-selector:active{background:#104067;}", "div.__jsx-style-dynamic-selector{position:relative;height:100%;}"]));
-diff --git a/node_modules/@dhis2-ui/header-bar/build/cjs/header-bar.stories.js b/node_modules/@dhis2-ui/header-bar/build/cjs/header-bar.stories.js
-index a69ccce..a4846ec 100644
---- a/node_modules/@dhis2-ui/header-bar/build/cjs/header-bar.stories.js
-+++ b/node_modules/@dhis2-ui/header-bar/build/cjs/header-bar.stories.js
-@@ -3,12 +3,14 @@
+   }, [`button.__jsx-style-dynamic-selector{display:block;background:transparent;padding-block-start:${_uiConstants.spacers.dp4};padding-block-end:0;padding-inline:${_uiConstants.spacers.dp12};border:0;cursor:pointer;height:100%;}`, "button.__jsx-style-dynamic-selector:focus{outline:2px solid white;outline-offset:-2px;}", "button.__jsx-style-dynamic-selector:focus.__jsx-style-dynamic-selector:not(:focus-visible){outline:none;}", "button.__jsx-style-dynamic-selector:hover{background:#1a557f;}", "button.__jsx-style-dynamic-selector:active{background:#104067;}", "div.__jsx-style-dynamic-selector{position:relative;height:100%;}"]));
+diff --git a/node_modules/@dhis2-ui/header-bar/build/cjs/header-bar.prod.stories.js b/node_modules/@dhis2-ui/header-bar/build/cjs/header-bar.prod.stories.js
+index 56867be..27badf8 100644
+--- a/node_modules/@dhis2-ui/header-bar/build/cjs/header-bar.prod.stories.js
++++ b/node_modules/@dhis2-ui/header-bar/build/cjs/header-bar.prod.stories.js
+@@ -3,9 +3,10 @@
  Object.defineProperty(exports, "__esModule", {
    value: true
  });
--exports.default = exports.WithUpdateNotification = exports.WithOnlineStatusMessage = exports.WithOnlineStatus = exports.NonEnglishUserLocale = exports.NoAuthorityForInterpretationsApp = exports.Loading = exports.Error = exports.Default = exports.CustomLogoWideDimension = void 0;
-+exports.default = exports.WithUpdateNotification = exports.WithOnlineStatusMessage = exports.WithOnlineStatus = exports.WithGlobalShellRouter = exports.NonEnglishUserLocale = exports.NoAuthorityForInterpretationsApp = exports.Loading = exports.Error = exports.Default = exports.CustomLogoWideDimension = void 0;
- 
+-exports.default = exports.WithUpdateNotification = exports.WithOnlineStatusMessage = exports.WithOnlineStatus = exports.RTLHeader = exports.NonEnglishUserLocale = exports.NoAuthorityForInterpretationsApp = exports.Loading = exports.Error = exports.Default = exports.CustomLogoWideDimension = void 0;
++exports.default = exports.WithUpdateNotification = exports.WithOnlineStatusMessage = exports.WithOnlineStatus = exports.WithGlobalShellRouter = exports.RTLHeader = exports.NonEnglishUserLocale = exports.NoAuthorityForInterpretationsApp = exports.Loading = exports.Error = exports.Default = exports.CustomLogoWideDimension = void 0;
  var _appRuntime = require("@dhis2/app-runtime");
- 
  var _react = _interopRequireDefault(require("react"));
- 
 +var _reactRouterDom = require("react-router-dom");
-+
  var _common = require("./__e2e__/stories/common.js");
- 
  var _onlineStatusMessage = require("./__e2e__/stories/online-status-message.js");
-@@ -162,6 +164,20 @@ const Default = () => /*#__PURE__*/_react.default.createElement(_appRuntime.Cust
- 
+ var _headerBar = require("./header-bar.js");
+@@ -169,6 +170,18 @@ const Default = () => /*#__PURE__*/_react.default.createElement(_appRuntime.Cust
+   appName: "Example!"
+ }));
  exports.Default = Default;
- 
 +const WithGlobalShellRouter = () => /*#__PURE__*/_react.default.createElement(_appRuntime.CustomDataProvider, {
 +  data: customData
 +}, /*#__PURE__*/_react.default.createElement(_reactRouterDom.HashRouter, {
@@ -263,57 +243,32 @@ index a69ccce..a4846ec 100644
 +  height: '400px',
 +  src: 'https://dhis2.org'
 +})));
-+
 +exports.WithGlobalShellRouter = WithGlobalShellRouter;
-+
  const CustomLogoWideDimension = () => /*#__PURE__*/_react.default.createElement(_appRuntime.CustomDataProvider, {
    data: customLogoData
  }, /*#__PURE__*/_react.default.createElement(_headerBar.HeaderBar, {
-diff --git a/node_modules/@dhis2-ui/header-bar/build/cjs/locales/lo/translations.json b/node_modules/@dhis2-ui/header-bar/build/cjs/locales/lo/translations.json
-index d499ad3..cc84927 100644
---- a/node_modules/@dhis2-ui/header-bar/build/cjs/locales/lo/translations.json
-+++ b/node_modules/@dhis2-ui/header-bar/build/cjs/locales/lo/translations.json
-@@ -8,7 +8,6 @@
-     "Debug info": "",
-     "Close": "ປິດ",
-     "Copy debug info": "",
--    "Last online {{relativeTime}}": "",
-     "Online": "ມີການເຊື່ອມຕໍ່",
-     "Offline": "ບໍ່ມີການເຊື່ອມຕໍ່",
-     "Edit profile": "ແກ້ໄຂຂໍ້ມູນ",
-@@ -16,7 +15,7 @@
-     "Account": "ບັນຊີ",
-     "Help": "ຊ່ວຍ",
-     "About DHIS2": "",
--    "Logout": "",
-+    "Logout": "ອອກຈາກລະບົບ",
-     "New {{appName}} version available": "",
-     "New app version available": "",
-     "Click to reload": ""
 diff --git a/node_modules/@dhis2-ui/header-bar/build/es/apps.js b/node_modules/@dhis2-ui/header-bar/build/es/apps.js
-index 8a699a7..3f6871d 100644
+index f3acf51..ecb74c1 100644
 --- a/node_modules/@dhis2-ui/header-bar/build/es/apps.js
 +++ b/node_modules/@dhis2-ui/header-bar/build/es/apps.js
-@@ -1,11 +1,14 @@
- import _JSXStyle from "styled-jsx/style";
+@@ -4,8 +4,11 @@ import { colors, spacers, theme } from '@dhis2/ui-constants';
+ import { IconApps24, IconSettings24 } from '@dhis2/ui-icons';
  import { Card } from '@dhis2-ui/card';
  import { InputField } from '@dhis2-ui/input';
 +import { Layer } from '@dhis2-ui/layer';
 +import { Popper } from '@dhis2-ui/popper';
- import { useConfig } from '@dhis2/app-runtime';
- import { colors, spacers, theme } from '@dhis2/ui-constants';
- import { IconApps24, IconSettings24 } from '@dhis2/ui-icons';
  import PropTypes from 'prop-types';
 -import React, { useState, useEffect, useCallback, useRef } from 'react';
 +import React, { useState, useCallback, useRef } from 'react';
 +import { Link, useInRouterContext } from 'react-router-dom';
  import { joinPath } from './join-path.js';
  import i18n from './locales/index.js';
- /**
-@@ -51,61 +54,103 @@ Search.propTypes = {
+ 
+@@ -49,58 +52,96 @@ Search.propTypes = {
    value: PropTypes.string.isRequired,
    onChange: PropTypes.func.isRequired
  };
+-function Item(_ref2) {
 +const {
 +  className,
 +  styles
@@ -323,8 +278,6 @@ index 8a699a7..3f6871d 100644
 +  }, ["a.jsx-1293622891{-webkit-text-decoration:none;text-decoration:none;margin:8px;}"]),
 +  className: "jsx-1293622891"
 +};
- 
--function Item(_ref2) {
 +function ItemWrapper(_ref2) {
    let {
      name,
@@ -333,28 +286,24 @@ index 8a699a7..3f6871d 100644
 +    children
    } = _ref2;
 +  const inRouterContext = useInRouterContext();
-+
 +  if (inRouterContext) {
 +    // todo: client-side routing scheme
 +    return /*#__PURE__*/React.createElement(Link, {
-+      to: "/app/".concat(name),
++      to: `/app/${name}`,
 +      className: className
 +    }, children, styles);
 +  }
-+
    return /*#__PURE__*/React.createElement("a", {
      href: path,
 -    className: _JSXStyle.dynamic([["1412616027", [theme.primary050]]])
 +    className: className
 +  }, children, styles);
 +}
-+
 +ItemWrapper.propTypes = {
 +  children: PropTypes.node,
 +  name: PropTypes.string,
 +  path: PropTypes.string
 +};
-+
 +function Item(_ref3) {
 +  let {
 +    displayName,
@@ -380,17 +329,15 @@ index 8a699a7..3f6871d 100644
 +  }, displayName)), /*#__PURE__*/React.createElement(_JSXStyle, {
 +    id: "301406513",
      dynamic: [theme.primary050]
--  }, ["a.__jsx-style-dynamic-selector{display:inline-block;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;-webkit-box-pack:center;-webkit-justify-content:center;-ms-flex-pack:center;justify-content:center;width:96px;margin:8px;border-radius:12px;-webkit-text-decoration:none;text-decoration:none;cursor:pointer;}", "a.__jsx-style-dynamic-selector:hover,a.__jsx-style-dynamic-selector:focus{background-color:".concat(theme.primary050, ";cursor:pointer;}"), "a.__jsx-style-dynamic-selector:hover>div.__jsx-style-dynamic-selector{font-weight:500;cursor:pointer;}", "img.__jsx-style-dynamic-selector{width:48px;height:48px;margin:8px;cursor:pointer;}", "div.__jsx-style-dynamic-selector{overflow-wrap:anywhere;margin-top:14px;color:rgba(0,0,0,0.87);font-size:12px;-webkit-letter-spacing:0.01em;-moz-letter-spacing:0.01em;-ms-letter-spacing:0.01em;letter-spacing:0.01em;line-height:14px;text-align:center;cursor:pointer;}"]));
-+  }, ["div.wrapper.__jsx-style-dynamic-selector{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;-webkit-box-pack:center;-webkit-justify-content:center;-ms-flex-pack:center;justify-content:center;width:96px;border-radius:12px;cursor:pointer;}", "div.wrapper.__jsx-style-dynamic-selector:hover,div.wrapper.__jsx-style-dynamic-selector:focus{background-color:".concat(theme.primary050, ";cursor:pointer;}"), "div.wrapper.__jsx-style-dynamic-selector:hover>div.name.__jsx-style-dynamic-selector{font-weight:500;cursor:pointer;}", "img.__jsx-style-dynamic-selector{width:48px;height:48px;margin:8px;cursor:pointer;}", "div.name.__jsx-style-dynamic-selector{overflow-wrap:anywhere;margin-top:14px;color:rgba(0,0,0,0.87);font-size:12px;-webkit-letter-spacing:0.01em;-moz-letter-spacing:0.01em;-ms-letter-spacing:0.01em;letter-spacing:0.01em;line-height:14px;text-align:center;cursor:pointer;}"]));
+-  }, ["a.__jsx-style-dynamic-selector{display:inline-block;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;-webkit-box-pack:center;-webkit-justify-content:center;-ms-flex-pack:center;justify-content:center;width:96px;margin:8px;border-radius:12px;-webkit-text-decoration:none;text-decoration:none;cursor:pointer;}", `a.__jsx-style-dynamic-selector:hover,a.__jsx-style-dynamic-selector:focus{background-color:${theme.primary050};cursor:pointer;}`, "a.__jsx-style-dynamic-selector:hover>div.__jsx-style-dynamic-selector{font-weight:500;cursor:pointer;}", "img.__jsx-style-dynamic-selector{width:48px;height:48px;margin:8px;cursor:pointer;}", "div.__jsx-style-dynamic-selector{overflow-wrap:anywhere;margin-top:14px;color:rgba(0,0,0,0.87);font-size:12px;-webkit-letter-spacing:0.01em;-moz-letter-spacing:0.01em;-ms-letter-spacing:0.01em;letter-spacing:0.01em;line-height:14px;text-align:center;cursor:pointer;}"]));
++  }, ["div.wrapper.__jsx-style-dynamic-selector{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;-webkit-box-pack:center;-webkit-justify-content:center;-ms-flex-pack:center;justify-content:center;width:96px;border-radius:12px;cursor:pointer;}", `div.wrapper.__jsx-style-dynamic-selector:hover,div.wrapper.__jsx-style-dynamic-selector:focus{background-color:${theme.primary050};cursor:pointer;}`, "div.wrapper.__jsx-style-dynamic-selector:hover>div.name.__jsx-style-dynamic-selector{font-weight:500;cursor:pointer;}", "img.__jsx-style-dynamic-selector{width:48px;height:48px;margin:8px;cursor:pointer;}", "div.name.__jsx-style-dynamic-selector{overflow-wrap:anywhere;margin-top:14px;color:rgba(0,0,0,0.87);font-size:12px;-webkit-letter-spacing:0.01em;-moz-letter-spacing:0.01em;-ms-letter-spacing:0.01em;letter-spacing:0.01em;line-height:14px;text-align:center;cursor:pointer;}"]));
  }
- 
  Item.propTypes = {
 +  displayName: PropTypes.string,
    img: PropTypes.string,
    name: PropTypes.string,
    path: PropTypes.string
  };
- 
 -function List(_ref3) {
 +function List(_ref4) {
    let {
@@ -400,7 +347,7 @@ index 8a699a7..3f6871d 100644
 +  } = _ref4;
    return /*#__PURE__*/React.createElement("div", {
      "data-test": "headerbar-apps-menu-list",
-     className: "jsx-2076871745"
+     className: "jsx-2424821176"
 -  }, apps.filter(_ref4 => {
 +  }, apps.filter(_ref5 => {
      let {
@@ -422,17 +369,17 @@ index 8a699a7..3f6871d 100644
 -    } = _ref5;
 +    } = _ref6;
      return /*#__PURE__*/React.createElement(Item, {
-       key: "app-".concat(name, "-").concat(idx),
+       key: `app-${name}-${idx}`,
 -      name: displayName || name,
 +      displayName: displayName || name,
 +      name: name,
        path: defaultAction,
        img: icon
      });
-@@ -119,24 +164,21 @@ List.propTypes = {
+@@ -112,55 +153,43 @@ List.propTypes = {
+   apps: PropTypes.array,
    filter: PropTypes.string
  };
- 
 -const AppMenu = _ref6 => {
 +const AppMenu = _ref7 => {
    let {
@@ -443,7 +390,7 @@ index 8a699a7..3f6871d 100644
 +  } = _ref7;
    return /*#__PURE__*/React.createElement("div", {
 -    "data-test": "headerbar-apps-menu",
--    className: "jsx-105953480"
+-    className: "jsx-3826299842"
 +    "data-test": "headerbar-apps-menu"
    }, /*#__PURE__*/React.createElement(Card, null, /*#__PURE__*/React.createElement(Search, {
      value: filter,
@@ -452,16 +399,15 @@ index 8a699a7..3f6871d 100644
      apps: apps,
      filter: filter
 -  })), /*#__PURE__*/React.createElement(_JSXStyle, {
--    id: "105953480"
--  }, ["div.jsx-105953480{z-index:10000;position:absolute;right:-4px;}"]));
+-    id: "3826299842"
+-  }, ["div.jsx-3826299842{z-index:10000;position:absolute;inset-inline-end:-4px;}"]));
 +  })));
  };
- 
  AppMenu.propTypes = {
-@@ -145,31 +187,22 @@ AppMenu.propTypes = {
+   apps: PropTypes.array.isRequired,
+   onFilterChange: PropTypes.func.isRequired,
    filter: PropTypes.string
  };
- 
 -const Apps = _ref7 => {
 +const Apps = _ref8 => {
    let {
@@ -495,10 +441,10 @@ index 8a699a7..3f6871d 100644
 -    ref: containerEl,
 +    ref: containerRef,
      "data-test": "headerbar-apps",
-     className: _JSXStyle.dynamic([["2891838412", [spacers.dp4, spacers.dp12]]])
+     className: _JSXStyle.dynamic([["325245423", [spacers.dp4, spacers.dp12]]])
    }, /*#__PURE__*/React.createElement("button", {
-@@ -178,11 +211,16 @@ const Apps = _ref7 => {
-     className: _JSXStyle.dynamic([["2891838412", [spacers.dp4, spacers.dp12]]])
+@@ -169,11 +198,16 @@ const Apps = _ref7 => {
+     className: _JSXStyle.dynamic([["325245423", [spacers.dp4, spacers.dp12]]])
    }, /*#__PURE__*/React.createElement(IconApps24, {
      color: colors.white
 -  })), show ? /*#__PURE__*/React.createElement(AppMenu, {
@@ -513,13 +459,13 @@ index 8a699a7..3f6871d 100644
      onFilterChange: handleFilterChange
 -  }) : null, /*#__PURE__*/React.createElement(_JSXStyle, {
 +  }))) : null, /*#__PURE__*/React.createElement(_JSXStyle, {
-     id: "2891838412",
+     id: "325245423",
      dynamic: [spacers.dp4, spacers.dp12]
-   }, ["button.__jsx-style-dynamic-selector{display:block;background:transparent;padding:".concat(spacers.dp4, " ").concat(spacers.dp12, " 0;border:0;cursor:pointer;height:100%;}"), "button.__jsx-style-dynamic-selector:focus{outline:2px solid white;outline-offset:-2px;}", "button.__jsx-style-dynamic-selector:focus.__jsx-style-dynamic-selector:not(:focus-visible){outline:none;}", "button.__jsx-style-dynamic-selector:hover{background:#1a557f;}", "button.__jsx-style-dynamic-selector:active{background:#104067;}", "div.__jsx-style-dynamic-selector{position:relative;height:100%;}"]));
-diff --git a/node_modules/@dhis2-ui/header-bar/build/es/header-bar.stories.js b/node_modules/@dhis2-ui/header-bar/build/es/header-bar.stories.js
-index 2b8e345..a44e3b3 100644
---- a/node_modules/@dhis2-ui/header-bar/build/es/header-bar.stories.js
-+++ b/node_modules/@dhis2-ui/header-bar/build/es/header-bar.stories.js
+   }, [`button.__jsx-style-dynamic-selector{display:block;background:transparent;padding-block-start:${spacers.dp4};padding-block-end:0;padding-inline:${spacers.dp12};border:0;cursor:pointer;height:100%;}`, "button.__jsx-style-dynamic-selector:focus{outline:2px solid white;outline-offset:-2px;}", "button.__jsx-style-dynamic-selector:focus.__jsx-style-dynamic-selector:not(:focus-visible){outline:none;}", "button.__jsx-style-dynamic-selector:hover{background:#1a557f;}", "button.__jsx-style-dynamic-selector:active{background:#104067;}", "div.__jsx-style-dynamic-selector{position:relative;height:100%;}"]));
+diff --git a/node_modules/@dhis2-ui/header-bar/build/es/header-bar.prod.stories.js b/node_modules/@dhis2-ui/header-bar/build/es/header-bar.prod.stories.js
+index 4fa1dd4..c423401 100644
+--- a/node_modules/@dhis2-ui/header-bar/build/es/header-bar.prod.stories.js
++++ b/node_modules/@dhis2-ui/header-bar/build/es/header-bar.prod.stories.js
 @@ -1,5 +1,6 @@
  import { CustomDataProvider } from '@dhis2/app-runtime';
  import React from 'react';
@@ -527,7 +473,7 @@ index 2b8e345..a44e3b3 100644
  import { createDecoratorProvider, mockOfflineInterface, providerConfig } from './__e2e__/stories/common.js';
  import { OnlineStatusMessageUpdate } from './__e2e__/stories/online-status-message.js';
  import { HeaderBar } from './header-bar.js';
-@@ -143,6 +144,17 @@ export const Default = () => /*#__PURE__*/React.createElement(CustomDataProvider
+@@ -161,6 +162,17 @@ export const Default = () => /*#__PURE__*/React.createElement(CustomDataProvider
  }, /*#__PURE__*/React.createElement(HeaderBar, {
    appName: "Example!"
  }));
@@ -545,24 +491,3 @@ index 2b8e345..a44e3b3 100644
  export const CustomLogoWideDimension = () => /*#__PURE__*/React.createElement(CustomDataProvider, {
    data: customLogoData
  }, /*#__PURE__*/React.createElement(HeaderBar, {
-diff --git a/node_modules/@dhis2-ui/header-bar/build/es/locales/lo/translations.json b/node_modules/@dhis2-ui/header-bar/build/es/locales/lo/translations.json
-index d499ad3..cc84927 100644
---- a/node_modules/@dhis2-ui/header-bar/build/es/locales/lo/translations.json
-+++ b/node_modules/@dhis2-ui/header-bar/build/es/locales/lo/translations.json
-@@ -8,7 +8,6 @@
-     "Debug info": "",
-     "Close": "ປິດ",
-     "Copy debug info": "",
--    "Last online {{relativeTime}}": "",
-     "Online": "ມີການເຊື່ອມຕໍ່",
-     "Offline": "ບໍ່ມີການເຊື່ອມຕໍ່",
-     "Edit profile": "ແກ້ໄຂຂໍ້ມູນ",
-@@ -16,7 +15,7 @@
-     "Account": "ບັນຊີ",
-     "Help": "ຊ່ວຍ",
-     "About DHIS2": "",
--    "Logout": "",
-+    "Logout": "ອອກຈາກລະບົບ",
-     "New {{appName}} version available": "",
-     "New app version available": "",
-     "Click to reload": ""
