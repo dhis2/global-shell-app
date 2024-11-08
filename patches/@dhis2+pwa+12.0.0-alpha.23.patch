@@ -1,5 +1,5 @@
 diff --git a/node_modules/@dhis2/pwa/build/cjs/index.js b/node_modules/@dhis2/pwa/build/cjs/index.js
-index 571bd0e..2ecffac 100644
+index 571bd0e..1ca95ba 100644
 --- a/node_modules/@dhis2/pwa/build/cjs/index.js
 +++ b/node_modules/@dhis2/pwa/build/cjs/index.js
 @@ -9,6 +9,12 @@ Object.defineProperty(exports, "OfflineInterface", {
@@ -15,7 +15,7 @@ index 571bd0e..2ecffac 100644
  Object.defineProperty(exports, "REGISTRATION_STATE_ACTIVE", {
    enumerable: true,
    get: function () {
-@@ -69,7 +75,20 @@ Object.defineProperty(exports, "setUpServiceWorker", {
+@@ -69,6 +75,18 @@ Object.defineProperty(exports, "setUpServiceWorker", {
      return _setUpServiceWorker.setUpServiceWorker;
    }
  });
@@ -34,9 +34,6 @@ index 571bd0e..2ecffac 100644
  var _setUpServiceWorker = require("./service-worker/set-up-service-worker.js");
  var _offlineInterface = require("./offline-interface/offline-interface.js");
  var _registration = require("./lib/registration.js");
- var _baseUrlDb = require("./lib/base-url-db.js");
-+var _OfflineInterfaceContext = require("./react/OfflineInterfaceContext.js");
-\ No newline at end of file
 diff --git a/node_modules/@dhis2/pwa/build/cjs/react/OfflineInterfaceContext.js b/node_modules/@dhis2/pwa/build/cjs/react/OfflineInterfaceContext.js
 new file mode 100644
 index 0000000..2d465d7
@@ -145,7 +142,7 @@ index 0000000..7dea937
 +exports.usePWAUpdateState = usePWAUpdateState;
 \ No newline at end of file
 diff --git a/node_modules/@dhis2/pwa/build/es/index.js b/node_modules/@dhis2/pwa/build/es/index.js
-index 960e2b2..90a68d5 100644
+index 960e2b2..4c8243f 100644
 --- a/node_modules/@dhis2/pwa/build/es/index.js
 +++ b/node_modules/@dhis2/pwa/build/es/index.js
 @@ -2,3 +2,5 @@ export { setUpServiceWorker } from './service-worker/set-up-service-worker.js';
@@ -154,6 +151,7 @@ index 960e2b2..90a68d5 100644
  export { getBaseUrlByAppName, setBaseUrlByAppName } from './lib/base-url-db.js';
 +export { OfflineInterfaceProvider, useOfflineInterface } from './react/OfflineInterfaceContext.js';
 +export { usePWAUpdateState } from './react/usePWAUpdateState.js';
+\ No newline at end of file
 diff --git a/node_modules/@dhis2/pwa/build/es/react/OfflineInterfaceContext.js b/node_modules/@dhis2/pwa/build/es/react/OfflineInterfaceContext.js
 new file mode 100644
 index 0000000..ed7d292
