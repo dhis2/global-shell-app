@@ -1,5 +1,5 @@
 diff --git a/node_modules/@dhis2/app-service-plugin/build/cjs/Plugin.js b/node_modules/@dhis2/app-service-plugin/build/cjs/Plugin.js
-index ec9ac08..48f6c78 100644
+index 4694945..9bdc206 100644
 --- a/node_modules/@dhis2/app-service-plugin/build/cjs/Plugin.js
 +++ b/node_modules/@dhis2/app-service-plugin/build/cjs/Plugin.js
 @@ -46,6 +46,7 @@ const Plugin = (_ref3) => {
@@ -7,25 +7,20 @@ index ec9ac08..48f6c78 100644
      pluginSource,
      pluginShortName,
 +    onLoad,
+     height,
+     width,
      ...propsToPassNonMemoized
-   } = _ref3;
-   const iframeRef = (0, _react.useRef)(null); // we do not know what is being sent in passed props, so for stable reference, memoize using JSON representation
-@@ -68,11 +69,9 @@ const Plugin = (_ref3) => {
+@@ -61,8 +62,6 @@ const Plugin = (_ref3) => {
      apps: (data === null || data === void 0 ? void 0 : data.apps) || [],
      appShortName: pluginShortName
    });
 -  const [communicationReceived, setCommunicationReceived] = (0, _react.useState)(false);
 -  const [prevCommunicationReceived, setPrevCommunicationReceived] = (0, _react.useState)(false);
    const [inErrorState, setInErrorState] = (0, _react.useState)(false);
--  const [pluginHeight, setPluginHeight] = (0, _react.useState)(150);
--  const [pluginWidth, setPluginWidth] = (0, _react.useState)(500);
-+  const [pluginHeight, setPluginHeight] = (0, _react.useState)('150px');
-+  const [pluginWidth, setPluginWidth] = (0, _react.useState)('500px');
-   (0, _react.useEffect)(() => {
-     if (height) {
-       setPluginHeight(height);
-@@ -88,50 +87,73 @@ const Plugin = (_ref3) => {
-   [...Object.keys(propsToPass).sort().map(k => propsToPass[k])]
+   const [resizedHeight, setPluginHeight] = (0, _react.useState)(150);
+   const [resizedWidth, setPluginWidth] = (0, _react.useState)(500); // since we do not know what props are passed, the dependency array has to be keys of whatever is standard prop
+@@ -73,50 +72,73 @@ const Plugin = (_ref3) => {
+   [...Object.keys(propsToPassNonMemoized).sort().map(k => propsToPassNonMemoized[k])]
    /* eslint-enable react-hooks/exhaustive-deps */
    );
 -  (0, _react.useEffect)(() => {
@@ -47,8 +42,8 @@ index ec9ac08..48f6c78 100644
 -    if (iframeRef !== null && iframeRef !== void 0 && iframeRef.current) {
 -      const iframeProps = { ...memoizedPropsToPass,
 -        alertsAdd,
--        setPluginHeight,
--        setPluginWidth,
+-        setPluginHeight: !height ? setPluginHeight : null,
+-        setPluginWidth: !width ? setPluginWidth : null,
 -        setInErrorState,
 -        setCommunicationReceived
 -      }; // if iframe has not sent initial request, set up a listener
@@ -57,8 +52,8 @@ index ec9ac08..48f6c78 100644
 -        const listener = _postRobot.default.on('getPropsFromParent', // listen for messages coming only from the iframe rendered by this component
 +    const iframeProps = { ...memoizedPropsToPass,
 +      alertsAdd,
-+      setPluginHeight,
-+      setPluginWidth,
++      setPluginHeight: !height ? setPluginHeight : null,
++      setPluginWidth: !width ? setPluginWidth : null,
 +      setInErrorState // todo: what does this do? resets state from error component
 +      // seems to work without...
 +      // setCommunicationReceived,
@@ -130,29 +125,18 @@ index ec9ac08..48f6c78 100644
  
    if (data && !pluginEntryPoint) {
      return /*#__PURE__*/_react.default.createElement(_PluginError.default, {
-@@ -143,8 +165,8 @@ const Plugin = (_ref3) => {
-   if (pluginEntryPoint) {
-     return /*#__PURE__*/_react.default.createElement("div", {
+@@ -133,7 +155,8 @@ const Plugin = (_ref3) => {
+       height: height !== null && height !== void 0 ? height : resizedHeight + 'px',
        style: {
--        height: `${pluginHeight}px`,
--        width: `${pluginWidth}px`
-+        height: `${pluginHeight}`,
-+        width: `${pluginWidth}`
-       }
-     }, /*#__PURE__*/_react.default.createElement("iframe", {
-       ref: iframeRef,
-@@ -153,7 +175,8 @@ const Plugin = (_ref3) => {
-         width: '100%',
-         height: '100%',
          border: 'none'
 -      }
 +      },
 +      onLoad: handleLoad
-     }));
+     });
    }
  
 diff --git a/node_modules/@dhis2/app-service-plugin/build/es/Plugin.js b/node_modules/@dhis2/app-service-plugin/build/es/Plugin.js
-index eb805b0..716c7e3 100644
+index 6b017d3..cf5c691 100644
 --- a/node_modules/@dhis2/app-service-plugin/build/es/Plugin.js
 +++ b/node_modules/@dhis2/app-service-plugin/build/es/Plugin.js
 @@ -1,7 +1,7 @@
@@ -169,25 +153,20 @@ index eb805b0..716c7e3 100644
      pluginSource,
      pluginShortName,
 +    onLoad,
+     height,
+     width,
      ...propsToPassNonMemoized
-   } = _ref3;
-   const iframeRef = useRef(null); // we do not know what is being sent in passed props, so for stable reference, memoize using JSON representation
-@@ -50,11 +51,9 @@ export const Plugin = (_ref3) => {
+@@ -43,8 +44,6 @@ export const Plugin = (_ref3) => {
      apps: (data === null || data === void 0 ? void 0 : data.apps) || [],
      appShortName: pluginShortName
    });
 -  const [communicationReceived, setCommunicationReceived] = useState(false);
 -  const [prevCommunicationReceived, setPrevCommunicationReceived] = useState(false);
    const [inErrorState, setInErrorState] = useState(false);
--  const [pluginHeight, setPluginHeight] = useState(150);
--  const [pluginWidth, setPluginWidth] = useState(500);
-+  const [pluginHeight, setPluginHeight] = useState('150px');
-+  const [pluginWidth, setPluginWidth] = useState('500px');
-   useEffect(() => {
-     if (height) {
-       setPluginHeight(height);
-@@ -70,49 +69,73 @@ export const Plugin = (_ref3) => {
-   [...Object.keys(propsToPass).sort().map(k => propsToPass[k])]
+   const [resizedHeight, setPluginHeight] = useState(150);
+   const [resizedWidth, setPluginWidth] = useState(500); // since we do not know what props are passed, the dependency array has to be keys of whatever is standard prop
+@@ -55,49 +54,73 @@ export const Plugin = (_ref3) => {
+   [...Object.keys(propsToPassNonMemoized).sort().map(k => propsToPassNonMemoized[k])]
    /* eslint-enable react-hooks/exhaustive-deps */
    );
 -  useEffect(() => {
@@ -209,8 +188,8 @@ index eb805b0..716c7e3 100644
 -    if (iframeRef !== null && iframeRef !== void 0 && iframeRef.current) {
 -      const iframeProps = { ...memoizedPropsToPass,
 -        alertsAdd,
--        setPluginHeight,
--        setPluginWidth,
+-        setPluginHeight: !height ? setPluginHeight : null,
+-        setPluginWidth: !width ? setPluginWidth : null,
 -        setInErrorState,
 -        setCommunicationReceived
 -      }; // if iframe has not sent initial request, set up a listener
@@ -219,8 +198,8 @@ index eb805b0..716c7e3 100644
 -        const listener = postRobot.on('getPropsFromParent', // listen for messages coming only from the iframe rendered by this component
 +    const iframeProps = { ...memoizedPropsToPass,
 +      alertsAdd,
-+      setPluginHeight,
-+      setPluginWidth,
++      setPluginHeight: !height ? setPluginHeight : null,
++      setPluginWidth: !width ? setPluginWidth : null,
 +      setInErrorState // todo: what does this do? resets state from error component
 +      // seems to work without...
 +      // setCommunicationReceived,
@@ -259,7 +238,8 @@ index eb805b0..716c7e3 100644
 +    // (don't do before to avoid sending messages before listeners
 +    // are ready)
 +
-+
+ 
+-  }, [memoizedPropsToPass, communicationReceived, inErrorState, alertsAdd]);
 +    if (iframeRef.current.contentWindow && !inErrorState) {
 +      postRobot.send(iframeRef.current.contentWindow, 'updated', iframeProps).catch(err => {
 +        // log postRobot errors, but do not bubble them up
@@ -280,8 +260,7 @@ index eb805b0..716c7e3 100644
 +      propsFromParentListenerRef.current = null;
 +    } // Need to set this up again whenever the iframe contentWindow
 +    // changes (e.g. navigations or reloads)
- 
--  }, [memoizedPropsToPass, communicationReceived, inErrorState, alertsAdd]);
++
 +
 +    setUpCommunication();
 +
@@ -292,62 +271,28 @@ index eb805b0..716c7e3 100644
  
    if (data && !pluginEntryPoint) {
      return /*#__PURE__*/React.createElement(PluginError, {
-@@ -124,8 +147,8 @@ export const Plugin = (_ref3) => {
-   if (pluginEntryPoint) {
-     return /*#__PURE__*/React.createElement("div", {
+@@ -114,7 +137,8 @@ export const Plugin = (_ref3) => {
+       height: height !== null && height !== void 0 ? height : resizedHeight + 'px',
        style: {
--        height: `${pluginHeight}px`,
--        width: `${pluginWidth}px`
-+        height: `${pluginHeight}`,
-+        width: `${pluginWidth}`
-       }
-     }, /*#__PURE__*/React.createElement("iframe", {
-       ref: iframeRef,
-@@ -134,7 +157,8 @@ export const Plugin = (_ref3) => {
-         width: '100%',
-         height: '100%',
          border: 'none'
 -      }
 +      },
 +      onLoad: handleLoad
-     }));
+     });
    }
  
 diff --git a/node_modules/@dhis2/app-service-plugin/build/types/Plugin.d.ts b/node_modules/@dhis2/app-service-plugin/build/types/Plugin.d.ts
-deleted file mode 100644
-index 8dba594..0000000
+index f216e23..89021c8 100644
 --- a/node_modules/@dhis2/app-service-plugin/build/types/Plugin.d.ts
-+++ /dev/null
-@@ -1,6 +0,0 @@
++++ b/node_modules/@dhis2/app-service-plugin/build/types/Plugin.d.ts
+@@ -1,7 +1,8 @@
 -/// <reference types="react" />
--export declare const Plugin: ({ pluginSource, pluginShortName, ...propsToPassNonMemoized }: {
--    pluginSource?: string | undefined;
--    pluginShortName?: string | undefined;
--    propsToPass: any;
--}) => JSX.Element;
-diff --git a/node_modules/@dhis2/app-service-plugin/build/types/PluginError.d.ts b/node_modules/@dhis2/app-service-plugin/build/types/PluginError.d.ts
-deleted file mode 100644
-index dc87dc6..0000000
---- a/node_modules/@dhis2/app-service-plugin/build/types/PluginError.d.ts
-+++ /dev/null
-@@ -1,6 +0,0 @@
--/// <reference types="react" />
--declare const PluginError: ({ missingEntryPoint, appShortName, }: {
--    missingEntryPoint: boolean;
--    appShortName?: string | undefined;
--}) => JSX.Element;
--export default PluginError;
-diff --git a/node_modules/@dhis2/app-service-plugin/build/types/index.d.ts b/node_modules/@dhis2/app-service-plugin/build/types/index.d.ts
-deleted file mode 100644
-index 48bf19d..0000000
---- a/node_modules/@dhis2/app-service-plugin/build/types/index.d.ts
-+++ /dev/null
-@@ -1 +0,0 @@
--export { Plugin } from './Plugin';
-diff --git a/node_modules/@dhis2/app-service-plugin/build/types/types.d.ts b/node_modules/@dhis2/app-service-plugin/build/types/types.d.ts
-deleted file mode 100644
-index cb0ff5c..0000000
---- a/node_modules/@dhis2/app-service-plugin/build/types/types.d.ts
-+++ /dev/null
-@@ -1 +0,0 @@
--export {};
+-export declare const Plugin: ({ pluginSource, pluginShortName, height, width, ...propsToPassNonMemoized }: {
++import React, { ReactEventHandler } from 'react';
++export declare const Plugin: ({ pluginSource, pluginShortName, onLoad, height, width, ...propsToPassNonMemoized }: {
+     pluginSource?: string | undefined;
+     pluginShortName?: string | undefined;
++    onLoad?: React.ReactEventHandler<HTMLIFrameElement> | undefined;
+     height?: string | number | undefined;
+     width?: string | number | undefined;
+     propsToPass: any;

@@ -1,0 +1,26 @@
+diff --git a/node_modules/@dhis2/app-service-offline/build/cjs/lib/dhis2-connection-status/use-ping-query.js b/node_modules/@dhis2/app-service-offline/build/cjs/lib/dhis2-connection-status/use-ping-query.js
+index 96bb1ee..67ce614 100644
+--- a/node_modules/@dhis2/app-service-offline/build/cjs/lib/dhis2-connection-status/use-ping-query.js
++++ b/node_modules/@dhis2/app-service-offline/build/cjs/lib/dhis2-connection-status/use-ping-query.js
+@@ -16,6 +16,6 @@ function usePingQuery() {
+   } = (0, _appServiceConfig.useConfig)(); // This endpoint doesn't need any extra headers or handling since it's
+   // public. It doesn't extend the user session. See DHIS2-14531
+ 
+-  const ping = (0, _react.useCallback)(() => fetch(baseUrl + '/api/ping'), [baseUrl]);
++  const ping = (0, _react.useCallback)(() => fetch(new URL('./api/ping', baseUrl).href), [baseUrl]);
+   return ping;
+ }
+\ No newline at end of file
+diff --git a/node_modules/@dhis2/app-service-offline/build/es/lib/dhis2-connection-status/use-ping-query.js b/node_modules/@dhis2/app-service-offline/build/es/lib/dhis2-connection-status/use-ping-query.js
+index 40a0323..702ded5 100644
+--- a/node_modules/@dhis2/app-service-offline/build/es/lib/dhis2-connection-status/use-ping-query.js
++++ b/node_modules/@dhis2/app-service-offline/build/es/lib/dhis2-connection-status/use-ping-query.js
+@@ -7,6 +7,6 @@ export function usePingQuery() {
+   } = useConfig(); // This endpoint doesn't need any extra headers or handling since it's
+   // public. It doesn't extend the user session. See DHIS2-14531
+ 
+-  const ping = useCallback(() => fetch(baseUrl + '/api/ping'), [baseUrl]);
++  const ping = useCallback(() => fetch(new URL('./api/ping', baseUrl).href), [baseUrl]);
+   return ping;
+ }
+\ No newline at end of file
