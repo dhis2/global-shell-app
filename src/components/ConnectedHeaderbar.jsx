@@ -16,9 +16,6 @@ import { ConfirmUpdateModal } from './ConfirmUpdateModal.jsx'
  */
 
 const APPS_INFO_QUERY = {
-    modules: {
-        resource: 'action::menu/getModules',
-    },
     appMenu: {
         resource: 'apps/menu',
     },
@@ -30,8 +27,12 @@ const APPS_INFO_QUERY = {
     // need to extend app-runtime to get that
 }
 
-const getAppDisplayName = (appName, modules) =>
-    modules.find((m) => m.name === appName).displayName
+const getAppDisplayName = (appName, modules) => {
+    // todo: check this out if core apps get a different naming scheme
+    return modules.find(
+        (m) => m.name === appName || m.name === 'dhis-web-' + appName
+    )?.displayName
+}
 
 export function ConnectedHeaderBar({
     clientPWAUpdateAvailable,
@@ -50,11 +51,11 @@ export function ConnectedHeaderBar({
 
     const appName = React.useMemo(() => {
         if (!params.appName) {
-            // `undefined` defaults to app title in header bar component
+            // `undefined` defaults to app title in header bar component, i.e. "Global Shell"
             return
         }
         if (data) {
-            return getAppDisplayName(params.appName, data.modules.modules)
+            return getAppDisplayName(params.appName, data.appMenu.modules)
         }
         return params.appName
     }, [data, params])
@@ -76,8 +77,6 @@ export function ConnectedHeaderBar({
     ])
 
     const updateAvailable = selfUpdateAvailable || clientPWAUpdateAvailable
-
-    console.log({ appName })
 
     return (
         <>
