@@ -24,41 +24,33 @@ const injectHeaderbarHidingStyles = (event) => {
     }
 }
 
-// Save this so it can be used after browser URL changes
-const originalLocation = new URL(window.location.href)
+// todo: this is kinda duplicated between here and the header bar
+const getAppDefaultAction = (appName, modules) => {
+    // todo: check this out if core apps get a different naming scheme
+    return modules.find(
+        (m) => m.name === appName || m.name === 'dhis-web-' + appName
+    )?.defaultAction
+}
 
-const getPluginSource = async (appName, baseUrl) => {
-    const absoluteBaseUrl = new URL(baseUrl, originalLocation)
+// todo: why is there a request to /apps/undefined?redirect=false
+const newGetPluginSource = async (appName, modules, baseUrl) => {
+    const defaultAction = getAppDefaultAction(appName, modules)
+    const defaultAppUrl = new URL(defaultAction, baseUrl)
+    const pluginifiedAppUrl = new URL('./app.html', defaultAppUrl)
 
-    if (appName.startsWith('dhis-web')) {
-        console.log({ appName })
-
-        // todo: this could be done with smarter apps info API
-        // (neither api/apps/menu nor getModules.action have all correct answers)
-        const relativePath =
-            appName === 'dhis-web-dataentry'
-                ? `./${appName}/index.action`
-                : `./${appName}/`
-        return new URL(relativePath, absoluteBaseUrl).href
-    }
-
-    const appBasePath = appName.startsWith('dhis-web')
-        ? `./${appName}/`
-        : `./api/apps/${appName}/`
-    const appRootUrl = new URL(appBasePath, absoluteBaseUrl)
-    const pluginifiedAppEntrypoint = new URL('./app.html', appRootUrl)
-
-    const pluginifiedAppResponse = await fetch(pluginifiedAppEntrypoint)
+    // Start by trying to load pluginified app
+    const pluginifiedAppResponse = await fetch(pluginifiedAppUrl)
     if (pluginifiedAppResponse.ok) {
-        return pluginifiedAppEntrypoint.href
+        return pluginifiedAppUrl.href
     }
     // If pluginified app is not found, fall back to app root
-    return appRootUrl.href
+    return defaultAction
 }
 
 export const PluginLoader = ({
     setClientPWAUpdateAvailable,
     setOnApplyClientUpdate,
+    appsInfoQuery,
 }) => {
     const params = useParams()
     const location = useLocation()
@@ -73,15 +65,24 @@ export const PluginLoader = ({
     )
 
     React.useEffect(() => {
+        if (!appsInfoQuery.data) {
+            return
+        }
         const asyncWork = async () => {
-            const newPluginSource =
-                params.appName === 'localApp'
-                    ? 'http://localhost:3001/app.html'
-                    : await getPluginSource(params.appName, baseUrl)
+            // for testing: params.appName === 'localApp' ? 'http://localhost:3001/app.html'
+            const newPluginSource = await newGetPluginSource(
+                params.appName,
+                appsInfoQuery.data.appMenu.modules,
+                baseUrl
+            )
             setPluginSource(newPluginSource)
         }
         asyncWork()
-    }, [params.appName, baseUrl])
+    }, [params.appName, baseUrl, appsInfoQuery.data])
+
+    if (!pluginSource) {
+        return 'Loading...' // todo
+    }
 
     return (
         <Plugin
@@ -90,7 +91,7 @@ export const PluginLoader = ({
             // todo: only for apps without header bars
             // height={'calc(100% - 48px)'}
             // pass URL hash down to the client app
-            pluginSource={pluginSource + location.hash}
+            pluginSource={pluginSource + '?redirect=false' + location.hash}
             onLoad={injectHeaderbarHidingStyles}
             // Other props
             reportPWAUpdateStatus={(data) => {
@@ -111,6 +112,7 @@ export const PluginLoader = ({
     )
 }
 PluginLoader.propTypes = {
+    appsInfoQuery: PropTypes.object,
     setClientPWAUpdateAvailable: PropTypes.func,
     setOnApplyClientUpdate: PropTypes.func,
 }

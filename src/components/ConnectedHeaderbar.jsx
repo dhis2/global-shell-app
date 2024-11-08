@@ -1,4 +1,3 @@
-import { useDataQuery } from '@dhis2/app-runtime'
 import { usePWAUpdateState } from '@dhis2/pwa'
 import { HeaderBar } from '@dhis2/ui'
 import PropTypes from 'prop-types'
@@ -15,18 +14,6 @@ import { ConfirmUpdateModal } from './ConfirmUpdateModal.jsx'
  * cause data loss.
  */
 
-const APPS_INFO_QUERY = {
-    appMenu: {
-        resource: 'apps/menu',
-    },
-    apps: {
-        resource: 'apps',
-    },
-    // todo:
-    // want to get versions of installed apps, i.e. /dhis-web-apps/apps-bundle.json
-    // need to extend app-runtime to get that
-}
-
 const getAppDisplayName = (appName, modules) => {
     // todo: check this out if core apps get a different naming scheme
     return modules.find(
@@ -37,8 +24,8 @@ const getAppDisplayName = (appName, modules) => {
 export function ConnectedHeaderBar({
     clientPWAUpdateAvailable,
     onApplyClientUpdate,
+    appsInfoQuery,
 }) {
-    const { data } = useDataQuery(APPS_INFO_QUERY)
     const params = useParams()
     const {
         updateAvailable: selfUpdateAvailable,
@@ -54,11 +41,14 @@ export function ConnectedHeaderBar({
             // `undefined` defaults to app title in header bar component, i.e. "Global Shell"
             return
         }
-        if (data) {
-            return getAppDisplayName(params.appName, data.appMenu.modules)
+        if (appsInfoQuery.data) {
+            return getAppDisplayName(
+                params.appName,
+                appsInfoQuery.data.appMenu.modules
+            )
         }
         return params.appName
-    }, [data, params])
+    }, [appsInfoQuery.data, params])
 
     // Choose the right handler
     const handleApplyAvailableUpdate = React.useMemo(() => {
@@ -99,6 +89,7 @@ export function ConnectedHeaderBar({
     )
 }
 ConnectedHeaderBar.propTypes = {
+    appsInfoQuery: PropTypes.object,
     clientPWAUpdateAvailable: PropTypes.bool,
     onApplyClientUpdate: PropTypes.func,
 }
