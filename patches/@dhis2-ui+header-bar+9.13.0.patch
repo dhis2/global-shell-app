@@ -289,7 +289,7 @@ index f3acf51..ecb74c1 100644
 +  if (inRouterContext) {
 +    // todo: client-side routing scheme
 +    return /*#__PURE__*/React.createElement(Link, {
-+      to: `/app/${name}`,
++      to: `/apps/${name.replace('dhis-web-', '')}`,
 +      className: className
 +    }, children, styles);
 +  }
