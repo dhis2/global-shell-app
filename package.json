@@ -16,18 +16,18 @@
         "del-nm-cache": "rm -rf .d2/shell/node_modules/.cache",
         "cp-plugin": "cp -r ../app-runtime/services/plugin/build node_modules/@dhis2/app-service-plugin/build",
         "cp-offline": "cp -r ../app-runtime/services/offline/build node_modules/@dhis2/app-service-offline/build",
-        "import-plugin": "yarn del-plugin && yarn del-nm-cache && yarn cp-plugin",
+        "import-plugin": "yarn del-plugin && yarn del-nm-cache && yarn cp-plugin && yarn patch-package @dhis2/app-service-plugin",
         "import-offline": "yarn del-offline && yarn del-nm-cache && yarn cp-offline"
     },
     "devDependencies": {
         "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
-        "@dhis2/cli-app-scripts": "^12.0.0-alpha.23",
+        "@dhis2/cli-app-scripts": "^12.3.0",
         "@dhis2/cli-style": "^10.7.5",
         "patch-package": "^8.0.0",
         "postinstall-postinstall": "^2.1.0"
     },
     "dependencies": {
-        "@dhis2/app-runtime": "^3.11.2",
+        "@dhis2/app-runtime": "^3.13.2",
         "@dhis2/pwa": "^12.0.0-alpha.23",
         "@dhis2/ui": "^9.13.0",
         "react-router-dom": "^6.22.0"

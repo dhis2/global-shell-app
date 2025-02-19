@@ -140,7 +140,6 @@ index 0000000..7dea937
 +  };
 +};
 +exports.usePWAUpdateState = usePWAUpdateState;
-\ No newline at end of file
 diff --git a/node_modules/@dhis2/pwa/build/es/index.js b/node_modules/@dhis2/pwa/build/es/index.js
 index 960e2b2..5bbcbff 100644
 --- a/node_modules/@dhis2/pwa/build/es/index.js

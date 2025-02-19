@@ -47,6 +47,8 @@ const newGetPluginSource = async (appName, modules, baseUrl) => {
     return defaultAction
 }
 
+// todo: update page title (html head) with new app
+
 export const PluginLoader = ({
     setClientPWAUpdateAvailable,
     setOnApplyClientUpdate,
