@@ -31,7 +31,7 @@ const injectHeaderbarHidingStyles = (event) => {
 
 // todo: this is kinda duplicated between here and the header bar
 const getAppDefaultAction = (appName, modules) => {
-    // todo: check this out if core apps get a different naming scheme
+    // If core apps get a different naming scheme, this needs revisiting
     return modules.find(
         (m) => m.name === appName || m.name === 'dhis-web-' + appName
     )?.defaultAction
@@ -55,14 +55,16 @@ const newGetPluginSource = async (appName, modules /* baseUrl */) => {
     return defaultAction
 }
 
-// todo:
 const listenToNavigations = (event) => {
-    // todo: persist event?
     const iframe = event?.target || document.querySelector('iframe')
 
     iframe.contentWindow.addEventListener('popstate', (event) => {
+        // Note: this updates the pluginSource on the Plugin component;
+        // check if this causes rerenders. Seems okay in a Dashboard
         console.log({ loc: event.target.location })
-        // notifyParentOfUpdate(event.target.location)
+        window.location.hash = event.target.location.hash
+        // todo: if this is outside this app's scope, navigate out there
+        // (includes other apps and external domains)
     })
 }
 
@@ -102,8 +104,9 @@ export const PluginLoader = ({
     }, [params.appName, baseUrl, appsInfoQuery.data])
 
     const handleLoad = React.useCallback((event) => {
-        console.log('handling load (lol thats what she said)')
+        console.log('handling load', { event })
         injectHeaderbarHidingStyles(event)
+        listenToNavigations(event)
     }, [])
 
     if (!pluginSource) {
