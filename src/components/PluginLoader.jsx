@@ -14,9 +14,13 @@ const injectHeaderbarHidingStyles = (event) => {
         const doc = iframe.contentDocument
         const styleElement = doc.createElement('style')
         styleElement.textContent =
-            'div.app-shell-adapter header { display: none; }'
+            // adapter bar with directional styles
+            'div.app-shell-adapter > div > header,\n' +
+            // older adapter
+            'div.app-shell-adapter > header { display: none; }'
         doc.head.appendChild(styleElement)
     } catch (err) {
+        // todo: hide global shell header bar here, in favor of app's
         console.error(
             'Failed to apply styles to the client app to hide its header bar. ' +
                 'This could be due to the client app being hosted on a different domain.',
@@ -49,6 +53,17 @@ const newGetPluginSource = async (appName, modules /* baseUrl */) => {
 
     // If pluginified app is not found, fall back to app root
     return defaultAction
+}
+
+// todo:
+const listenToNavigations = (event) => {
+    // todo: persist event?
+    const iframe = event?.target || document.querySelector('iframe')
+
+    iframe.contentWindow.addEventListener('popstate', (event) => {
+        console.log({ loc: event.target.location })
+        // notifyParentOfUpdate(event.target.location)
+    })
 }
 
 // todo: update page title (html head) with new app
@@ -86,6 +101,11 @@ export const PluginLoader = ({
         asyncWork()
     }, [params.appName, baseUrl, appsInfoQuery.data])
 
+    const handleLoad = React.useCallback((event) => {
+        console.log('handling load (lol thats what she said)')
+        injectHeaderbarHidingStyles(event)
+    }, [])
+
     if (!pluginSource) {
         return 'Loading...' // todo
     }
@@ -95,7 +115,7 @@ export const PluginLoader = ({
             className={styles.flexGrow}
             // pass URL hash down to the client app
             pluginSource={pluginSource + '?redirect=false' + location.hash}
-            onLoad={injectHeaderbarHidingStyles}
+            onLoad={handleLoad}
             // Other props
             reportPWAUpdateStatus={(data) => {
                 const { updateAvailable, onApplyUpdate } = data
