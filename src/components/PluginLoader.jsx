@@ -4,6 +4,7 @@ import { Plugin } from '@dhis2/app-runtime/experimental'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { useLocation, useParams } from 'react-router-dom'
+import styles from './PluginLoader.module.css'
 
 // Doesn't work on maintenance app
 // Doesn't work cross-domain
@@ -33,16 +34,19 @@ const getAppDefaultAction = (appName, modules) => {
 }
 
 // todo: why is there a request to /apps/undefined?redirect=false
-const newGetPluginSource = async (appName, modules, baseUrl) => {
+const newGetPluginSource = async (appName, modules /* baseUrl */) => {
     const defaultAction = getAppDefaultAction(appName, modules)
-    const defaultAppUrl = new URL(defaultAction, baseUrl)
-    const pluginifiedAppUrl = new URL('./app.html', defaultAppUrl)
 
-    // Start by trying to load pluginified app
-    const pluginifiedAppResponse = await fetch(pluginifiedAppUrl)
-    if (pluginifiedAppResponse.ok) {
-        return pluginifiedAppUrl.href
-    }
+    // todo: app.html handling ----
+    // const defaultAppUrl = new URL(defaultAction, baseUrl)
+    // const pluginifiedAppUrl = new URL('./app.html', defaultAppUrl)
+
+    // Start by trying to load pluginified app, `app.html`
+    // const pluginifiedAppResponse = await fetch(pluginifiedAppUrl)
+    // if (pluginifiedAppResponse.ok) {
+    //     return pluginifiedAppUrl.href
+    // }
+
     // If pluginified app is not found, fall back to app root
     return defaultAction
 }
@@ -88,10 +92,7 @@ export const PluginLoader = ({
 
     return (
         <Plugin
-            width={'100%'}
-            height={'100%'}
-            // todo: only for apps without header bars
-            // height={'calc(100% - 48px)'}
+            className={styles.flexGrow}
             // pass URL hash down to the client app
             pluginSource={pluginSource + '?redirect=false' + location.hash}
             onLoad={injectHeaderbarHidingStyles}
