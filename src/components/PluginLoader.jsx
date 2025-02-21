@@ -87,8 +87,6 @@ const handleExternalNavigation = (iframeLoadEvent, pluginHref) => {
     }
 }
 
-// todo: update page title (html head) with new app
-
 export const PluginLoader = ({
     setClientPWAUpdateAvailable,
     setOnApplyClientUpdate,
