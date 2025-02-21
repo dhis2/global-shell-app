@@ -48,10 +48,12 @@ export function ConnectedHeaderBar({
             return
         }
         if (appsInfoQuery.data) {
-            return getAppDisplayName(
+            const displayName = getAppDisplayName(
                 params.appName,
                 appsInfoQuery.data.appMenu.modules
             )
+            document.title = `${displayName} | DHIS2`
+            return displayName
         }
         return params.appName
     }, [appsInfoQuery.data, params.appName])
