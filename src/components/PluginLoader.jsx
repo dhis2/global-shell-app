@@ -38,7 +38,7 @@ const getAppDefaultAction = (appName, modules) => {
 }
 
 // todo: why is there a request to /apps/undefined?redirect=false
-const newGetPluginSource = async (appName, modules /* baseUrl */) => {
+const getPluginEntrypoint = async (appName, modules /* baseUrl */) => {
     const defaultAction = getAppDefaultAction(appName, modules)
 
     // todo: app.html handling ----
@@ -55,17 +55,36 @@ const newGetPluginSource = async (appName, modules /* baseUrl */) => {
     return defaultAction
 }
 
-const listenToNavigations = (event) => {
+const watchForHashRouteChanges = (event) => {
     const iframe = event?.target || document.querySelector('iframe')
 
     iframe.contentWindow.addEventListener('popstate', (event) => {
         // Note: this updates the pluginSource on the Plugin component;
         // check if this causes rerenders. Seems okay in a Dashboard
-        console.log({ loc: event.target.location })
         window.location.hash = event.target.location.hash
-        // todo: if this is outside this app's scope, navigate out there
-        // (includes other apps and external domains)
     })
+}
+
+/**
+ * If the iframe loads a page that is different from the pluginSource given to
+ * it, navigate the whole page there. This should handle two cases:
+ * 1. The navigation is outside the DHIS2 instance: we want to leave the shell
+ * (this requires access to that page's contentWindow though, which is checked
+ * in the onLoad handler)
+ * 2. The navigation is to another app: the backend will reroute to the global
+ * shell with the right app
+ *
+ * This should be called on `load` events in the iframe, which indicates some
+ * kind of page navigation; this won't trigger on hash route changes.
+ *
+ * Returns `true` if navigating
+ */
+const handleExternalNavigation = (iframeLoadEvent, pluginHref) => {
+    const iframeHref = iframeLoadEvent.target.contentDocument?.location?.href
+    if (iframeHref !== pluginHref) {
+        window.location.href = iframeHref
+        return true
+    }
 }
 
 // todo: update page title (html head) with new app
@@ -78,7 +97,8 @@ export const PluginLoader = ({
     const params = useParams()
     const location = useLocation()
     const { baseUrl } = useConfig()
-    const [pluginSource, setPluginSource] = React.useState()
+    const [pluginEntrypoint, setPluginEntrypoint] = React.useState()
+    const [rerenderKey, setRerenderKey] = React.useState(0)
 
     // test prop messaging and updates
     const [color, setColor] = React.useState('blue')
@@ -87,29 +107,67 @@ export const PluginLoader = ({
         []
     )
 
+    // todo: add query string to entrypoint (e.g. maps /dhis-web-maps/?currentAnalyticalObject=true)
+    // Can use `urlObject.searchParams.append('redirect', 'false')`
+    // (or is this a backend thing?)
     React.useEffect(() => {
         if (!appsInfoQuery.data) {
             return
         }
+        // Performed async to test for index/app entrypoint
         const asyncWork = async () => {
             // for testing: params.appName === 'localApp' ? 'http://localhost:3001/app.html'
-            const newPluginSource = await newGetPluginSource(
+            const newPluginEntrypoint = await getPluginEntrypoint(
                 params.appName,
                 appsInfoQuery.data.appMenu.modules,
                 baseUrl
             )
-            setPluginSource(newPluginSource)
+            setPluginEntrypoint(newPluginEntrypoint)
         }
         asyncWork()
     }, [params.appName, baseUrl, appsInfoQuery.data])
 
-    const handleLoad = React.useCallback((event) => {
-        console.log('handling load', { event })
-        injectHeaderbarHidingStyles(event)
-        listenToNavigations(event)
-    }, [])
+    const pluginHref = React.useMemo(
+        () =>
+            // An absolute URL helps compare to the location inside the iframe:
+            new URL(
+                pluginEntrypoint + '?redirect=false' + location.hash,
+                window.location
+            ).href,
+        [pluginEntrypoint, location.hash]
+    )
 
-    if (!pluginSource) {
+    const handleLoad = React.useCallback(
+        (event) => {
+            console.log('handling load', {
+                event,
+                loc: event.target.contentDocument?.location,
+            })
+
+            // If we can't access the new page's Document, this is a cross-domain page.
+            // Disallow that; return to previous plugin state
+            // todo: figure out some better UI
+            if (!event.target.contentDocument) {
+                setRerenderKey((k) => k + 1)
+                // Timeout so the plugin can reset before this shows
+                setTimeout(() => {
+                    alert(
+                        'Failed to navigate to a URL outside DHIS2. Returned to previous page.'
+                    )
+                }, 400)
+                return
+            }
+
+            if (handleExternalNavigation(event, pluginHref)) {
+                return
+            }
+            injectHeaderbarHidingStyles(event)
+            watchForHashRouteChanges(event)
+        },
+        [pluginHref]
+    )
+
+    if (!pluginHref) {
         return 'Loading...' // todo
     }
 
@@ -117,8 +175,9 @@ export const PluginLoader = ({
         <Plugin
             className={styles.flexGrow}
             // pass URL hash down to the client app
-            pluginSource={pluginSource + '?redirect=false' + location.hash}
+            pluginSource={pluginHref}
             onLoad={handleLoad}
+            key={rerenderKey}
             // Other props
             reportPWAUpdateStatus={(data) => {
                 const { updateAvailable, onApplyUpdate } = data
