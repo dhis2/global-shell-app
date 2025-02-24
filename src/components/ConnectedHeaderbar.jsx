@@ -21,6 +21,12 @@ const getAppDisplayName = (appName, modules) => {
     )?.displayName
 }
 
+// currently, not all core apps are included in the api/apps response
+const getAppVersion = (appName, apps) => {
+    const parsedAppName = appName.replace('dhis-web-', '')
+    return apps.find((a) => a.short_name === parsedAppName)?.version
+}
+
 export function ConnectedHeaderBar({
     clientPWAUpdateAvailable,
     onApplyClientUpdate,
@@ -37,7 +43,7 @@ export function ConnectedHeaderBar({
     } = usePWAUpdateState()
 
     const appName = React.useMemo(() => {
-        if (!params.appName) {
+        if (!params.appName || !appsInfoQuery.data) {
             // `undefined` defaults to app title in header bar component, i.e. "Global Shell"
             return
         }
@@ -48,7 +54,21 @@ export function ConnectedHeaderBar({
             )
         }
         return params.appName
-    }, [appsInfoQuery.data, params])
+    }, [appsInfoQuery.data, params.appName])
+
+    // Set new displayname to page title when it updates
+    React.useEffect(() => {
+        if (appName) {
+            document.title = `${appName} | DHIS2`
+        }
+    }, [appName])
+
+    const appVersion = React.useMemo(() => {
+        if (!params.appName || !appsInfoQuery.data) {
+            return
+        }
+        return getAppVersion(params.appName, appsInfoQuery.data.apps)
+    }, [appsInfoQuery.data, params.appName])
 
     // Choose the right handler
     const handleApplyAvailableUpdate = React.useMemo(() => {
@@ -73,6 +93,8 @@ export function ConnectedHeaderBar({
             <HeaderBar
                 className={'global-shell-header'}
                 appName={appName}
+                // todo: currently not used by the component
+                appVersion={appVersion}
                 updateAvailable={updateAvailable}
                 onApplyAvailableUpdate={handleApplyAvailableUpdate}
             />

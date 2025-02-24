@@ -1,5 +1,5 @@
 diff --git a/node_modules/@dhis2-ui/header-bar/build/cjs/apps.js b/node_modules/@dhis2-ui/header-bar/build/cjs/apps.js
-index aa2629d..6a17e55 100644
+index aa2629d..0979cf6 100644
 --- a/node_modules/@dhis2-ui/header-bar/build/cjs/apps.js
 +++ b/node_modules/@dhis2-ui/header-bar/build/cjs/apps.js
 @@ -10,8 +10,11 @@ var _uiConstants = require("@dhis2/ui-constants");
@@ -37,9 +37,9 @@ index aa2629d..6a17e55 100644
    } = _ref2;
 +  const inRouterContext = (0, _reactRouterDom.useInRouterContext)();
 +  if (inRouterContext) {
-+    // todo: client-side routing scheme
++    // todo: adjust to client-side routing scheme
 +    return /*#__PURE__*/_react.default.createElement(_reactRouterDom.Link, {
-+      to: `/app/${name}`,
++      to: `/apps/${name.replace('dhis-web-', '')}`,
 +      className: className
 +    }, children, styles);
 +  }
@@ -248,7 +248,7 @@ index 56867be..27badf8 100644
    data: customLogoData
  }, /*#__PURE__*/_react.default.createElement(_headerBar.HeaderBar, {
 diff --git a/node_modules/@dhis2-ui/header-bar/build/es/apps.js b/node_modules/@dhis2-ui/header-bar/build/es/apps.js
-index f3acf51..ecb74c1 100644
+index f3acf51..46f0da4 100644
 --- a/node_modules/@dhis2-ui/header-bar/build/es/apps.js
 +++ b/node_modules/@dhis2-ui/header-bar/build/es/apps.js
 @@ -4,8 +4,11 @@ import { colors, spacers, theme } from '@dhis2/ui-constants';
@@ -287,7 +287,7 @@ index f3acf51..ecb74c1 100644
    } = _ref2;
 +  const inRouterContext = useInRouterContext();
 +  if (inRouterContext) {
-+    // todo: client-side routing scheme
++    // todo: adjust to client-side routing scheme
 +    return /*#__PURE__*/React.createElement(Link, {
 +      to: `/apps/${name.replace('dhis-web-', '')}`,
 +      className: className

@@ -24,16 +24,14 @@ const Layout = ({
     appsInfoQuery,
 }) => {
     return (
-        <>
+        <div className={styles.container}>
             <ConnectedHeaderBar
                 clientPWAUpdateAvailable={clientPWAUpdateAvailable}
                 onApplyClientUpdate={onApplyClientUpdate}
                 appsInfoQuery={appsInfoQuery}
             />
-            <div className={styles.container}>
-                <Outlet />
-            </div>
-        </>
+            <Outlet />
+        </div>
     )
 }
 Layout.propTypes = {
