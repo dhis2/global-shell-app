@@ -137,11 +137,6 @@ export const PluginLoader = ({
 
     const handleLoad = React.useCallback(
         (event) => {
-            console.log('handling load', {
-                event,
-                loc: event.target.contentDocument?.location,
-            })
-
             // If we can't access the new page's Document, this is a cross-domain page.
             // Disallow that; return to previous plugin state
             // todo: figure out some better UI
