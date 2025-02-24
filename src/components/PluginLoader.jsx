@@ -1,9 +1,10 @@
-import { useConfig } from '@dhis2/app-runtime'
+import { useAlert, useConfig } from '@dhis2/app-runtime'
 // eslint-disable-next-line import/no-unresolved
 import { Plugin } from '@dhis2/app-runtime/experimental'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { useLocation, useParams } from 'react-router-dom'
+import i18n from '../locales/index.js'
 import styles from './PluginLoader.module.css'
 
 // Doesn't work on maintenance app
@@ -97,6 +98,12 @@ export const PluginLoader = ({
     const { baseUrl } = useConfig()
     const [pluginEntrypoint, setPluginEntrypoint] = React.useState()
     const [rerenderKey, setRerenderKey] = React.useState(0)
+    const { show: showNavigationWarning } = useAlert(
+        i18n.t(
+            'Unable to load the requested page from DHIS2. Returned to previous page.'
+        ),
+        { warning: true }
+    )
 
     // test prop messaging and updates
     const [color, setColor] = React.useState('blue')
@@ -139,15 +146,13 @@ export const PluginLoader = ({
         (event) => {
             // If we can't access the new page's Document, this is a cross-domain page.
             // Disallow that; return to previous plugin state
-            // todo: figure out some better UI
             if (!event.target.contentDocument) {
                 setRerenderKey((k) => k + 1)
-                // Timeout so the plugin can reset before this shows
-                setTimeout(() => {
-                    alert(
-                        'Failed to navigate to a URL outside DHIS2. Returned to previous page.'
-                    )
-                }, 400)
+                showNavigationWarning()
+                console.error(
+                    'The linked page is not accessible by the DHIS2 global shell; returned to previous plugin state. ' +
+                        'This link should be opened in a new tab instead'
+                )
                 return
             }
 
@@ -157,7 +162,7 @@ export const PluginLoader = ({
             injectHeaderbarHidingStyles(event)
             watchForHashRouteChanges(event)
         },
-        [pluginHref]
+        [pluginHref, showNavigationWarning]
     )
 
     if (!pluginHref) {

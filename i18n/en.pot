@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2024-02-28T20:31:49.131Z\n"
-"PO-Revision-Date: 2024-02-28T20:31:49.131Z\n"
+"POT-Creation-Date: 2025-02-24T16:20:00.864Z\n"
+"PO-Revision-Date: 2025-02-24T16:20:00.864Z\n"
 
 msgid "Save your data"
 msgstr "Save your data"
@@ -32,3 +32,6 @@ msgstr "Cancel"
 
 msgid "Reload"
 msgstr "Reload"
+
+msgid "Unable to load the requested page from DHIS2. Returned to previous page."
+msgstr "Unable to load the requested page from DHIS2. Returned to previous page."
