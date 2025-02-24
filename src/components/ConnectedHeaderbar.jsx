@@ -48,16 +48,20 @@ export function ConnectedHeaderBar({
             return
         }
         if (appsInfoQuery.data) {
-            const displayName = getAppDisplayName(
+            return getAppDisplayName(
                 params.appName,
                 appsInfoQuery.data.appMenu.modules
             )
-            // Set new displayname to page title
-            document.title = `${displayName} | DHIS2`
-            return displayName
         }
         return params.appName
     }, [appsInfoQuery.data, params.appName])
+
+    // Set new displayname to page title when it updates
+    React.useEffect(() => {
+        if (appName) {
+            document.title = `${appName} | DHIS2`
+        }
+    }, [appName])
 
     const appVersion = React.useMemo(() => {
         if (!params.appName || !appsInfoQuery.data) {
