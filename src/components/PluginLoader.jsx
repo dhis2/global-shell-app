@@ -43,6 +43,7 @@ const getPluginEntrypoint = async (appName, modules /* baseUrl */) => {
     const defaultAction = getAppDefaultAction(appName, modules)
 
     // todo: app.html handling ----
+    // todo: this could be better if this can be detected from app entrypoints API
     // const defaultAppUrl = new URL(defaultAction, baseUrl)
     // const pluginifiedAppUrl = new URL('./app.html', defaultAppUrl)
 
@@ -120,6 +121,7 @@ export const PluginLoader = ({
             return
         }
         // Performed async to test for index/app entrypoint
+        // todo: this could be better if this can be detected from app entrypoints API
         const asyncWork = async () => {
             // for testing: params.appName === 'localApp' ? 'http://localhost:3001/app.html'
             const newPluginEntrypoint = await getPluginEntrypoint(
@@ -132,15 +134,14 @@ export const PluginLoader = ({
         asyncWork()
     }, [params.appName, baseUrl, appsInfoQuery.data])
 
-    const pluginHref = React.useMemo(
-        () =>
-            // An absolute URL helps compare to the location inside the iframe:
-            new URL(
-                pluginEntrypoint + '?redirect=false' + location.hash,
-                window.location
-            ).href,
-        [pluginEntrypoint, location.hash]
-    )
+    const pluginHref = React.useMemo(() => {
+        // An absolute URL helps compare to the location inside the iframe:
+        const pluginUrl = new URL(pluginEntrypoint, window.location)
+        pluginUrl.hash = location.hash
+        pluginUrl.search = location.search
+        pluginUrl.searchParams.append('redirect', 'false')
+        return pluginUrl.href
+    }, [pluginEntrypoint, location.hash, location.search])
 
     const handleLoad = React.useCallback(
         (event) => {
