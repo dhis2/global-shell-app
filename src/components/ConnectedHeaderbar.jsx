@@ -52,6 +52,7 @@ export function ConnectedHeaderBar({
                 params.appName,
                 appsInfoQuery.data.appMenu.modules
             )
+            // Set new displayname to page title
             document.title = `${displayName} | DHIS2`
             return displayName
         }
