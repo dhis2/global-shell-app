@@ -181,10 +181,10 @@ index 0000000..69178fb
 +};
 \ No newline at end of file
 diff --git a/node_modules/@dhis2/app-adapter/build/cjs/components/ServerVersionProvider.js b/node_modules/@dhis2/app-adapter/build/cjs/components/ServerVersionProvider.js
-index 1003086..d531b84 100644
+index 1003086..6678085 100644
 --- a/node_modules/@dhis2/app-adapter/build/cjs/components/ServerVersionProvider.js
 +++ b/node_modules/@dhis2/app-adapter/build/cjs/components/ServerVersionProvider.js
-@@ -12,10 +12,11 @@ var _api = require("../utils/api.js");
+@@ -12,7 +12,6 @@ var _api = require("../utils/api.js");
  var _parseVersion = require("../utils/parseVersion.js");
  var _LoadingMask = require("./LoadingMask.js");
  var _LoginModal = require("./LoginModal.js");
@@ -192,12 +192,16 @@ index 1003086..d531b84 100644
  function _getRequireWildcardCache(e) { if ("function" != typeof WeakMap) return null; var r = new WeakMap(), t = new WeakMap(); return (_getRequireWildcardCache = function (e) { return e ? t : r; })(e); }
  function _interopRequireWildcard(e, r) { if (!r && e && e.__esModule) return e; if (null === e || "object" != typeof e && "function" != typeof e) return { default: e }; var t = _getRequireWildcardCache(r); if (t && t.has(e)) return t.get(e); var n = { __proto__: null }, a = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var u in e) if ("default" !== u && {}.hasOwnProperty.call(e, u)) { var i = a ? Object.getOwnPropertyDescriptor(e, u) : null; i && (i.get || i.set) ? Object.defineProperty(n, u, i) : n[u] = e[u]; } return n.default = e, t && t.set(e, n), n; }
  function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
-+// Save this location so that it's usable after client-side navigations
-+const originalWindowLocation = new URL(window.location);
- const ServerVersionProvider = _ref => {
-   let {
+@@ -21,7 +20,7 @@ const ServerVersionProvider = _ref => {
      appName,
-@@ -30,7 +31,7 @@ const ServerVersionProvider = _ref => {
+     appVersion,
+     url,
+-    // url from env vars
++    // url from env vars or index.html interpolation
+     apiVersion,
+     pwaEnabled,
+     plugin,
+@@ -30,7 +29,7 @@ const ServerVersionProvider = _ref => {
      loginApp,
      children
    } = _ref;
@@ -206,25 +210,6 @@ index 1003086..d531b84 100644
    const [systemInfoState, setSystemInfoState] = (0, _react.useState)({
      loading: true,
      error: undefined,
-@@ -173,13 +174,17 @@ const ServerVersionProvider = _ref => {
-   if (systemInfoState.loading || baseUrlState.loading || offlineInterfaceLoading) {
-     return /*#__PURE__*/_react.default.createElement(_LoadingMask.LoadingMask, null);
-   }
-+
-+  // Make sure the base URL is absolute to avoid errors with relative URLs after
-+  // client-side navigation/route changes
-+  const absoluteBaseUrl = new URL(baseUrl, originalWindowLocation).href;
-   const serverVersion = (0, _parseVersion.parseDHIS2ServerVersion)(systemInfo.version);
-   const realApiVersion = serverVersion.minor;
-   return /*#__PURE__*/_react.default.createElement(_appRuntime.Provider, {
-     config: {
-       appName,
-       appVersion: (0, _parseVersion.parseVersion)(appVersion),
--      baseUrl,
-+      baseUrl: absoluteBaseUrl,
-       apiVersion: apiVersion || realApiVersion,
-       serverVersion,
-       systemInfo,
 diff --git a/node_modules/@dhis2/app-adapter/build/cjs/index.js b/node_modules/@dhis2/app-adapter/build/cjs/index.js
 index 173de2b..55421ae 100644
 --- a/node_modules/@dhis2/app-adapter/build/cjs/index.js
@@ -482,10 +467,10 @@ index 0000000..cb9bdd7
 +};
 \ No newline at end of file
 diff --git a/node_modules/@dhis2/app-adapter/build/es/components/ServerVersionProvider.js b/node_modules/@dhis2/app-adapter/build/es/components/ServerVersionProvider.js
-index 6d0e69b..9fc16e1 100644
+index 6d0e69b..e437669 100644
 --- a/node_modules/@dhis2/app-adapter/build/es/components/ServerVersionProvider.js
 +++ b/node_modules/@dhis2/app-adapter/build/es/components/ServerVersionProvider.js
-@@ -1,12 +1,14 @@
+@@ -1,18 +1,17 @@
  import { Provider } from '@dhis2/app-runtime';
 -import { getBaseUrlByAppName, setBaseUrlByAppName } from '@dhis2/pwa';
 +import { getBaseUrlByAppName, setBaseUrlByAppName, useOfflineInterface } from '@dhis2/pwa';
@@ -496,31 +481,16 @@ index 6d0e69b..9fc16e1 100644
  import { LoadingMask } from './LoadingMask.js';
  import { LoginModal } from './LoginModal.js';
 -import { useOfflineInterface } from './OfflineInterfaceContext.js';
-+
-+// Save this location so that it's usable after client-side navigations
-+const originalWindowLocation = new URL(window.location);
  export const ServerVersionProvider = _ref => {
    let {
      appName,
-@@ -164,13 +166,17 @@ export const ServerVersionProvider = _ref => {
-   if (systemInfoState.loading || baseUrlState.loading || offlineInterfaceLoading) {
-     return /*#__PURE__*/React.createElement(LoadingMask, null);
-   }
-+
-+  // Make sure the base URL is absolute to avoid errors with relative URLs after
-+  // client-side navigation/route changes
-+  const absoluteBaseUrl = new URL(baseUrl, originalWindowLocation).href;
-   const serverVersion = parseDHIS2ServerVersion(systemInfo.version);
-   const realApiVersion = serverVersion.minor;
-   return /*#__PURE__*/React.createElement(Provider, {
-     config: {
-       appName,
-       appVersion: parseVersion(appVersion),
--      baseUrl,
-+      baseUrl: absoluteBaseUrl,
-       apiVersion: apiVersion || realApiVersion,
-       serverVersion,
-       systemInfo,
+     appVersion,
+     url,
+-    // url from env vars
++    // url from env vars or index.html interpolation
+     apiVersion,
+     pwaEnabled,
+     plugin,
 diff --git a/node_modules/@dhis2/app-adapter/build/es/index.js b/node_modules/@dhis2/app-adapter/build/es/index.js
 index f440aee..a3f9d52 100644
 --- a/node_modules/@dhis2/app-adapter/build/es/index.js
