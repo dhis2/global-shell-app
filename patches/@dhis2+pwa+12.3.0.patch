@@ -50,7 +50,6 @@ index 571bd0e..e76af42 100644
  var _baseUrlDb = require("./lib/base-url-db.js");
 +var _OfflineInterfaceContext = require("./react/OfflineInterfaceContext.js");
 +var _usePWAUpdateState = require("./react/usePWAUpdateState.js");
-\ No newline at end of file
 diff --git a/node_modules/@dhis2/pwa/build/cjs/lib/registration.js b/node_modules/@dhis2/pwa/build/cjs/lib/registration.js
 index 1900021..12bbf3a 100644
 --- a/node_modules/@dhis2/pwa/build/cjs/lib/registration.js
@@ -267,7 +266,6 @@ index 0000000..27d57bd
 +  }
 +}
 +exports.ClientOfflineInterface = ClientOfflineInterface;
-\ No newline at end of file
 diff --git a/node_modules/@dhis2/pwa/build/cjs/offline-interface/offline-interface.js b/node_modules/@dhis2/pwa/build/cjs/offline-interface/offline-interface.js
 index 1eb2131..abc4d1d 100644
 --- a/node_modules/@dhis2/pwa/build/cjs/offline-interface/offline-interface.js
@@ -323,7 +321,6 @@ index 0000000..2d465d7
 +};
 +const useOfflineInterface = () => (0, _react.useContext)(OfflineInterfaceContext);
 +exports.useOfflineInterface = useOfflineInterface;
-\ No newline at end of file
 diff --git a/node_modules/@dhis2/pwa/build/cjs/react/usePWAUpdateState.js b/node_modules/@dhis2/pwa/build/cjs/react/usePWAUpdateState.js
 new file mode 100644
 index 0000000..7dea937
@@ -386,7 +383,6 @@ index 0000000..7dea937
 +  };
 +};
 +exports.usePWAUpdateState = usePWAUpdateState;
-\ No newline at end of file
 diff --git a/node_modules/@dhis2/pwa/build/cjs/service-worker/set-up-service-worker.js b/node_modules/@dhis2/pwa/build/cjs/service-worker/set-up-service-worker.js
 index 6fbacf8..948b93a 100644
 --- a/node_modules/@dhis2/pwa/build/cjs/service-worker/set-up-service-worker.js
@@ -422,7 +418,6 @@ index 960e2b2..258c0a5 100644
  export { getBaseUrlByAppName, setBaseUrlByAppName } from './lib/base-url-db.js';
 +export { OfflineInterfaceProvider, useOfflineInterface } from './react/OfflineInterfaceContext.js';
 +export { usePWAUpdateState } from './react/usePWAUpdateState.js';
-\ No newline at end of file
 diff --git a/node_modules/@dhis2/pwa/build/es/lib/registration.js b/node_modules/@dhis2/pwa/build/es/lib/registration.js
 index dcbe2e9..7e3d631 100644
 --- a/node_modules/@dhis2/pwa/build/es/lib/registration.js
@@ -632,7 +627,6 @@ index 0000000..ea0911b
 +    });
 +  }
 +}
-\ No newline at end of file
 diff --git a/node_modules/@dhis2/pwa/build/es/offline-interface/offline-interface.js b/node_modules/@dhis2/pwa/build/es/offline-interface/offline-interface.js
 index a4d56d2..cfd072e 100644
 --- a/node_modules/@dhis2/pwa/build/es/offline-interface/offline-interface.js
@@ -677,7 +671,6 @@ index 0000000..ed7d292
 +  children: PropTypes.node
 +};
 +export const useOfflineInterface = () => useContext(OfflineInterfaceContext);
-\ No newline at end of file
 diff --git a/node_modules/@dhis2/pwa/build/es/react/usePWAUpdateState.js b/node_modules/@dhis2/pwa/build/es/react/usePWAUpdateState.js
 new file mode 100644
 index 0000000..4f11c97
@@ -733,7 +726,6 @@ index 0000000..4f11c97
 +    onCancelUpdate
 +  };
 +};
-\ No newline at end of file
 diff --git a/node_modules/@dhis2/pwa/build/es/service-worker/set-up-service-worker.js b/node_modules/@dhis2/pwa/build/es/service-worker/set-up-service-worker.js
 index d6cd040..1b82e6d 100644
 --- a/node_modules/@dhis2/pwa/build/es/service-worker/set-up-service-worker.js
