@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import { useParams } from 'react-router-dom'
 import { useClientPWAUpdateState } from '../lib/clientPWAUpdateState.jsx'
-import { ConfirmUpdateModal } from './ConfirmUpdateModal.jsx'
+import { ConfirmUpdateModal } from './ConfirmUpdateModal.tsx'
 
 /**
  * Copied from ConnectedHeaderBar in app adapter:

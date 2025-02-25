@@ -30,9 +30,11 @@
     },
     "devDependencies": {
         "@dhis2/cli-app-scripts": "^12.3.0",
-        "@dhis2/cli-style": "^10.7.5",
+        "@dhis2/cli-style": "^10.7.6",
+        "@types/react": "^19.0.10",
         "patch-package": "^8.0.0",
-        "postinstall-postinstall": "^2.1.0"
+        "postinstall-postinstall": "^2.1.0",
+        "typescript": "^5.7.3"
     },
     "dependencies": {
         "@dhis2/app-runtime": "^3.14.0",
