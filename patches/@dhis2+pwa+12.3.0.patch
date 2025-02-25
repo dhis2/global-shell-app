@@ -1,20 +1,8 @@
 diff --git a/node_modules/@dhis2/pwa/build/cjs/index.js b/node_modules/@dhis2/pwa/build/cjs/index.js
-index 571bd0e..e76af42 100644
+index 571bd0e..163b12e 100644
 --- a/node_modules/@dhis2/pwa/build/cjs/index.js
 +++ b/node_modules/@dhis2/pwa/build/cjs/index.js
-@@ -3,12 +3,24 @@
- Object.defineProperty(exports, "__esModule", {
-   value: true
- });
-+Object.defineProperty(exports, "ClientOfflineInterface", {
-+  enumerable: true,
-+  get: function () {
-+    return _clientOfflineInterface.ClientOfflineInterface;
-+  }
-+});
- Object.defineProperty(exports, "OfflineInterface", {
-   enumerable: true,
-   get: function () {
+@@ -9,6 +9,18 @@ Object.defineProperty(exports, "OfflineInterface", {
      return _offlineInterface.OfflineInterface;
    }
  });
@@ -22,6 +10,12 @@ index 571bd0e..e76af42 100644
 +  enumerable: true,
 +  get: function () {
 +    return _OfflineInterfaceContext.OfflineInterfaceProvider;
++  }
++});
++Object.defineProperty(exports, "PWAUpdateOfflineInterface", {
++  enumerable: true,
++  get: function () {
++    return _pwaUpdateOfflineInterface.PWAUpdateOfflineInterface;
 +  }
 +});
  Object.defineProperty(exports, "REGISTRATION_STATE_ACTIVE", {
@@ -45,41 +39,53 @@ index 571bd0e..e76af42 100644
 +});
  var _setUpServiceWorker = require("./service-worker/set-up-service-worker.js");
  var _offlineInterface = require("./offline-interface/offline-interface.js");
-+var _clientOfflineInterface = require("./offline-interface/client-offline-interface.js");
++var _pwaUpdateOfflineInterface = require("./offline-interface/pwa-update-offline-interface.js");
  var _registration = require("./lib/registration.js");
  var _baseUrlDb = require("./lib/base-url-db.js");
 +var _OfflineInterfaceContext = require("./react/OfflineInterfaceContext.js");
 +var _usePWAUpdateState = require("./react/usePWAUpdateState.js");
 diff --git a/node_modules/@dhis2/pwa/build/cjs/lib/registration.js b/node_modules/@dhis2/pwa/build/cjs/lib/registration.js
-index 1900021..12bbf3a 100644
+index 1900021..7e3574b 100644
 --- a/node_modules/@dhis2/pwa/build/cjs/lib/registration.js
 +++ b/node_modules/@dhis2/pwa/build/cjs/lib/registration.js
-@@ -38,15 +38,21 @@ async function getRegistrationState() {
+@@ -36,16 +36,32 @@ async function getRegistrationState() {
+     return REGISTRATION_STATE_ACTIVE;
+   }
  }
++
++/**
++ * Can receive a specific SW instance to check for updates on, e.g. for a
++ * plugin window. Defaults to this window's navigator.serviceWorker.
++ * onUpdate is called with `{ registration }`
++ */
  async function checkForUpdates(_ref) {
    let {
 -    onUpdate
 +    onUpdate,
-+    serviceWorker: customServiceWorker
++    targetServiceWorker
    } = _ref;
 -  if (!('serviceWorker' in navigator)) {
-+  if (!('serviceWorker' in navigator) && !customServiceWorker) {
++  if (!('serviceWorker' in navigator) && !targetServiceWorker) {
      return;
    }
 -  const registration = await navigator.serviceWorker.getRegistration();
-+  const serviceWorker = customServiceWorker || navigator.serviceWorker;
-+  const registration = await serviceWorker.getRegistration();
++  const serviceWorker = targetServiceWorker || navigator.serviceWorker;
++  let registration = await serviceWorker.getRegistration();
    if (registration === undefined) {
-     return;
+-    return;
++    // This could have raced before the call to `serviceWorker.register()`;
++    // wait and try again. Testing with a 20x CPU throttling in Chrome,
++    // 500 ms works on an M3 max macbook pro
++    await new Promise(r => setTimeout(r, 500));
++    registration = await serviceWorker.getRegistration();
++    if (registration === undefined) {
++      // Still didn't find it; probably not a PWA app.
++      return;
++    }
    }
-+  console.log('checkForUpdates', {
-+    registration,
-+    serviceWorker
-+  });
    function handleWaitingSW() {
      console.log('New content is available and will be used when all tabs for this page are closed.');
- 
-@@ -76,21 +82,22 @@ async function checkForUpdates(_ref) {
+@@ -76,21 +92,21 @@ async function checkForUpdates(_ref) {
    // callback doesn't get called in that case. Handle that here:
    if (registration.waiting) {
      handleWaitingSW();
@@ -92,7 +98,6 @@ index 1900021..12bbf3a 100644
      if (installingWorker) {
 -      installingWorker.onstatechange = () => {
 -        if (installingWorker.state === 'installed' && navigator.serviceWorker.controller) {
-+      // installingWorker.onstatechange = () => {
 +      installingWorker.addEventListener('statechange', () => {
 +        if (installingWorker.state === 'installed' && serviceWorker.controller) {
            // SW is waiting to become active
@@ -107,32 +112,33 @@ index 1900021..12bbf3a 100644
      }
    }
  
-@@ -100,7 +107,8 @@ async function checkForUpdates(_ref) {
+@@ -100,7 +116,7 @@ async function checkForUpdates(_ref) {
    }
  
    // If a new service worker will be installed:
 -  registration.onupdatefound = handleInstallingWorker;
 +  registration.addEventListener('updatefound', handleInstallingWorker);
-+  // registration.onupdatefound = handleInstallingWorker
  }
  
  /**
-diff --git a/node_modules/@dhis2/pwa/build/cjs/offline-interface/client-offline-interface.js b/node_modules/@dhis2/pwa/build/cjs/offline-interface/client-offline-interface.js
+diff --git a/node_modules/@dhis2/pwa/build/cjs/offline-interface/pwa-update-offline-interface.js b/node_modules/@dhis2/pwa/build/cjs/offline-interface/pwa-update-offline-interface.js
 new file mode 100644
-index 0000000..27d57bd
+index 0000000..334c888
 --- /dev/null
-+++ b/node_modules/@dhis2/pwa/build/cjs/offline-interface/client-offline-interface.js
-@@ -0,0 +1,143 @@
++++ b/node_modules/@dhis2/pwa/build/cjs/offline-interface/pwa-update-offline-interface.js
+@@ -0,0 +1,140 @@
 +"use strict";
 +
 +Object.defineProperty(exports, "__esModule", {
 +  value: true
 +});
-+exports.ClientOfflineInterface = void 0;
++exports.PWAUpdateOfflineInterface = void 0;
 +var _events = _interopRequireDefault(require("events"));
 +var _constants = require("../lib/constants.js");
 +var _registration = require("../lib/registration.js");
 +function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
++// todo: this could be used as a base for the other, larger offline interface
++
 +/**
 + * This and the following 'test' functions test for PWA features and log errors
 + * if there's an issue so they can be reused in the Offline Interface methods.
@@ -143,30 +149,29 @@ index 0000000..27d57bd
 + */
 +function testSWAvailable(_ref) {
 +  let {
-+    clientWindow
++    targetWindow = window
 +  } = _ref;
-+  if ('serviceWorker' in clientWindow.navigator) {
++  if ('serviceWorker' in targetWindow.navigator) {
 +    return true;
 +  }
-+  const msg = (!window.isSecureContext ? 'This window is not a secure context -- see https://developer.mozilla.org/en-US/docs/Web/Security/Secure_Contexts.' : '`serviceWorker` is not available on `navigator`.') + ' PWA features will not work.';
++  const msg = (!targetWindow.isSecureContext ? 'This window is not a secure context -- see https://developer.mozilla.org/en-US/docs/Web/Security/Secure_Contexts.' : '`serviceWorker` is not available on `navigator`.') + ' PWA features will not work.';
 +  console.error(new Error(msg));
 +  return false;
 +}
 +
-+// todo: finish comment
-+/** This exposes an interface to  */
-+class ClientOfflineInterface {
++/** This exposes an interface to check a  */
++class PWAUpdateOfflineInterface {
 +  constructor(_ref2) {
 +    let {
-+      clientWindow
++      targetWindow = window
 +    } = _ref2;
 +    if (!testSWAvailable({
-+      clientWindow
++      targetWindow
 +    })) {
 +      return;
 +    }
-+    this.clientWindow = clientWindow;
-+    this.serviceWorker = clientWindow.navigator.serviceWorker;
++    this.targetWindow = targetWindow;
++    this.serviceWorker = targetWindow.navigator.serviceWorker;
 +
 +    // This event emitter helps coordinate with service worker messages
 +    this.offlineEvents = new _events.default();
@@ -190,10 +195,9 @@ index 0000000..27d57bd
 +      onNewSW
 +    } = _ref3;
 +    // Check for SW updates (or first activation)
-+    // todo: test custom SW object
 +    (0, _registration.checkForUpdates)({
 +      onUpdate: onNewSW,
-+      serviceWorker: this.serviceWorker
++      targetServiceWorker: this.serviceWorker
 +    });
 +  }
 +
@@ -203,14 +207,13 @@ index 0000000..27d57bd
 +   */
 +  getClientsInfo() {
 +    if (!testSWAvailable({
-+      clientWindow: this.clientWindow
++      targetWindow: this.targetWindow
 +    })) {
 +      return Promise.resolve({
 +        clientsCount: 0
 +      });
 +    }
 +    return new Promise((resolve, reject) => {
-+      // todo: test custom SW object
 +      this.serviceWorker.getRegistration().then(registration => {
 +        const newestSW = (registration === null || registration === void 0 ? void 0 : registration.waiting) || (registration === null || registration === void 0 ? void 0 : registration.active);
 +        if (!newestSW) {
@@ -241,12 +244,10 @@ index 0000000..27d57bd
 +   */
 +  useNewSW() {
 +    if (!testSWAvailable({
-+      clientWindow: this.clientWindow
++      targetWindow: this.targetWindow
 +    })) {
 +      return Promise.resolve();
 +    }
-+
-+    // todo: test custom SW object
 +    return this.serviceWorker.getRegistration().then(registration => {
 +      if (!registration) {
 +        throw new Error('No service worker is registered');
@@ -265,19 +266,7 @@ index 0000000..27d57bd
 +    });
 +  }
 +}
-+exports.ClientOfflineInterface = ClientOfflineInterface;
-diff --git a/node_modules/@dhis2/pwa/build/cjs/offline-interface/offline-interface.js b/node_modules/@dhis2/pwa/build/cjs/offline-interface/offline-interface.js
-index 1eb2131..abc4d1d 100644
---- a/node_modules/@dhis2/pwa/build/cjs/offline-interface/offline-interface.js
-+++ b/node_modules/@dhis2/pwa/build/cjs/offline-interface/offline-interface.js
-@@ -201,6 +201,7 @@ class OfflineInterface {
-         throw new Error('No service worker is registered');
-       }
-       if (registration.waiting) {
-+        console.log('old OI -- skippingn waiting');
-         // Update existing service worker
-         registration.waiting.postMessage({
-           type: _constants.swMsgs.skipWaiting
++exports.PWAUpdateOfflineInterface = PWAUpdateOfflineInterface;
 diff --git a/node_modules/@dhis2/pwa/build/cjs/react/OfflineInterfaceContext.js b/node_modules/@dhis2/pwa/build/cjs/react/OfflineInterfaceContext.js
 new file mode 100644
 index 0000000..2d465d7
@@ -407,47 +396,59 @@ index 6fbacf8..948b93a 100644
        let {
          request
 diff --git a/node_modules/@dhis2/pwa/build/es/index.js b/node_modules/@dhis2/pwa/build/es/index.js
-index 960e2b2..258c0a5 100644
+index 960e2b2..bacd6a9 100644
 --- a/node_modules/@dhis2/pwa/build/es/index.js
 +++ b/node_modules/@dhis2/pwa/build/es/index.js
 @@ -1,4 +1,7 @@
  export { setUpServiceWorker } from './service-worker/set-up-service-worker.js';
  export { OfflineInterface } from './offline-interface/offline-interface.js';
-+export { ClientOfflineInterface } from './offline-interface/client-offline-interface.js';
++export { PWAUpdateOfflineInterface } from './offline-interface/pwa-update-offline-interface.js';
  export { checkForUpdates, checkForSWUpdateAndReload, getRegistrationState, REGISTRATION_STATE_UNREGISTERED, REGISTRATION_STATE_WAITING, REGISTRATION_STATE_ACTIVE, REGISTRATION_STATE_FIRST_ACTIVATION } from './lib/registration.js';
  export { getBaseUrlByAppName, setBaseUrlByAppName } from './lib/base-url-db.js';
 +export { OfflineInterfaceProvider, useOfflineInterface } from './react/OfflineInterfaceContext.js';
 +export { usePWAUpdateState } from './react/usePWAUpdateState.js';
 diff --git a/node_modules/@dhis2/pwa/build/es/lib/registration.js b/node_modules/@dhis2/pwa/build/es/lib/registration.js
-index dcbe2e9..7e3d631 100644
+index dcbe2e9..a3d91e8 100644
 --- a/node_modules/@dhis2/pwa/build/es/lib/registration.js
 +++ b/node_modules/@dhis2/pwa/build/es/lib/registration.js
-@@ -27,15 +27,21 @@ export async function getRegistrationState() {
+@@ -25,16 +25,32 @@ export async function getRegistrationState() {
+     return REGISTRATION_STATE_ACTIVE;
+   }
  }
++
++/**
++ * Can receive a specific SW instance to check for updates on, e.g. for a
++ * plugin window. Defaults to this window's navigator.serviceWorker.
++ * onUpdate is called with `{ registration }`
++ */
  export async function checkForUpdates(_ref) {
    let {
 -    onUpdate
 +    onUpdate,
-+    serviceWorker: customServiceWorker
++    targetServiceWorker
    } = _ref;
 -  if (!('serviceWorker' in navigator)) {
-+  if (!('serviceWorker' in navigator) && !customServiceWorker) {
++  if (!('serviceWorker' in navigator) && !targetServiceWorker) {
      return;
    }
 -  const registration = await navigator.serviceWorker.getRegistration();
-+  const serviceWorker = customServiceWorker || navigator.serviceWorker;
-+  const registration = await serviceWorker.getRegistration();
++  const serviceWorker = targetServiceWorker || navigator.serviceWorker;
++  let registration = await serviceWorker.getRegistration();
    if (registration === undefined) {
-     return;
+-    return;
++    // This could have raced before the call to `serviceWorker.register()`;
++    // wait and try again. Testing with a 20x CPU throttling in Chrome,
++    // 500 ms works on an M3 max macbook pro
++    await new Promise(r => setTimeout(r, 500));
++    registration = await serviceWorker.getRegistration();
++    if (registration === undefined) {
++      // Still didn't find it; probably not a PWA app.
++      return;
++    }
    }
-+  console.log('checkForUpdates', {
-+    registration,
-+    serviceWorker
-+  });
    function handleWaitingSW() {
      console.log('New content is available and will be used when all tabs for this page are closed.');
- 
-@@ -65,21 +71,22 @@ export async function checkForUpdates(_ref) {
+@@ -65,21 +81,21 @@ export async function checkForUpdates(_ref) {
    // callback doesn't get called in that case. Handle that here:
    if (registration.waiting) {
      handleWaitingSW();
@@ -460,7 +461,6 @@ index dcbe2e9..7e3d631 100644
      if (installingWorker) {
 -      installingWorker.onstatechange = () => {
 -        if (installingWorker.state === 'installed' && navigator.serviceWorker.controller) {
-+      // installingWorker.onstatechange = () => {
 +      installingWorker.addEventListener('statechange', () => {
 +        if (installingWorker.state === 'installed' && serviceWorker.controller) {
            // SW is waiting to become active
@@ -475,25 +475,26 @@ index dcbe2e9..7e3d631 100644
      }
    }
  
-@@ -89,7 +96,8 @@ export async function checkForUpdates(_ref) {
+@@ -89,7 +105,7 @@ export async function checkForUpdates(_ref) {
    }
  
    // If a new service worker will be installed:
 -  registration.onupdatefound = handleInstallingWorker;
 +  registration.addEventListener('updatefound', handleInstallingWorker);
-+  // registration.onupdatefound = handleInstallingWorker
  }
  
  /**
-diff --git a/node_modules/@dhis2/pwa/build/es/offline-interface/client-offline-interface.js b/node_modules/@dhis2/pwa/build/es/offline-interface/client-offline-interface.js
+diff --git a/node_modules/@dhis2/pwa/build/es/offline-interface/pwa-update-offline-interface.js b/node_modules/@dhis2/pwa/build/es/offline-interface/pwa-update-offline-interface.js
 new file mode 100644
-index 0000000..ea0911b
+index 0000000..b5e5147
 --- /dev/null
-+++ b/node_modules/@dhis2/pwa/build/es/offline-interface/client-offline-interface.js
-@@ -0,0 +1,136 @@
++++ b/node_modules/@dhis2/pwa/build/es/offline-interface/pwa-update-offline-interface.js
+@@ -0,0 +1,133 @@
 +import EventEmitter from 'events';
 +import { swMsgs } from '../lib/constants.js';
 +import { checkForUpdates } from '../lib/registration.js';
++
++// todo: this could be used as a base for the other, larger offline interface
 +
 +/**
 + * This and the following 'test' functions test for PWA features and log errors
@@ -505,30 +506,29 @@ index 0000000..ea0911b
 + */
 +function testSWAvailable(_ref) {
 +  let {
-+    clientWindow
++    targetWindow = window
 +  } = _ref;
-+  if ('serviceWorker' in clientWindow.navigator) {
++  if ('serviceWorker' in targetWindow.navigator) {
 +    return true;
 +  }
-+  const msg = (!window.isSecureContext ? 'This window is not a secure context -- see https://developer.mozilla.org/en-US/docs/Web/Security/Secure_Contexts.' : '`serviceWorker` is not available on `navigator`.') + ' PWA features will not work.';
++  const msg = (!targetWindow.isSecureContext ? 'This window is not a secure context -- see https://developer.mozilla.org/en-US/docs/Web/Security/Secure_Contexts.' : '`serviceWorker` is not available on `navigator`.') + ' PWA features will not work.';
 +  console.error(new Error(msg));
 +  return false;
 +}
 +
-+// todo: finish comment
-+/** This exposes an interface to  */
-+export class ClientOfflineInterface {
++/** This exposes an interface to check a  */
++export class PWAUpdateOfflineInterface {
 +  constructor(_ref2) {
 +    let {
-+      clientWindow
++      targetWindow = window
 +    } = _ref2;
 +    if (!testSWAvailable({
-+      clientWindow
++      targetWindow
 +    })) {
 +      return;
 +    }
-+    this.clientWindow = clientWindow;
-+    this.serviceWorker = clientWindow.navigator.serviceWorker;
++    this.targetWindow = targetWindow;
++    this.serviceWorker = targetWindow.navigator.serviceWorker;
 +
 +    // This event emitter helps coordinate with service worker messages
 +    this.offlineEvents = new EventEmitter();
@@ -552,10 +552,9 @@ index 0000000..ea0911b
 +      onNewSW
 +    } = _ref3;
 +    // Check for SW updates (or first activation)
-+    // todo: test custom SW object
 +    checkForUpdates({
 +      onUpdate: onNewSW,
-+      serviceWorker: this.serviceWorker
++      targetServiceWorker: this.serviceWorker
 +    });
 +  }
 +
@@ -565,14 +564,13 @@ index 0000000..ea0911b
 +   */
 +  getClientsInfo() {
 +    if (!testSWAvailable({
-+      clientWindow: this.clientWindow
++      targetWindow: this.targetWindow
 +    })) {
 +      return Promise.resolve({
 +        clientsCount: 0
 +      });
 +    }
 +    return new Promise((resolve, reject) => {
-+      // todo: test custom SW object
 +      this.serviceWorker.getRegistration().then(registration => {
 +        const newestSW = (registration === null || registration === void 0 ? void 0 : registration.waiting) || (registration === null || registration === void 0 ? void 0 : registration.active);
 +        if (!newestSW) {
@@ -603,12 +601,10 @@ index 0000000..ea0911b
 +   */
 +  useNewSW() {
 +    if (!testSWAvailable({
-+      clientWindow: this.clientWindow
++      targetWindow: this.targetWindow
 +    })) {
 +      return Promise.resolve();
 +    }
-+
-+    // todo: test custom SW object
 +    return this.serviceWorker.getRegistration().then(registration => {
 +      if (!registration) {
 +        throw new Error('No service worker is registered');
@@ -627,18 +623,6 @@ index 0000000..ea0911b
 +    });
 +  }
 +}
-diff --git a/node_modules/@dhis2/pwa/build/es/offline-interface/offline-interface.js b/node_modules/@dhis2/pwa/build/es/offline-interface/offline-interface.js
-index a4d56d2..cfd072e 100644
---- a/node_modules/@dhis2/pwa/build/es/offline-interface/offline-interface.js
-+++ b/node_modules/@dhis2/pwa/build/es/offline-interface/offline-interface.js
-@@ -194,6 +194,7 @@ export class OfflineInterface {
-         throw new Error('No service worker is registered');
-       }
-       if (registration.waiting) {
-+        console.log('old OI -- skippingn waiting');
-         // Update existing service worker
-         registration.waiting.postMessage({
-           type: swMsgs.skipWaiting
 diff --git a/node_modules/@dhis2/pwa/build/es/react/OfflineInterfaceContext.js b/node_modules/@dhis2/pwa/build/es/react/OfflineInterfaceContext.js
 new file mode 100644
 index 0000000..ed7d292

@@ -1,4 +1,4 @@
-import { ClientOfflineInterface } from '@dhis2/pwa'
+import { PWAUpdateOfflineInterface } from '@dhis2/pwa'
 import PropTypes from 'prop-types'
 import React, {
     useState,
@@ -67,15 +67,17 @@ export const ClientPWAProvider = ({ children }) => {
     )
 
     const initClientOfflineInterface = useCallback(({ clientWindow }) => {
-        const newOfflineInterface = new ClientOfflineInterface({ clientWindow })
+        const newOfflineInterface = new PWAUpdateOfflineInterface({
+            targetWindow: clientWindow,
+        })
+        // Reset this, if it's keeping a dialog open from a previous reload
+        setClientsCount(null)
+        setOfflineInterface(newOfflineInterface)
         newOfflineInterface.checkForNewSW({
             onNewSW: () => {
                 setUpdateAvailable(true)
             },
         })
-        // Reset this, if it's keeping a dialog open from a previous reload
-        setClientsCount(null)
-        setOfflineInterface(newOfflineInterface)
     }, [])
 
     return (
