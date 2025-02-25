@@ -3,6 +3,7 @@ import { HeaderBar } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { useParams } from 'react-router-dom'
+import { useClientPWAUpdateState } from '../lib/clientPWAUpdateState.jsx'
 import { ConfirmUpdateModal } from './ConfirmUpdateModal.jsx'
 
 /**
@@ -28,15 +29,17 @@ const getAppVersion = (appName, apps) => {
 }
 
 export function ConnectedHeaderBar({
-    clientPWAUpdateAvailable,
-    onApplyClientUpdate,
+    // clientPWAUpdateAvailable,
+    // onApplyClientUpdate,
     appsInfoQuery,
 }) {
     const params = useParams()
+    const clientPWAUpdateState = useClientPWAUpdateState()
+    const clientPWAUpdateAvailable = clientPWAUpdateState.updateAvailable
     const {
         updateAvailable: selfUpdateAvailable,
         confirmReload,
-        confirmationRequired,
+        confirmationRequired: selfConfirmationRequired,
         clientsCount,
         onConfirmUpdate,
         onCancelUpdate,
@@ -73,7 +76,8 @@ export function ConnectedHeaderBar({
     // Choose the right handler
     const handleApplyAvailableUpdate = React.useMemo(() => {
         if (clientPWAUpdateAvailable && !selfUpdateAvailable) {
-            return onApplyClientUpdate
+            return clientPWAUpdateState.confirmReload
+            // return onApplyClientUpdate
         }
         // If there's an update ready for both the global shell and the client,
         // updating the global shell will handle the client updates as they
@@ -81,12 +85,45 @@ export function ConnectedHeaderBar({
         return confirmReload
     }, [
         clientPWAUpdateAvailable,
+        clientPWAUpdateState.confirmReload,
         selfUpdateAvailable,
         confirmReload,
-        onApplyClientUpdate,
+        // onApplyClientUpdate,
     ])
 
+    // todo: differentiate between which apps have updates available;
+    // todo: tidy these up
     const updateAvailable = selfUpdateAvailable || clientPWAUpdateAvailable
+    // const updateAvailable = selfUpdateAvailable || clientPWAUpdateAvailable
+
+    const confirmationRequired = selfUpdateAvailable
+        ? selfConfirmationRequired
+        : clientPWAUpdateAvailable
+        ? clientPWAUpdateState.confirmationRequired
+        : false
+    // selfConfirmationRequired || clientPWAUpdateState.confirmationRequired
+
+    const resolvedClientsCount = selfUpdateAvailable
+        ? clientsCount
+        : clientPWAUpdateAvailable
+        ? clientPWAUpdateState.clientsCount
+        : 0
+
+    // omg it worked without this because it HAPPENED to use 'useNewSW'
+    // in the parent scope, which calls useNewSW, which defaults to
+    // 'claimClients' if it doesn't find anything to do, which happens
+    // to reload pages, which sets up the update XD XD XD XD
+    const handleConfirm = selfUpdateAvailable
+        ? onConfirmUpdate
+        : clientPWAUpdateAvailable
+        ? clientPWAUpdateState.onConfirmUpdate
+        : 0
+
+    const handleCancel = selfUpdateAvailable
+        ? onCancelUpdate
+        : clientPWAUpdateAvailable
+        ? clientPWAUpdateState.onCancelUpdate
+        : 0
 
     return (
         <>
@@ -102,9 +139,9 @@ export function ConnectedHeaderBar({
             {/* the client app will handle its own confirmation modal */}
             {confirmationRequired ? (
                 <ConfirmUpdateModal
-                    clientsCount={clientsCount}
-                    onConfirm={onConfirmUpdate}
-                    onCancel={onCancelUpdate}
+                    clientsCount={resolvedClientsCount}
+                    onConfirm={handleConfirm}
+                    onCancel={handleCancel}
                 />
             ) : null}
         </>
@@ -112,6 +149,6 @@ export function ConnectedHeaderBar({
 }
 ConnectedHeaderBar.propTypes = {
     appsInfoQuery: PropTypes.object,
-    clientPWAUpdateAvailable: PropTypes.bool,
-    onApplyClientUpdate: PropTypes.func,
+    // clientPWAUpdateAvailable: PropTypes.bool,
+    // onApplyClientUpdate: PropTypes.func,
 }

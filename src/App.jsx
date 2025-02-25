@@ -5,6 +5,7 @@ import { BrowserRouter, Routes, Route, Link, Outlet } from 'react-router-dom'
 import styles from './App.module.css'
 import { ConnectedHeaderBar } from './components/ConnectedHeaderbar.jsx'
 import { PluginLoader } from './components/PluginLoader.jsx'
+import { ClientPWAProvider } from './lib/clientPWAUpdateState.jsx'
 
 const APPS_INFO_QUERY = {
     appMenu: {
@@ -40,8 +41,6 @@ Layout.propTypes = {
     onApplyClientUpdate: PropTypes.func,
 }
 
-// todo: also listen to navigations inside iframe (e.g. "Open this dashboard item in DV" links)
-// (Could the `window` prop on BrowserRouter help here?)
 const MyApp = () => {
     const { baseUrl } = useConfig()
     // todo: maybe pare this down to just onApplyUpdate?
@@ -64,36 +63,43 @@ const MyApp = () => {
     // (see getAppDisplayName in ConnectedHeaderBar.jsx and getAppDefaultAction in PluginLoader.jsx)
 
     return (
-        <BrowserRouter basename={basename}>
-            <Routes>
-                <Route
-                    element={
-                        <Layout
-                            clientPWAUpdateAvailable={clientPWAUpdateAvailable}
-                            onApplyClientUpdate={onApplyClientUpdate}
-                            appsInfoQuery={appsInfoQuery}
-                        />
-                    }
-                >
+        <ClientPWAProvider>
+            <BrowserRouter basename={basename}>
+                <Routes>
                     <Route
-                        path="*"
-                        element={<Link to="/apps/localApp">Local App</Link>}
-                    />
-                    <Route
-                        path="/apps/:appName"
                         element={
-                            <PluginLoader
-                                setClientPWAUpdateAvailable={
-                                    setClientPWAUpdateAvailable
+                            <Layout
+                                clientPWAUpdateAvailable={
+                                    clientPWAUpdateAvailable
                                 }
-                                setOnApplyClientUpdate={setOnApplyClientUpdate}
+                                onApplyClientUpdate={onApplyClientUpdate}
                                 appsInfoQuery={appsInfoQuery}
                             />
                         }
-                    />
-                </Route>
-            </Routes>
-        </BrowserRouter>
+                    >
+                        <Route
+                            // todo: remove when done testing
+                            path="*"
+                            element={<Link to="/apps/localApp">Local App</Link>}
+                        />
+                        <Route
+                            path="/apps/:appName"
+                            element={
+                                <PluginLoader
+                                    setClientPWAUpdateAvailable={
+                                        setClientPWAUpdateAvailable
+                                    }
+                                    setOnApplyClientUpdate={
+                                        setOnApplyClientUpdate
+                                    }
+                                    appsInfoQuery={appsInfoQuery}
+                                />
+                            }
+                        />
+                    </Route>
+                </Routes>
+            </BrowserRouter>
+        </ClientPWAProvider>
     )
 }
 

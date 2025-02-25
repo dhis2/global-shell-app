@@ -4,6 +4,7 @@ import { Plugin } from '@dhis2/app-runtime/experimental'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { useLocation, useParams } from 'react-router-dom'
+import { useClientOfflineInterface } from '../lib/clientPWAUpdateState.jsx'
 import i18n from '../locales/index.js'
 import styles from './PluginLoader.module.css'
 
@@ -75,6 +76,7 @@ const watchForHashRouteChanges = (event) => {
  * in the onLoad handler)
  * 2. The navigation is to another app: the backend will reroute to the global
  * shell with the right app
+ * 3. The backend redirects to the login page: send the app there
  *
  * This should be called on `load` events in the iframe, which indicates some
  * kind of page navigation; this won't trigger on hash route changes.
@@ -105,6 +107,7 @@ export const PluginLoader = ({
         ),
         { warning: true }
     )
+    const initClientOfflineInterface = useClientOfflineInterface()
 
     // test prop messaging and updates
     const [color, setColor] = React.useState('blue')
@@ -162,8 +165,11 @@ export const PluginLoader = ({
             }
             injectHeaderbarHidingStyles(event)
             watchForHashRouteChanges(event)
+            initClientOfflineInterface({
+                clientWindow: event.target.contentWindow,
+            })
         },
-        [pluginHref, showNavigationWarning]
+        [pluginHref, showNavigationWarning, initClientOfflineInterface]
     )
 
     if (!pluginHref) {
