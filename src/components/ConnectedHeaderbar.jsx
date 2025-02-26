@@ -75,7 +75,7 @@ export function ConnectedHeaderBar({ appsInfoQuery }) {
     // For now, the header bar can only show one "Update available" badge, so
     // choose the right values based on which update(s) is/are available:
     // By default, use client's PWA update state. If there's an update available for
-    // the global shell, though, the self PWA update state takes precedence 
+    // the global shell, though, the self PWA update state takes precedent
     const {
         updateAvailable,
         confirmReload,
