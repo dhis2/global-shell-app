@@ -42,15 +42,7 @@ const getAppVersion = (appName, apps) => {
 export function ConnectedHeaderBar({ appsInfoQuery }) {
     const params = useParams()
     const clientPWAUpdateState = useClientPWAUpdateState()
-    const clientPWAUpdateAvailable = clientPWAUpdateState.updateAvailable
-    const {
-        updateAvailable: selfUpdateAvailable,
-        confirmReload,
-        confirmationRequired: selfConfirmationRequired,
-        clientsCount,
-        onConfirmUpdate,
-        onCancelUpdate,
-    } = usePWAUpdateState()
+    const selfPWAUpdateState = usePWAUpdateState()
 
     const appName = useMemo(() => {
         if (!params.appName || !appsInfoQuery.data) {
@@ -80,49 +72,20 @@ export function ConnectedHeaderBar({ appsInfoQuery }) {
         return getAppVersion(params.appName, appsInfoQuery.data.apps)
     }, [appsInfoQuery.data, params.appName])
 
-    // Choose the right handler
-    const handleApplyAvailableUpdate = useMemo(() => {
-        if (clientPWAUpdateAvailable && !selfUpdateAvailable) {
-            return clientPWAUpdateState.confirmReload
-        }
-        // If there's an update ready for both the global shell and the client,
-        // updating the global shell will handle the client updates as they
-        // will all get reloaded
-        return confirmReload
-    }, [
-        clientPWAUpdateAvailable,
-        clientPWAUpdateState.confirmReload,
-        selfUpdateAvailable,
+    // For now, the header bar can only show one "Update available" badge, so
+    // choose the right values based on which update(s) is/are available:
+    // By default, use client's PWA update state. If there's an update available for
+    // the global shell, though, the self PWA update state takes precedence 
+    const {
+        updateAvailable,
         confirmReload,
-    ])
-
-    // todo: differentiate between which apps have updates available;
-    // todo: tidy these up
-    const updateAvailable = selfUpdateAvailable || clientPWAUpdateAvailable
-
-    const confirmationRequired = selfUpdateAvailable
-        ? selfConfirmationRequired
-        : clientPWAUpdateAvailable
-        ? clientPWAUpdateState.confirmationRequired
-        : false
-
-    const resolvedClientsCount = selfUpdateAvailable
-        ? clientsCount
-        : clientPWAUpdateAvailable
-        ? clientPWAUpdateState.clientsCount
-        : 0
-
-    const handleConfirm = selfUpdateAvailable
-        ? onConfirmUpdate
-        : clientPWAUpdateAvailable
-        ? clientPWAUpdateState.onConfirmUpdate
-        : 0
-
-    const handleCancel = selfUpdateAvailable
-        ? onCancelUpdate
-        : clientPWAUpdateAvailable
-        ? clientPWAUpdateState.onCancelUpdate
-        : 0
+        confirmationRequired,
+        clientsCount,
+        onConfirmUpdate,
+        onCancelUpdate,
+    } = selfPWAUpdateState.updateAvailable
+        ? selfPWAUpdateState
+        : clientPWAUpdateState
 
     return (
         <>
@@ -132,13 +95,13 @@ export function ConnectedHeaderBar({ appsInfoQuery }) {
                 // todo: currently not used by the component
                 appVersion={appVersion}
                 updateAvailable={updateAvailable}
-                onApplyAvailableUpdate={handleApplyAvailableUpdate}
+                onApplyAvailableUpdate={confirmReload}
             />
             {confirmationRequired ? (
                 <ConfirmUpdateModal
-                    clientsCount={resolvedClientsCount}
-                    onConfirm={handleConfirm}
-                    onCancel={handleCancel}
+                    clientsCount={clientsCount}
+                    onConfirm={onConfirmUpdate}
+                    onCancel={onCancelUpdate}
                 />
             ) : null}
         </>
