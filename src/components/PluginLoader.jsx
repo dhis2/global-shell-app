@@ -145,7 +145,10 @@ export const PluginLoader = ({ appsInfoQuery }) => {
     const handleLoad = React.useCallback(
         (event) => {
             // If we can't access the new page's Document, this is a cross-domain page.
-            // Disallow that; return to previous plugin state
+            // Disallow that; return to previous plugin state.
+            // todo: can cause an infinite reload if the current pluginHref loads
+            // an entirely broken page -- this is a rare case though; one example is
+            // a PWA app where the precache has been deleted. 404s are fine.
             if (!event.target.contentDocument) {
                 setRerenderKey((k) => k + 1)
                 showNavigationWarning()
