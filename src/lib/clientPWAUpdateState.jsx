@@ -24,11 +24,9 @@ export const ClientPWAProvider = ({ children }) => {
     }, [])
 
     const confirmReload = useCallback(() => {
-        console.log('confirmReload')
         offlineInterface
             .getClientsInfo()
             .then(({ clientsCount }) => {
-                console.log('clientsCount', clientsCount)
                 if (clientsCount === 1) {
                     // Just one client; go ahead and reload
                     onConfirmUpdate()
