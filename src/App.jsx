@@ -19,35 +19,18 @@ const APPS_INFO_QUERY = {
     // need to extend app-runtime to get that
 }
 
-const Layout = ({
-    clientPWAUpdateAvailable,
-    onApplyClientUpdate,
-    appsInfoQuery,
-}) => {
+const Layout = ({ appsInfoQuery }) => {
     return (
         <div className={styles.container}>
-            <ConnectedHeaderBar
-                clientPWAUpdateAvailable={clientPWAUpdateAvailable}
-                onApplyClientUpdate={onApplyClientUpdate}
-                appsInfoQuery={appsInfoQuery}
-            />
+            <ConnectedHeaderBar appsInfoQuery={appsInfoQuery} />
             <Outlet />
         </div>
     )
 }
-Layout.propTypes = {
-    appsInfoQuery: PropTypes.object,
-    clientPWAUpdateAvailable: PropTypes.bool,
-    onApplyClientUpdate: PropTypes.func,
-}
+Layout.propTypes = { appsInfoQuery: PropTypes.object }
 
 const MyApp = () => {
     const { baseUrl } = useConfig()
-    // todo: maybe pare this down to just onApplyUpdate?
-    // todo: reset upon switching to a new client app
-    const [clientPWAUpdateAvailable, setClientPWAUpdateAvailable] =
-        React.useState(false)
-    const [onApplyClientUpdate, setOnApplyClientUpdate] = React.useState()
     const appsInfoQuery = useDataQuery(APPS_INFO_QUERY)
 
     // todo: work on this to get the right URL when landing on an app URL
@@ -66,17 +49,7 @@ const MyApp = () => {
         <ClientPWAProvider>
             <BrowserRouter basename={basename}>
                 <Routes>
-                    <Route
-                        element={
-                            <Layout
-                                clientPWAUpdateAvailable={
-                                    clientPWAUpdateAvailable
-                                }
-                                onApplyClientUpdate={onApplyClientUpdate}
-                                appsInfoQuery={appsInfoQuery}
-                            />
-                        }
-                    >
+                    <Route element={<Layout appsInfoQuery={appsInfoQuery} />}>
                         <Route
                             // todo: remove when done testing
                             path="*"
@@ -85,15 +58,7 @@ const MyApp = () => {
                         <Route
                             path="/apps/:appName"
                             element={
-                                <PluginLoader
-                                    setClientPWAUpdateAvailable={
-                                        setClientPWAUpdateAvailable
-                                    }
-                                    setOnApplyClientUpdate={
-                                        setOnApplyClientUpdate
-                                    }
-                                    appsInfoQuery={appsInfoQuery}
-                                />
+                                <PluginLoader appsInfoQuery={appsInfoQuery} />
                             }
                         />
                     </Route>

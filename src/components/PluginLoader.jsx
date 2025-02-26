@@ -91,11 +91,7 @@ const handleExternalNavigation = (iframeLoadEvent, pluginHref) => {
     }
 }
 
-export const PluginLoader = ({
-    setClientPWAUpdateAvailable,
-    setOnApplyClientUpdate,
-    appsInfoQuery,
-}) => {
+export const PluginLoader = ({ appsInfoQuery }) => {
     const params = useParams()
     const location = useLocation()
     const { baseUrl } = useConfig()
@@ -184,25 +180,10 @@ export const PluginLoader = ({
             onLoad={handleLoad}
             key={rerenderKey}
             // Other props
-            reportPWAUpdateStatus={(data) => {
-                const { updateAvailable, onApplyUpdate } = data
-                console.log('recieved PWA status', { data })
-
-                setClientPWAUpdateAvailable(updateAvailable)
-                if (onApplyUpdate) {
-                    // Return function from a function -- otherwise, setState tries to invoke the function
-                    // to evaluate its next state
-                    setOnApplyClientUpdate(() => onApplyUpdate)
-                }
-            }}
-            // props test
+            // (for testing:)
             color={color}
             toggleColor={toggleColor}
         />
     )
 }
-PluginLoader.propTypes = {
-    appsInfoQuery: PropTypes.object,
-    setClientPWAUpdateAvailable: PropTypes.func,
-    setOnApplyClientUpdate: PropTypes.func,
-}
+PluginLoader.propTypes = { appsInfoQuery: PropTypes.object }
