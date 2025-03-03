@@ -7,7 +7,7 @@ function Heading({ heading }) {
         <div className="section-header">
             {/* role='header' ?*/}
             <span>{heading}</span>
-            <style>{`
+            <style jsx>{`
               .section-header {
                   font-size: 14px;
                   font-weight: 400;

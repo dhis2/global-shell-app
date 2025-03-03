@@ -70,7 +70,7 @@ const CommandPalette = ({ apps, commands, shortcuts }) => {
     }, [handleVisibilityToggle])
 
     return (
-        <div ref={containerEl} data-test="headerbar" className="headerbar">
+        <div ref={containerEl} data-test="headerbar-apps-menu" className="headerbar-apps-menu">
             <button
                 onClick={handleVisibilityToggle}
                 data-test="headerbar-apps-icon"
@@ -127,7 +127,7 @@ const CommandPalette = ({ apps, commands, shortcuts }) => {
                 button:active {
                     background: #104067;
                 }
-                .headerbar {
+                .headerbar-apps-menu {
                     position: relative;
                     height: 100%;
                 }

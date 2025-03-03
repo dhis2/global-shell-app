@@ -43,7 +43,7 @@ function SearchFilter() {
                 clearable
                 dataTest="headerbar-search"
             />
-            <style>{`
+            <style jsx>{`
                 .search {
                     border-bottom: 1px solid ${colors.grey300};
                 }

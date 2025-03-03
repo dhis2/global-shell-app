@@ -37,7 +37,7 @@ function ListItem({
                     <span className="description">{description}</span>
                 )}
             </div>
-            <style>
+            <style jsx>
                 {`
                 .item {
                     display: flex;
