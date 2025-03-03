@@ -1,5 +1,5 @@
 import { usePWAUpdateState } from '@dhis2/pwa'
-import { HeaderBar } from '@dhis2/ui'
+import { HeaderBar } from './header-bar/index.js'
 import PropTypes from 'prop-types'
 import React, { useMemo, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
