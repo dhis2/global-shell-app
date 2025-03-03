@@ -2,12 +2,12 @@ import { useDataQuery, useConfig } from '@dhis2/app-runtime'
 import { colors } from '@dhis2/ui-constants'
 import PropTypes from 'prop-types'
 import React, { useMemo } from 'react'
+import i18n from '../../locales/index.js'
 import CommandPalette from './command-palette/command-palette.jsx'
 import { CommandPaletteContextProvider } from './command-palette/context/command-palette-context.jsx'
 import { APP } from './command-palette/utils/constants.js'
 import { HeaderBarContextProvider } from './header-bar-context.jsx'
 import { joinPath } from './join-path.js'
-import i18n from '../../locales/index.js'
 import { Logo } from './logo.jsx'
 import { Notifications } from './notifications.jsx'
 import { OnlineStatus } from './online-status.jsx'
@@ -24,7 +24,7 @@ const query = {
     user: {
         resource: 'me',
         params: {
-            fields: ['authorities', 'avatar', 'email', 'name', 'settings'],
+            fields: ['authorities', 'avatar', 'name', 'settings', 'username'],
         },
     },
     apps: {
@@ -114,7 +114,7 @@ export const HeaderBar = ({
                             </CommandPaletteContextProvider>
                             <Profile
                                 name={data.user.name}
-                                email={data.user.email}
+                                username={data.user.username}
                                 avatarId={data.user.avatar?.id}
                                 helpUrl={data.help.helpPageLink}
                             />

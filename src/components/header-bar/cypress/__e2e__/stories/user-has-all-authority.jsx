@@ -4,15 +4,16 @@ import {
     dataProviderData,
     createDecoratorCustomDataProviderHeaderBar,
     createDecoratorProvider,
-} from './common.js'
+} from './common.jsx'
 
-export const CustomApplicationTitle = () => <HeaderBar appName="Example!" />
+export const UserHasAllAuthority = () => <HeaderBar appName="Example!" />
 
-CustomApplicationTitle.decorators = [
+UserHasAllAuthority.decorators = [
     createDecoratorCustomDataProviderHeaderBar({
         ...dataProviderData,
-        ['systemSettings/applicationTitle']: {
-            applicationTitle: 'Barbaz',
+        me: {
+            ...dataProviderData.me,
+            authorities: ['ALL'],
         },
     }),
     createDecoratorProvider(),

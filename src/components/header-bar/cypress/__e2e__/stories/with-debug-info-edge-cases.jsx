@@ -1,10 +1,10 @@
 import React from 'react'
-import { HeaderBar } from '../../header-bar.js'
+import { HeaderBar } from '../../header-bar.jsx'
 import {
     createDecoratorCustomDataProviderHeaderBar,
     createDecoratorProvider,
     providerConfig,
-} from './common.js'
+} from './common.jsx'
 
 export const WithUnknownInstanceVersion = () => <HeaderBar />
 

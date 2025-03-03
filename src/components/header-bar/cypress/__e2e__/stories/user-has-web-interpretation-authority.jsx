@@ -4,15 +4,18 @@ import {
     dataProviderData,
     createDecoratorCustomDataProviderHeaderBar,
     createDecoratorProvider,
-} from './common.js'
+} from './common.jsx'
 
-export const ZeroUnreadMessages = () => <HeaderBar appName="Example!" />
+export const UserHasWebInterpretationAuthority = () => (
+    <HeaderBar appName="Example!" />
+)
 
-ZeroUnreadMessages.decorators = [
+UserHasWebInterpretationAuthority.decorators = [
     createDecoratorCustomDataProviderHeaderBar({
         ...dataProviderData,
-        ['me/dashboard']: {
-            unreadMessages: 0,
+        me: {
+            ...dataProviderData.me,
+            authorities: ['M_dhis-web-interpretation'],
         },
     }),
     createDecoratorProvider(),

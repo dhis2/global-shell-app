@@ -4,7 +4,7 @@ import {
     dataProviderData,
     createDecoratorCustomDataProviderHeaderBar,
     createDecoratorProvider,
-} from './common.js'
+} from './common.jsx'
 
 export const MeWithAvatar = () => <HeaderBar appName="Example!" />
 
@@ -13,7 +13,7 @@ MeWithAvatar.decorators = [
         ...dataProviderData,
         me: {
             name: 'John Doe',
-            email: 'john_doe@dhis2.org',
+            username: 'john_doe',
             settings: {
                 keyUiLocale: 'en',
             },

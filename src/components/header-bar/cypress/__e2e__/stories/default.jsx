@@ -3,7 +3,7 @@ import { HeaderBar } from '../../index.js'
 import {
     createDecoratorCustomDataProviderHeaderBar,
     createDecoratorProvider,
-} from './common.js'
+} from './common.jsx'
 
 export const Default = () => <HeaderBar appName="Example!" />
 

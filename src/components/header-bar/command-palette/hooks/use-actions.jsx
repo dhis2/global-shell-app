@@ -8,8 +8,8 @@ import {
     IconTerminalWindow16,
 } from '@dhis2/ui-icons'
 import React, { useCallback, useMemo } from 'react'
-import { joinPath } from '../../join-path.js'
 import i18n from '../../../../locales/index.js'
+import { joinPath } from '../../join-path.js'
 import { useCommandPaletteContext } from '../context/command-palette-context.jsx'
 import {
     ACTION,

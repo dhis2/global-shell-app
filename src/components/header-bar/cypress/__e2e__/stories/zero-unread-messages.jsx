@@ -4,15 +4,15 @@ import {
     dataProviderData,
     createDecoratorCustomDataProviderHeaderBar,
     createDecoratorProvider,
-} from './common.js'
+} from './common.jsx'
 
-export const ZeroUnreadInterpretations = () => <HeaderBar appName="Example!" />
+export const ZeroUnreadMessages = () => <HeaderBar appName="Example!" />
 
-ZeroUnreadInterpretations.decorators = [
+ZeroUnreadMessages.decorators = [
     createDecoratorCustomDataProviderHeaderBar({
         ...dataProviderData,
         ['me/dashboard']: {
-            unreadInterpretations: 0,
+            unreadMessages: 0,
         },
     }),
     createDecoratorProvider(),

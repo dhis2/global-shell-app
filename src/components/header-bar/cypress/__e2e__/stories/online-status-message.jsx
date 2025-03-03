@@ -6,7 +6,7 @@ import {
     providerConfig,
     createDecoratorCustomDataProviderHeaderBar,
     createDecoratorProvider,
-} from './common.js'
+} from './common.jsx'
 
 export const OnlineStatusMessageUpdate = () => {
     const { onlineStatusMessage, setOnlineStatusMessage } =

@@ -4,7 +4,7 @@ import {
     dataProviderData,
     createDecoratorCustomDataProviderHeaderBar,
     createDecoratorProvider,
-} from './common.js'
+} from './common.jsx'
 
 export const UserHasNoAuthorities = () => <HeaderBar appName="Example!" />
 

@@ -1,12 +1,12 @@
 import { UserAvatar } from '@dhis2-ui/user-avatar'
 import PropTypes from 'prop-types'
 import React, { useCallback, useRef, useState } from 'react'
-import { DebugInfoModal } from './debug-info/debug-info-modal.jsx'
 import i18n from '../../locales/index.js'
+import { DebugInfoModal } from './debug-info/debug-info-modal.jsx'
 import { useOnDocClick } from './profile/use-on-doc-click.js'
 import { ProfileMenu } from './profile-menu/index.js'
 
-const Profile = ({ name, email, avatarId, helpUrl }) => {
+const Profile = ({ name, avatarId, helpUrl, username }) => {
     const [showProfileMenu, setShowProfileMenu] = useState(false)
     const [showDebugInfoModal, setShowDebugInfoModal] = useState(false)
     const hideProfileMenu = useCallback(
@@ -45,7 +45,7 @@ const Profile = ({ name, email, avatarId, helpUrl }) => {
                 <ProfileMenu
                     avatarId={avatarId}
                     name={name}
-                    email={email}
+                    username={username}
                     helpUrl={helpUrl}
                     hideProfileMenu={hideProfileMenu}
                     showDebugInfoModal={() => {
@@ -94,8 +94,8 @@ const Profile = ({ name, email, avatarId, helpUrl }) => {
 Profile.propTypes = {
     name: PropTypes.string.isRequired,
     avatarId: PropTypes.string,
-    email: PropTypes.string,
     helpUrl: PropTypes.string,
+    username: PropTypes.string,
 }
 
 export default Profile

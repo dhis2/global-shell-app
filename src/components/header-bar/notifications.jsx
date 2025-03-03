@@ -1,8 +1,8 @@
 import { useConfig } from '@dhis2/app-runtime'
 import PropTypes from 'prop-types'
 import React from 'react'
-import { joinPath } from './join-path.js'
 import i18n from '../../locales/index.js'
+import { joinPath } from './join-path.js'
 import { NotificationIcon } from './notification-icon.jsx'
 
 const hasAuthority = (userAuthorities, authId) =>
