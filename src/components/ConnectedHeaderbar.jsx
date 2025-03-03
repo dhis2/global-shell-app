@@ -1,18 +1,10 @@
 import { usePWAUpdateState } from '@dhis2/pwa'
 import { HeaderBar } from '@dhis2/ui'
 import PropTypes from 'prop-types'
-import React from 'react'
+import React, { useMemo, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-import { ConfirmUpdateModal } from './ConfirmUpdateModal.jsx'
-
-/**
- * Copied from ConnectedHeaderBar in app adapter:
- * Check for SW updates or a first activation, displaying an update notification
- * message in the HeaderBar profile menu. When an update is applied, if there are
- * multiple tabs of this app open, there's anadditional warning step because all
- * clients of the service worker will reload when there's an update, which may
- * cause data loss.
- */
+import { useClientPWAUpdateState } from '../lib/clientPWAUpdateState.jsx'
+import { ConfirmUpdateModal } from './ConfirmUpdateModal.tsx'
 
 const getAppDisplayName = (appName, modules) => {
     // todo: check this out if core apps get a different naming scheme
@@ -27,22 +19,32 @@ const getAppVersion = (appName, apps) => {
     return apps.find((a) => a.short_name === parsedAppName)?.version
 }
 
-export function ConnectedHeaderBar({
-    clientPWAUpdateAvailable,
-    onApplyClientUpdate,
-    appsInfoQuery,
-}) {
-    const params = useParams()
-    const {
-        updateAvailable: selfUpdateAvailable,
-        confirmReload,
-        confirmationRequired,
-        clientsCount,
-        onConfirmUpdate,
-        onCancelUpdate,
-    } = usePWAUpdateState()
+// todo:
+// type PWAUpdateState = {
+//     updateAvailable: boolean
+//     confirmReload: () => void
+//     confirmationRequired: boolean
+//     clientsCount: number | null
+//     onConfirmUpdate: () => void
+//     onCancelUpdate: () => void
+// }
 
-    const appName = React.useMemo(() => {
+/**
+ * Copied from ConnectedHeaderBar in app adapter:
+ * Check for SW updates or a first activation, displaying an update notification
+ * message in the HeaderBar profile menu. Does this both for this app itself,
+ * and for the client app.
+ *
+ * When an update is applied, if there are multiple tabs of this app open,
+ * there's anadditional warning step because all clients of the service worker
+ * will reload when there's an update, which may cause data loss.
+ */
+export function ConnectedHeaderBar({ appsInfoQuery }) {
+    const params = useParams()
+    const clientPWAUpdateState = useClientPWAUpdateState()
+    const selfPWAUpdateState = usePWAUpdateState()
+
+    const appName = useMemo(() => {
         if (!params.appName || !appsInfoQuery.data) {
             // `undefined` defaults to app title in header bar component, i.e. "Global Shell"
             return
@@ -57,36 +59,33 @@ export function ConnectedHeaderBar({
     }, [appsInfoQuery.data, params.appName])
 
     // Set new displayname to page title when it updates
-    React.useEffect(() => {
+    useEffect(() => {
         if (appName) {
             document.title = `${appName} | DHIS2`
         }
     }, [appName])
 
-    const appVersion = React.useMemo(() => {
+    const appVersion = useMemo(() => {
         if (!params.appName || !appsInfoQuery.data) {
             return
         }
         return getAppVersion(params.appName, appsInfoQuery.data.apps)
     }, [appsInfoQuery.data, params.appName])
 
-    // Choose the right handler
-    const handleApplyAvailableUpdate = React.useMemo(() => {
-        if (clientPWAUpdateAvailable && !selfUpdateAvailable) {
-            return onApplyClientUpdate
-        }
-        // If there's an update ready for both the global shell and the client,
-        // updating the global shell will handle the client updates as they
-        // will all get reloaded
-        return confirmReload
-    }, [
-        clientPWAUpdateAvailable,
-        selfUpdateAvailable,
+    // For now, the header bar can only show one "Update available" badge, so
+    // choose the right values based on which update(s) is/are available:
+    // By default, use client's PWA update state. If there's an update available for
+    // the global shell, though, the self PWA update state takes precedent
+    const {
+        updateAvailable,
         confirmReload,
-        onApplyClientUpdate,
-    ])
-
-    const updateAvailable = selfUpdateAvailable || clientPWAUpdateAvailable
+        confirmationRequired,
+        clientsCount,
+        onConfirmUpdate,
+        onCancelUpdate,
+    } = selfPWAUpdateState.updateAvailable
+        ? selfPWAUpdateState
+        : clientPWAUpdateState
 
     return (
         <>
@@ -96,10 +95,8 @@ export function ConnectedHeaderBar({
                 // todo: currently not used by the component
                 appVersion={appVersion}
                 updateAvailable={updateAvailable}
-                onApplyAvailableUpdate={handleApplyAvailableUpdate}
+                onApplyAvailableUpdate={confirmReload}
             />
-            {/* The following is used for global shell updates -- */}
-            {/* the client app will handle its own confirmation modal */}
             {confirmationRequired ? (
                 <ConfirmUpdateModal
                     clientsCount={clientsCount}
@@ -110,8 +107,4 @@ export function ConnectedHeaderBar({
         </>
     )
 }
-ConnectedHeaderBar.propTypes = {
-    appsInfoQuery: PropTypes.object,
-    clientPWAUpdateAvailable: PropTypes.bool,
-    onApplyClientUpdate: PropTypes.func,
-}
+ConnectedHeaderBar.propTypes = { appsInfoQuery: PropTypes.object }
