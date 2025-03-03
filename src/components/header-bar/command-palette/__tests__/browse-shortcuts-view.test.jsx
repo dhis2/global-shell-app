@@ -5,7 +5,7 @@ import {
     headerBarIconTest,
     render,
     testShortcuts,
-} from './command-palette.test.js'
+} from './command-palette.test.jsx'
 
 describe('Command Palette - List View - Browse Shortcuts', () => {
     beforeAll(() => {

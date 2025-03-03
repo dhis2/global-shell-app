@@ -5,7 +5,7 @@ import {
     headerBarIconTest,
     render,
     testCommands,
-} from './command-palette.test.js'
+} from './command-palette.test.jsx'
 
 describe('Command Palette - List View - Browse Commands', () => {
     beforeAll(() => {

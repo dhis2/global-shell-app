@@ -8,7 +8,7 @@ import {
     testShortcuts,
     render,
     headerBarIconTest,
-} from './command-palette.test.js'
+} from './command-palette.test.jsx'
 
 describe('Command Palette - List View - Browse Apps View', () => {
     beforeAll(() => {
