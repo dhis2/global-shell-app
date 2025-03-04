@@ -177,7 +177,7 @@ const CommandPalette = ({ apps, commands, shortcuts }) => {
                 button:active {
                     background: #104067;
                 }
-                .headerbar {
+                .headerbar-apps-menu {
                     position: relative;
                     height: 100%;
                 }
