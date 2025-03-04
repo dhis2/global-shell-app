@@ -5,5 +5,5 @@ When('the user opens the menu', () => {
 })
 
 When('the user clicks outside of the menu', () => {
-    cy.get('.headerbar > dialog').click({ force: true })
+    cy.get('.headerbar-apps-menu > dialog').click({ force: true })
 })
