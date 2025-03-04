@@ -6,16 +6,17 @@ export default css`
         display: flex;
         align-items: center;
         justify-content: center; // new
-        background-color: #104167;
+        background-color: #10436a;
         flex-shrink: 0; // ?
-        color: ${colors.grey100};
+        color: ${colors.grey050};
+        text-shadow: 0px 0px 2px rgba(0, 0, 0, 0.5);
     }
 
     .container.badge {
         margin-inline-end: ${spacers.dp8};
-        padding: ${spacers.dp8};
+        padding: 6px;
         border-radius: 5px;
-        font-size: 14px;
+        font-size: 13px;
     }
 
     .container.bar {
@@ -41,7 +42,7 @@ export default css`
     }
 
     .info {
-        margin-inline-end: ${spacers.dp16};
+        margin-inline-end: ${spacers.dp12};
     }
 
     .info-dense {
@@ -85,7 +86,8 @@ export default css`
         }
     }
 
-    .label {
-        letter-spacing: 0.5px;
+    .label,
+    .info {
+        letter-spacing: 0.1px;
     }
 `
