@@ -159,7 +159,7 @@ const CommandPalette = ({ apps, commands, shortcuts }) => {
                     background: transparent;
                     padding-block-start: ${spacers.dp4};
                     padding-block-end: 0;
-                    padding-inline: ${spacers.dp12};
+                    padding-inline: ${spacers.dp8};
                     border: 0;
                     cursor: pointer;
                     height: 100%;
@@ -172,12 +172,12 @@ const CommandPalette = ({ apps, commands, shortcuts }) => {
                     outline: none;
                 }
                 button:hover {
-                    background: #1a557f;
+                    background: #104f7e;
                 }
                 button:active {
                     background: #104067;
                 }
-                .headerbar-apps-menu {
+                .headerbar {
                     position: relative;
                     height: 100%;
                 }
