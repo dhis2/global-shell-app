@@ -107,6 +107,9 @@ const CommandPalette = ({ apps, commands, shortcuts }) => {
                 handleVisibilityToggle()
             }
         }
+        // Janky...
+        // todo: refactor command palette to share 'toggle visibility' function
+        window.toggleCommandPaletteListener = handleKeyDown
 
         document.addEventListener('keydown', handleKeyDown)
         return () => {
