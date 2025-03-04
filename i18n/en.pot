@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2025-02-24T16:20:00.864Z\n"
-"PO-Revision-Date: 2025-02-24T16:20:00.864Z\n"
+"POT-Creation-Date: 2025-03-03T21:22:19.468Z\n"
+"PO-Revision-Date: 2025-03-03T21:22:19.468Z\n"
 
 msgid "Save your data"
 msgstr "Save your data"
@@ -35,3 +35,111 @@ msgstr "Reload"
 
 msgid "Unable to load the requested page from DHIS2. Returned to previous page."
 msgstr "Unable to load the requested page from DHIS2. Returned to previous page."
+
+msgid "Browse apps"
+msgstr "Browse apps"
+
+msgid "Browse commands"
+msgstr "Browse commands"
+
+msgid "Browse shortcuts"
+msgstr "Browse shortcuts"
+
+msgid "Logout"
+msgstr "Logout"
+
+msgid "Back"
+msgstr "Back"
+
+msgid "to navigate"
+msgstr "to navigate"
+
+msgid "to select"
+msgstr "to select"
+
+msgid "to close"
+msgstr "to close"
+
+msgid "to go back one level"
+msgstr "to go back one level"
+
+msgid "Search apps"
+msgstr "Search apps"
+
+msgid "Search commands"
+msgstr "Search commands"
+
+msgid "Search shortcuts"
+msgstr "Search shortcuts"
+
+msgid "Search apps, shortcuts, commands"
+msgstr "Search apps, shortcuts, commands"
+
+msgid "Top apps"
+msgstr "Top apps"
+
+msgid "Actions"
+msgstr "Actions"
+
+msgid "DHIS2 {{dhis2Version}}"
+msgstr "DHIS2 {{dhis2Version}}"
+
+msgid "DHIS2 version unknown"
+msgstr "DHIS2 version unknown"
+
+msgid "{{appName}} version unknown"
+msgstr "{{appName}} version unknown"
+
+msgid "App {{appVersion}}"
+msgstr "App {{appVersion}}"
+
+msgid "App version unknown"
+msgstr "App version unknown"
+
+msgid "Debug info"
+msgstr "Debug info"
+
+msgid "Close"
+msgstr "Close"
+
+msgid "Copy debug info"
+msgstr "Copy debug info"
+
+msgid "Interpretations"
+msgstr "Interpretations"
+
+msgid "Messages"
+msgstr "Messages"
+
+msgid "Online"
+msgstr "Online"
+
+msgid "Offline"
+msgstr "Offline"
+
+msgid "Settings"
+msgstr "Settings"
+
+msgid "Account security"
+msgstr "Account security"
+
+msgid "My profile"
+msgstr "My profile"
+
+msgid "Help"
+msgstr "Help"
+
+msgid "System info"
+msgstr "System info"
+
+msgid "Log out"
+msgstr "Log out"
+
+msgid "New {{appName}} version available — Reload to update"
+msgstr "New {{appName}} version available — Reload to update"
+
+msgid "New app version available — Reload to update"
+msgstr "New app version available — Reload to update"
+
+msgid "header bar profile"
+msgstr "header bar profile"
