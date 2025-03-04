@@ -8,17 +8,17 @@ function Heading({ heading }) {
             {/* role='header' ?*/}
             <span>{heading}</span>
             <style jsx>{`
-              .section-header {
-                  font-size: 14px;
-                  font-weight: 400;
-                  color: ${colors.grey700};
-                  padding:  ${spacers.dp8};
-                  margin: 2px ${spacers.dp4};
-              }
-              .section-header:first-of-type {
-                  margin-top: ${spacers.dp4};
-              }
-        `}</style>
+                .section-header {
+                    font-size: 14px;
+                    font-weight: 400;
+                    color: ${colors.grey700};
+                    padding: ${spacers.dp8};
+                    margin: 2px ${spacers.dp4};
+                }
+                .section-header:first-of-type {
+                    margin-top: ${spacers.dp4};
+                }
+            `}</style>
         </div>
     )
 }
