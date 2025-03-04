@@ -14,7 +14,6 @@ import { HOME_VIEW } from './utils/constants.js'
 import HomeView from './views/home-view.jsx'
 import ListView from './views/list-view.jsx'
 
-
 const CommandPalette = ({ apps, commands, shortcuts }) => {
     const containerEl = useRef(null)
     const { currentView, filter, setCurrentView } = useCommandPaletteContext()
@@ -88,7 +87,7 @@ const CommandPalette = ({ apps, commands, shortcuts }) => {
     const handleVisibilityToggle = useCallback(() => {
         setModalOpen((open) => !open)
         setCurrentView(HOME_VIEW)
-    }, [setModalOpen])
+    }, [setCurrentView, setModalOpen])
 
     const handleModalClick = useCallback(
         (event) => {
@@ -116,7 +115,11 @@ const CommandPalette = ({ apps, commands, shortcuts }) => {
     }, [handleVisibilityToggle])
 
     return (
-        <div ref={containerEl} data-test="headerbar-apps-menu" className="headerbar-apps-menu">
+        <div
+            ref={containerEl}
+            data-test="headerbar-apps-menu"
+            className="headerbar-apps-menu"
+        >
             <button
                 onClick={handleVisibilityToggle}
                 data-test="headerbar-apps-icon"
