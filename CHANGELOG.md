@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/dhis2/global-shell-app/compare/v1.0.0...v1.0.1) (2025-03-05)
+
+
+### Bug Fixes
+
+* open command palette from plugin ([#9](https://github.com/dhis2/global-shell-app/issues/9)) ([7374880](https://github.com/dhis2/global-shell-app/commit/7374880e19b081f8d13b62c189eae0aca33bb892))
+
 # 1.0.0 (2025-03-05)
 
 
