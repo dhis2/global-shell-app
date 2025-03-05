@@ -2,7 +2,7 @@ import { useAlert, useConfig } from '@dhis2/app-runtime'
 // eslint-disable-next-line import/no-unresolved
 import { Plugin } from '@dhis2/app-runtime/experimental'
 import PropTypes from 'prop-types'
-import React from 'react'
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import { useLocation, useParams } from 'react-router'
 import { useClientOfflineInterface } from '../lib/clientPWAUpdateState.jsx'
 import i18n from '../locales/index.js'
@@ -106,8 +106,8 @@ export const PluginLoader = ({ appsInfoQuery }) => {
     const params = useParams()
     const location = useLocation()
     const { baseUrl } = useConfig()
-    const [pluginEntrypoint, setPluginEntrypoint] = React.useState()
-    const [rerenderKey, setRerenderKey] = React.useState(0)
+    const [pluginEntrypoint, setPluginEntrypoint] = useState()
+    const [rerenderKey, setRerenderKey] = useState(0)
     const { show: showNavigationWarning } = useAlert(
         i18n.t(
             'Unable to load the requested page from DHIS2. Returned to previous page.'
@@ -117,8 +117,8 @@ export const PluginLoader = ({ appsInfoQuery }) => {
     const initClientOfflineInterface = useClientOfflineInterface()
 
     // test prop messaging and updates
-    const [color, setColor] = React.useState('blue')
-    const toggleColor = React.useCallback(
+    const [color, setColor] = useState('blue')
+    const toggleColor = useCallback(
         () => setColor((prev) => (prev === 'blue' ? 'red' : 'blue')),
         []
     )
@@ -126,7 +126,7 @@ export const PluginLoader = ({ appsInfoQuery }) => {
     // todo: add query string to entrypoint (e.g. maps /dhis-web-maps/?currentAnalyticalObject=true)
     // Can use `urlObject.searchParams.append('redirect', 'false')`
     // (or is this a backend thing?)
-    React.useEffect(() => {
+    useEffect(() => {
         if (!appsInfoQuery.data) {
             return
         }
@@ -144,7 +144,7 @@ export const PluginLoader = ({ appsInfoQuery }) => {
         asyncWork()
     }, [params.appName, baseUrl, appsInfoQuery.data])
 
-    const pluginHref = React.useMemo(() => {
+    const pluginHref = useMemo(() => {
         // An absolute URL helps compare to the location inside the iframe:
         const pluginUrl = new URL(pluginEntrypoint, window.location)
         pluginUrl.hash = location.hash
@@ -153,7 +153,7 @@ export const PluginLoader = ({ appsInfoQuery }) => {
         return pluginUrl.href
     }, [pluginEntrypoint, location.hash, location.search])
 
-    const handleLoad = React.useCallback(
+    const handleLoad = useCallback(
         (event) => {
             // If we can't access the new page's Document, this is a cross-domain page.
             // Disallow that; return to previous plugin state.
