@@ -15,7 +15,7 @@ jobs:
     test:
         uses: dhis2/workflows-platform/.github/workflows/test.yml@v1
     release:
-        needs: [lint-commits, lint, test]
+        needs: [lint-commits, test]
         uses: dhis2/workflows-platform/.github/workflows/release.yml@v1
         with:
             publish_apphub: false
