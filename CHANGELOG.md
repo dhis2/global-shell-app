@@ -1,3 +1,10 @@
+## [1.1.2](https://github.com/dhis2/global-shell-app/compare/v1.1.1...v1.1.2) (2025-03-05)
+
+
+### Bug Fixes
+
+* remove adapter header bar + direction: 'auto' in config ([#21](https://github.com/dhis2/global-shell-app/issues/21)) ([4ce0e7c](https://github.com/dhis2/global-shell-app/commit/4ce0e7c68132298a2e2dd144fef51383ddf26ff3))
+
 ## [1.1.1](https://github.com/dhis2/global-shell-app/compare/v1.1.0...v1.1.1) (2025-03-05)
 
 
