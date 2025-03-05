@@ -1,3 +1,10 @@
+## [1.1.1](https://github.com/dhis2/global-shell-app/compare/v1.1.0...v1.1.1) (2025-03-05)
+
+
+### Bug Fixes
+
+* revert app name to global-app-shell for now ([#20](https://github.com/dhis2/global-shell-app/issues/20)) ([3c7d270](https://github.com/dhis2/global-shell-app/commit/3c7d270d86861ac9926190f13291a3b69793f8dc))
+
 # [1.1.0](https://github.com/dhis2/global-shell-app/compare/v1.0.1...v1.1.0) (2025-03-05)
 
 
