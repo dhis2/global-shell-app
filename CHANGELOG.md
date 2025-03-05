@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/dhis2/global-shell-app/compare/v1.0.1...v1.1.0) (2025-03-05)
+
+
+### Features
+
+* client side app routing ([#19](https://github.com/dhis2/global-shell-app/issues/19)) ([a81eaa1](https://github.com/dhis2/global-shell-app/commit/a81eaa131866eeef30cea8f021a1c69281ebe971))
+
 ## [1.0.1](https://github.com/dhis2/global-shell-app/compare/v1.0.0...v1.0.1) (2025-03-05)
 
 
