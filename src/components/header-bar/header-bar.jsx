@@ -37,6 +37,7 @@ const query = {
 
 export const HeaderBar = ({
     appName,
+    appVersion,
     className,
     updateAvailable,
     onApplyAvailableUpdate,
@@ -79,6 +80,8 @@ export const HeaderBar = ({
         <HeaderBarContextProvider
             updateAvailable={updateAvailable}
             onApplyAvailableUpdate={onApplyAvailableUpdate}
+            clientAppName={appName}
+            clientAppVersion={appVersion}
         >
             <header className={className}>
                 <div className="main">
@@ -145,6 +148,7 @@ export const HeaderBar = ({
 
 HeaderBar.propTypes = {
     appName: PropTypes.string,
+    appVersion: PropTypes.string,
     className: PropTypes.string,
     updateAvailable: PropTypes.bool,
     onApplyAvailableUpdate: PropTypes.func,

@@ -53,7 +53,7 @@ export function UpdateNotification({ hideProfileMenu }) {
     return updateAvailable ? (
         <button
             onClick={onClick}
-            aria-label={i18n.t('New app version available — Reload to update')}
+            aria-label={i18n.t('App updates available — Click to reload')}
             data-test="dhis2-ui-headerbar-updatenotification"
         >
             {updateNotificationLabel}
@@ -70,8 +70,9 @@ export function UpdateNotification({ hideProfileMenu }) {
                     line-height: 15px;
                     color: ${colors.grey700};
                 }
-                    button:hover {
-                        background: ${colors.grey200};
+                button:hover {
+                    background: ${colors.grey200};
+                }
             `}</style>
         </button>
     ) : null

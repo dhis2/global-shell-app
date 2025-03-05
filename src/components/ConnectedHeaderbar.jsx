@@ -13,10 +13,15 @@ const getAppDisplayName = (appName, modules) => {
     )?.displayName
 }
 
-// currently, not all core apps are included in the api/apps response
-const getAppVersion = (appName, apps) => {
+// Currently, not all core apps are included in the api/apps response:
+// need to check /api/apps and /dhis-web-apps/apps-bundle.json
+const getAppVersion = (appName, apps, bundledApps) => {
     const parsedAppName = appName.replace('dhis-web-', '')
-    return apps.find((a) => a.short_name === parsedAppName)?.version
+    // First
+    return (
+        apps.find((a) => a.short_name === parsedAppName)?.version ||
+        bundledApps.find((ba) => ba.name === parsedAppName)?.version
+    )
 }
 
 // todo:
@@ -69,7 +74,11 @@ export function ConnectedHeaderBar({ appsInfoQuery }) {
         if (!params.appName || !appsInfoQuery.data) {
             return
         }
-        return getAppVersion(params.appName, appsInfoQuery.data.apps)
+        return getAppVersion(
+            params.appName,
+            appsInfoQuery.data.apps,
+            appsInfoQuery.data.bundledApps
+        )
     }, [appsInfoQuery.data, params.appName])
 
     // For now, the header bar can only show one "Update available" badge, so
@@ -92,7 +101,6 @@ export function ConnectedHeaderBar({ appsInfoQuery }) {
             <HeaderBar
                 className={'global-shell-header'}
                 appName={appName}
-                // todo: currently not used by the component
                 appVersion={appVersion}
                 updateAvailable={updateAvailable}
                 onApplyAvailableUpdate={confirmReload}
