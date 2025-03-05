@@ -1,3 +1,10 @@
+## [1.1.3](https://github.com/dhis2/global-shell-app/compare/v1.1.2...v1.1.3) (2025-03-05)
+
+
+### Bug Fixes
+
+* **plugin-loader:** handle faulty app urls to avoid loops ([#22](https://github.com/dhis2/global-shell-app/issues/22)) ([f61fc80](https://github.com/dhis2/global-shell-app/commit/f61fc80ed538d08e8cb0f13b8f2c80922f22b9c9))
+
 ## [1.1.2](https://github.com/dhis2/global-shell-app/compare/v1.1.1...v1.1.2) (2025-03-05)
 
 
