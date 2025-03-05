@@ -1,5 +1,6 @@
 import { userEvent } from '@testing-library/user-event'
 import React from 'react'
+import { BrowserRouter } from 'react-router'
 import CommandPalette from '../command-palette.jsx'
 import {
     headerBarIconTest,
@@ -22,7 +23,13 @@ describe('Command Palette - List View - Browse Shortcuts', () => {
             getByPlaceholderText,
             queryByText,
         } = render(
-            <CommandPalette apps={[]} shortcuts={testShortcuts} commands={[]} />
+            <BrowserRouter basename={'/'}>
+                <CommandPalette
+                    apps={[]}
+                    shortcuts={testShortcuts}
+                    commands={[]}
+                />
+            </BrowserRouter>
         )
         // open command palette
         await user.click(getByTestId(headerBarIconTest))

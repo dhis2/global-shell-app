@@ -1,7 +1,7 @@
 import { usePWAUpdateState } from '@dhis2/pwa'
 import PropTypes from 'prop-types'
 import React, { useMemo, useEffect } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams } from 'react-router'
 import { useClientPWAUpdateState } from '../lib/clientPWAUpdateState.jsx'
 import { ConfirmUpdateModal } from './ConfirmUpdateModal.tsx'
 import { HeaderBar } from './header-bar/index.js'

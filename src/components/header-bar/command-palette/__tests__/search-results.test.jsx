@@ -1,6 +1,7 @@
 import { fireEvent } from '@testing-library/dom'
 import { userEvent } from '@testing-library/user-event'
 import React from 'react'
+import { BrowserRouter } from 'react-router'
 import CommandPalette from '../command-palette.jsx'
 import {
     headerBarIconTest,
@@ -9,6 +10,16 @@ import {
     testCommands,
     testShortcuts,
 } from './command-palette.test.jsx'
+
+const WrappedCommandPalette = () => (
+    <BrowserRouter>
+        <CommandPalette
+            apps={testApps}
+            shortcuts={testShortcuts}
+            commands={testCommands}
+        />
+    </BrowserRouter>
+)
 
 describe('Command Palette - List View - Search Results', () => {
     beforeAll(() => {
@@ -20,11 +31,7 @@ describe('Command Palette - List View - Search Results', () => {
     it('filters for one item and handles navigation of singular item list', async () => {
         const user = userEvent.setup()
         const { getByPlaceholderText, queryAllByTestId, container } = render(
-            <CommandPalette
-                apps={testApps}
-                shortcuts={testShortcuts}
-                commands={testCommands}
-            />
+            <WrappedCommandPalette />
         )
         // open modal
         fireEvent.keyDown(container, { key: 'k', metaKey: true })
@@ -58,7 +65,13 @@ describe('Command Palette - List View - Search Results', () => {
             queryByText,
             queryByTestId,
         } = render(
-            <CommandPalette apps={[]} shortcuts={testShortcuts} commands={[]} />
+            <BrowserRouter>
+                <CommandPalette
+                    apps={[]}
+                    shortcuts={testShortcuts}
+                    commands={[]}
+                />
+            </BrowserRouter>
         )
         // open command palette
         await user.click(getByTestId(headerBarIconTest))
@@ -85,13 +98,7 @@ describe('Command Palette - List View - Search Results', () => {
             getByTestId,
             queryByTestId,
             container,
-        } = render(
-            <CommandPalette
-                apps={testApps}
-                shortcuts={testShortcuts}
-                commands={testCommands}
-            />
-        )
+        } = render(<WrappedCommandPalette />)
         // open modal
         fireEvent.keyDown(container, { key: 'k', metaKey: true })
 
@@ -151,7 +158,9 @@ describe('Command Palette - List View - Search Results', () => {
             getByTestId,
             queryByTestId,
         } = render(
-            <CommandPalette apps={testApps} shortcuts={[]} commands={[]} />
+            <BrowserRouter>
+                <CommandPalette apps={testApps} shortcuts={[]} commands={[]} />
+            </BrowserRouter>
         )
         // open modal
         fireEvent.keyDown(container, { key: 'k', metaKey: true })
@@ -187,7 +196,7 @@ describe('Command Palette - List View - Search Results', () => {
         expect(searchField).toHaveValue('')
 
         const appsGrid = getByTestId('headerbar-top-apps-list')
-        const firstGridApp = appsGrid.querySelectorAll('a')[0]
+        const firstGridApp = appsGrid.querySelectorAll('.item')[0]
 
         expect(firstGridApp).toHaveClass('highlighted')
         expect(firstGridApp.querySelector('span')).toHaveTextContent(
@@ -203,11 +212,13 @@ describe('Command Palette - List View - Search Results', () => {
             container,
             queryByTestId,
         } = render(
-            <CommandPalette
-                apps={[]}
-                shortcuts={testShortcuts}
-                commands={testCommands}
-            />
+            <BrowserRouter>
+                <CommandPalette
+                    apps={[]}
+                    shortcuts={testShortcuts}
+                    commands={testCommands}
+                />
+            </BrowserRouter>
         )
         // open modal
         fireEvent.keyDown(container, { key: 'k', metaKey: true })

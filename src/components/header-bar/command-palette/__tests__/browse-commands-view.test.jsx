@@ -1,5 +1,6 @@
 import { userEvent } from '@testing-library/user-event'
 import React from 'react'
+import { BrowserRouter } from 'react-router'
 import CommandPalette from '../command-palette.jsx'
 import {
     headerBarIconTest,
@@ -17,7 +18,13 @@ describe('Command Palette - List View - Browse Commands', () => {
     it('renders Browse Commands View', async () => {
         const user = userEvent.setup()
         const { getByTestId, queryByTestId, getByPlaceholderText } = render(
-            <CommandPalette apps={[]} shortcuts={[]} commands={testCommands} />
+            <BrowserRouter>
+                <CommandPalette
+                    apps={[]}
+                    shortcuts={[]}
+                    commands={testCommands}
+                />
+            </BrowserRouter>
         )
         // open command palette
         await user.click(getByTestId(headerBarIconTest))
