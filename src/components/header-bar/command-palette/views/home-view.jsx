@@ -6,7 +6,13 @@ import AppItem from '../sections/app-item.jsx'
 import Heading from '../sections/heading.jsx'
 import ListItem from '../sections/list-item.jsx'
 
-const HomeView = ({ grid, gridColumnCount, gridRowCount, currentItem }) => {
+const HomeView = ({
+    grid,
+    gridColumnCount,
+    gridRowCount,
+    currentItem,
+    resetModal,
+}) => {
     return (
         <>
             {gridRowCount > 0 && (
@@ -32,6 +38,7 @@ const HomeView = ({ grid, gridColumnCount, gridRowCount, currentItem }) => {
                                         path={defaultAction}
                                         img={icon}
                                         highlighted={item === currentItem}
+                                        resetModal={resetModal}
                                     />
                                 )
                             })
@@ -92,6 +99,7 @@ HomeView.propTypes = {
     grid: PropTypes.array,
     gridColumnCount: PropTypes.number,
     gridRowCount: PropTypes.number,
+    resetModal: PropTypes.func,
 }
 
 export default HomeView

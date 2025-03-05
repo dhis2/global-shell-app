@@ -22,6 +22,7 @@ function ListItem({
     type,
     onClickHandler,
     highlighted,
+    resetModal,
     dataTest = 'headerbar-list-item',
 }) {
     const showDescription = type === COMMAND
@@ -112,6 +113,8 @@ function ListItem({
             <Link
                 to={`apps/${name?.replace('dhis-web-', '')}`}
                 className={className}
+                // ...and then close the palette
+                onClick={resetModal}
             >
                 {item}
                 {styles}
@@ -129,6 +132,7 @@ ListItem.propTypes = {
     icon: PropTypes.node,
     image: PropTypes.string,
     name: PropTypes.string,
+    resetModal: PropTypes.func,
     title: PropTypes.string,
     type: PropTypes.string,
     onClickHandler: PropTypes.func,

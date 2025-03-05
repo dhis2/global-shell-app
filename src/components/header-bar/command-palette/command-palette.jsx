@@ -10,13 +10,14 @@ import useModal from './hooks/use-modal.js'
 import ModalContainer from './sections/modal-container.jsx'
 import NavigationKeysLegend from './sections/navigation-keys-legend.jsx'
 import SearchFilter from './sections/search-filter.jsx'
-import { HOME_VIEW } from './utils/constants.js'
+import { APP, HOME_VIEW } from './utils/constants.js'
 import HomeView from './views/home-view.jsx'
 import ListView from './views/list-view.jsx'
 
 const CommandPalette = ({ apps, commands, shortcuts }) => {
     const containerEl = useRef(null)
-    const { currentView, filter, setCurrentView } = useCommandPaletteContext()
+    const { currentView, setCurrentView, filter, setFilter } =
+        useCommandPaletteContext()
     const actions = useAvailableActions({ apps, shortcuts, commands })
     const filteredItems = useFilter({
         apps,
@@ -47,6 +48,12 @@ const CommandPalette = ({ apps, commands, shortcuts }) => {
 
     const { modalOpen, modalRef, setModalOpen } = useModal(currentItem)
 
+    const resetModal = useCallback(() => {
+        setModalOpen(false)
+        setCurrentView(HOME_VIEW)
+        setFilter('')
+    }, [setModalOpen, setCurrentView, setFilter])
+
     const handleKeyDown = useCallback(
         (event) => {
             if (currentView !== HOME_VIEW) {
@@ -66,6 +73,9 @@ const CommandPalette = ({ apps, commands, shortcuts }) => {
                 case 'Enter':
                     event.preventDefault()
                     currentItem?.['action']?.()
+                    if (currentItem?.type === APP) {
+                        resetModal()
+                    }
                     break
                 case 'Tab':
                     event.preventDefault()
@@ -81,6 +91,7 @@ const CommandPalette = ({ apps, commands, shortcuts }) => {
             handleGridNavigation,
             setCurrentView,
             setModalOpen,
+            resetModal,
         ]
     )
 
@@ -144,11 +155,13 @@ const CommandPalette = ({ apps, commands, shortcuts }) => {
                                     gridColumnCount={gridColumnCount}
                                     gridRowCount={gridRowCount}
                                     currentItem={currentItem}
+                                    resetModal={resetModal}
                                 />
                             ) : (
                                 <ListView
                                     grid={grid}
                                     currentItem={currentItem}
+                                    resetModal={resetModal}
                                 />
                             )}
                         </div>

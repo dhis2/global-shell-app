@@ -3,7 +3,7 @@ import React from 'react'
 import EmptySearchResults from '../sections/empty-search-results.jsx'
 import ListItem from '../sections/list-item.jsx'
 
-const ListView = ({ grid, currentItem }) => {
+const ListView = ({ grid, currentItem, resetModal }) => {
     const listItems = grid.reduce((acc, arr) => {
         acc.push(arr[0])
         return acc
@@ -38,6 +38,7 @@ const ListView = ({ grid, currentItem }) => {
                                 highlighted={currentItem === item}
                                 onClickHandler={action}
                                 dataTest={dataTest}
+                                resetModal={resetModal}
                             />
                         )
                     })}
@@ -52,6 +53,7 @@ const ListView = ({ grid, currentItem }) => {
 ListView.propTypes = {
     currentItem: PropTypes.object,
     grid: PropTypes.array,
+    resetModal: PropTypes.func,
 }
 
 export default ListView

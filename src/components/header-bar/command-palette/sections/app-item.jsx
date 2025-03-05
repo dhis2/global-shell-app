@@ -12,11 +12,12 @@ const { className, styles } = css.resolve`
     }
 `
 
-function AppItem({ name, displayName, img, highlighted }) {
+function AppItem({ name, displayName, img, highlighted, resetModal }) {
     return (
         <Link
             to={`apps/${name.replace('dhis-web-', '')}`}
             className={className}
+            onClick={resetModal}
         >
             <div className={cx('item', { highlighted })} tabIndex={-1}>
                 <img src={img} alt="app" className="app-icon" />
@@ -69,6 +70,7 @@ AppItem.propTypes = {
     highlighted: PropTypes.bool,
     img: PropTypes.string,
     name: PropTypes.string,
+    resetModal: PropTypes.func,
 }
 
 export default AppItem
