@@ -65,7 +65,27 @@ export const HeaderBar = ({
     const commands = []
 
     // fetch shortcuts
-    const shortcuts = []
+    const shortcuts = useMemo(() => {
+        if (!data?.apps?.modules) {
+            return []
+        }
+
+        return data.apps.modules?.reduce((acc, currModule) => {
+            const { defaultAction, icon } = currModule
+            const shortcuts =
+                currModule.shortcuts?.map(({ name, url }) => {
+                    return {
+                        name,
+                        // ToDo: confirm what the default action should be in Global shell
+                        // ToDo: check why dhis-web-pivot doesn't have manifest
+                        defaultAction: defaultAction + url,
+                        icon,
+                    }
+                }) ?? []
+
+            return [...acc, ...shortcuts]
+        }, [])
+    }, [data])
 
     // See https://jira.dhis2.org/browse/LIBS-180
     if (!loading && !error) {
