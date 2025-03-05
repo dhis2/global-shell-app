@@ -144,7 +144,7 @@ export const PluginLoader = ({ appsInfoQuery }) => {
 
             if (!newPluginEntrypoint) {
                 console.error(
-                    `The app slug ${params.appName} did not match any app. Redirecting to the home page in 5 seconds`
+                    `The app slug "${params.appName}" did not match any app. Redirecting to the home page in 5 seconds`
                 )
                 setError(
                     i18n.t(
