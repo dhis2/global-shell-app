@@ -78,6 +78,8 @@ const listenForCommandPaletteToggle = (event) => {
 }
 
 /**
+ * ⭐️ This is what redirects back to the regular login app when logged out ⭐️
+ *
  * If the iframe loads a page that is different from the pluginSource given to
  * it, navigate the whole page there. This should handle two cases:
  * 1. The navigation is outside the DHIS2 instance: we want to leave the shell
