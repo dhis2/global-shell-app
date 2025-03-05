@@ -4,6 +4,7 @@ const config = {
     title: 'Global Shell',
 
     pwa: { enabled: true },
+    direction: 'auto',
 
     entryPoints: {
         app: './src/App.jsx',
