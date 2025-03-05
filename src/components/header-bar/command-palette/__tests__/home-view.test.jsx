@@ -1,6 +1,7 @@
 import { fireEvent } from '@testing-library/dom'
 import { userEvent } from '@testing-library/user-event'
 import React from 'react'
+import { BrowserRouter } from 'react-router'
 import CommandPalette from '../command-palette.jsx'
 import {
     headerBarIconTest,
@@ -10,6 +11,16 @@ import {
     testCommands,
     testShortcuts,
 } from './command-palette.test.jsx'
+
+const WrappedCommandPalette = () => (
+    <BrowserRouter>
+        <CommandPalette
+            apps={testApps}
+            shortcuts={testShortcuts}
+            commands={testCommands}
+        />
+    </BrowserRouter>
+)
 
 describe('Command Palette - Home View', () => {
     beforeAll(() => {
@@ -29,13 +40,7 @@ describe('Command Palette - Home View', () => {
             queryByText,
             getAllByRole,
             queryAllByTestId,
-        } = render(
-            <CommandPalette
-                apps={testApps}
-                shortcuts={testShortcuts}
-                commands={testCommands}
-            />
-        )
+        } = render(<WrappedCommandPalette />)
         // headerbar icon button
         await await user.click(getByTestId(headerBarIconTest))
 
@@ -92,13 +97,7 @@ describe('Command Palette - Home View', () => {
 
     it('handles right arrow navigation in the grid on the home view', async () => {
         const user = userEvent.setup()
-        const { container, queryByTestId } = render(
-            <CommandPalette
-                apps={testApps}
-                shortcuts={testShortcuts}
-                commands={testCommands}
-            />
-        )
+        const { container, queryByTestId } = render(<WrappedCommandPalette />)
 
         // open modal with (Ctrl + k) keys
         fireEvent.keyDown(container, { key: 'k', ctrlKey: true })
@@ -140,13 +139,7 @@ describe('Command Palette - Home View', () => {
 
     it('handles left arrow navigation in the grid on the home view', async () => {
         const user = userEvent.setup()
-        const { container, getByTestId } = render(
-            <CommandPalette
-                apps={testApps}
-                shortcuts={testShortcuts}
-                commands={testCommands}
-            />
-        )
+        const { container, getByTestId } = render(<WrappedCommandPalette />)
 
         // open modal with (Ctrl + k) keys
         fireEvent.keyDown(container, { key: 'k', ctrlKey: true })
@@ -192,13 +185,7 @@ describe('Command Palette - Home View', () => {
 
     it('handles down arrow navigation on the home view', async () => {
         const user = userEvent.setup()
-        const { queryByTestId, container } = render(
-            <CommandPalette
-                apps={testApps}
-                shortcuts={testShortcuts}
-                commands={testCommands}
-            />
-        )
+        const { queryByTestId, container } = render(<WrappedCommandPalette />)
 
         // open modal with (Ctrl + k) keys
         fireEvent.keyDown(container, { key: 'k', ctrlKey: true })
@@ -252,11 +239,7 @@ describe('Command Palette - Home View', () => {
     it('handles up arrow navigation on the home view', async () => {
         const user = userEvent.setup()
         const { container, getByTestId, queryByTestId } = render(
-            <CommandPalette
-                apps={testApps}
-                shortcuts={testShortcuts}
-                commands={testCommands}
-            />
+            <WrappedCommandPalette />
         )
 
         // open modal with (Ctrl + k) keys
