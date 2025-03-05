@@ -14,9 +14,11 @@ const APPS_INFO_QUERY = {
     apps: {
         resource: 'apps',
     },
-    // todo:
-    // want to get versions of installed apps, i.e. /dhis-web-apps/apps-bundle.json
+    // Want to get versions of installed apps, i.e. /dhis-web-apps/apps-bundle.json
     // need to extend app-runtime to get that
+    bundledApps: {
+        resource: 'legacy::bundledApps',
+    },
 }
 
 const Layout = ({ appsInfoQuery }) => {

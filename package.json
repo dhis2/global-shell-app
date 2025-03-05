@@ -16,6 +16,7 @@
         "del-pwa": "rm -rf node_modules/@dhis2/pwa/build",
         "del-headerbar": "rm -rf node_modules/@dhis2-ui/header-bar/build",
         "del-offline": "rm -rf node_modules/@dhis2/app-service-offline/build",
+        "del-data": "rm -rf node_modules/@dhis2/app-service-data/build",
         "del-plugin": "rm -rf node_modules/@dhis2/app-service-plugin/build",
         "del-nm-cache": "rm -rf .d2/shell/node_modules/.cache",
         "cp-adapter": "cp -r ../app-platform/adapter/build node_modules/@dhis2/app-adapter/build",
@@ -23,13 +24,15 @@
         "cp-pwa": "cp -r ../app-platform/pwa/build node_modules/@dhis2/pwa/build",
         "cp-headerbar": "cp -r ../ui/components/header-bar/build node_modules/@dhis2-ui/header-bar/build",
         "cp-offline": "cp -r ../app-runtime/services/offline/build node_modules/@dhis2/app-service-offline/build",
+        "cp-data": "cp -r ../app-runtime/services/data/build node_modules/@dhis2/app-service-data/build",
         "cp-plugin": "cp -r ../app-runtime/services/plugin/build node_modules/@dhis2/app-service-plugin/build",
         "import-adapter": "yarn del-adapter && yarn del-nm-cache && yarn cp-adapter && yarn patch-package @dhis2/app-adapter",
         "import-cli": "yarn del-cli && yarn cp-cli && yarn patch-package @dhis2/cli-app-scripts",
         "import-pwa": "yarn del-pwa && yarn del-nm-cache && yarn cp-pwa && yarn patch-package @dhis2/pwa",
         "import-headerbar": "yarn del-headerbar && yarn del-nm-cache && yarn cp-headerbar && yarn patch-package @dhis2-ui/header-bar",
         "import-plugin": "yarn del-plugin && yarn del-nm-cache && yarn cp-plugin && yarn patch-package @dhis2/app-service-plugin",
-        "import-offline": "yarn del-offline && yarn del-nm-cache && yarn cp-offline"
+        "import-offline": "yarn del-offline && yarn del-nm-cache && yarn cp-offline",
+        "import-data": "yarn del-data && yarn del-nm-cache && yarn cp-data && yarn patch-package @dhis2/app-service-data"
     },
     "devDependencies": {
         "@dhis2/cli-app-scripts": "^12.3.0",
