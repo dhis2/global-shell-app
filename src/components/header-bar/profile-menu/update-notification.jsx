@@ -1,4 +1,3 @@
-import { useConfig } from '@dhis2/app-runtime'
 import { colors, spacers } from '@dhis2/ui-constants'
 import PropTypes from 'prop-types'
 import React from 'react'
@@ -6,7 +5,6 @@ import i18n from '../../../locales/index.js'
 import { useHeaderBarContext } from '../header-bar-context.jsx'
 
 export function UpdateNotification({ hideProfileMenu }) {
-    const { appName } = useConfig()
     const { updateAvailable, onApplyAvailableUpdate } = useHeaderBarContext()
     const onClick = () => {
         hideProfileMenu()
@@ -18,12 +16,7 @@ export function UpdateNotification({ hideProfileMenu }) {
             <div className="badge" />
             <div className="spacer" />
             <div className="message">
-                {appName
-                    ? i18n.t(
-                          'New {{appName}} version available — Reload to update',
-                          { appName }
-                      )
-                    : i18n.t('New app version available — Reload to update')}
+                {i18n.t('App updates available — Click to reload')}
             </div>
             <style jsx>{`
                 .root {
