@@ -27,7 +27,8 @@ const HomeView = ({ grid, gridColumnCount, gridRowCount, currentItem }) => {
                                 return (
                                     <AppItem
                                         key={`app-${name}-${idx}`}
-                                        name={displayName || name}
+                                        name={name}
+                                        displayName={displayName || name}
                                         path={defaultAction}
                                         img={icon}
                                         highlighted={item === currentItem}

@@ -2,19 +2,29 @@ import { colors, spacers } from '@dhis2/ui-constants'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React from 'react'
+import { Link } from 'react-router-dom'
+import css from 'styled-jsx/css'
 
-function AppItem({ name, path, img, highlighted }) {
+// Need to do this to undo <a> styles in the Link component
+const { className, styles } = css.resolve`
+    a {
+        text-decoration: none;
+    }
+`
+
+function AppItem({ name, displayName, img, highlighted }) {
     return (
-        <a
-            href={path}
-            className={cx('item', { highlighted })}
-            tabIndex={-1}
-            target="_self"
+        <Link
+            to={`apps/${name.replace('dhis-web-', '')}`}
+            className={className}
         >
-            <img src={img} alt="app" className="app-icon" />
-            <span className="app-name">{name}</span>
+            <div className={cx('item', { highlighted })} tabIndex={-1}>
+                <img src={img} alt="app" className="app-icon" />
+                <span className="app-name">{displayName}</span>
+            </div>
+            {styles}
             <style jsx>{`
-                a {
+                .item {
                     display: flex;
                     flex-direction: column;
                     gap: ${spacers.dp12};
@@ -27,18 +37,18 @@ function AppItem({ name, path, img, highlighted }) {
                     color: ${colors.grey900};
                     transition: all 0.1s ease;
                 }
-                a:hover,
+                .item:hover,
                 .highlighted {
                     background: ${colors.grey200};
                     cursor: pointer;
                 }
-                a:active {
+                .item:active {
                     background: ${colors.grey300};
                 }
-                a:focus {
+                .item:focus {
                     outline: none;
                 }
-                a:last-of-type {
+                .item:last-of-type {
                     margin-bottom: 0;
                 }
                 .app-icon {
@@ -50,15 +60,15 @@ function AppItem({ name, path, img, highlighted }) {
                     text-align: center;
                 }
             `}</style>
-        </a>
+        </Link>
     )
 }
 
 AppItem.propTypes = {
+    displayName: PropTypes.string,
     highlighted: PropTypes.bool,
     img: PropTypes.string,
     name: PropTypes.string,
-    path: PropTypes.string,
 }
 
 export default AppItem

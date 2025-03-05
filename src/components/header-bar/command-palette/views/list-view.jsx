@@ -18,10 +18,8 @@ const ListView = ({ grid, currentItem }) => {
                             action,
                             displayName,
                             name,
-                            defaultAction,
                             icon,
                             description,
-                            url,
                             type,
                             dataTest,
                         } = item
@@ -32,8 +30,8 @@ const ListView = ({ grid, currentItem }) => {
                             <ListItem
                                 type={type}
                                 key={`app-${name}-${idx}`}
+                                name={name}
                                 title={displayName || name}
-                                path={defaultAction || url}
                                 image={isImage ? icon : undefined}
                                 icon={isIcon ? icon : undefined}
                                 description={description}

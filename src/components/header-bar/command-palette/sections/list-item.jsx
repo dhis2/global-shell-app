@@ -2,11 +2,20 @@ import { colors, spacers } from '@dhis2/ui-constants'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React from 'react'
-import { COMMAND } from '../utils/constants.js'
+import { Link } from 'react-router-dom'
+import css from 'styled-jsx/css'
+import { COMMAND, APP } from '../utils/constants.js'
+
+// Need to do this to undo <a> styles in the Link component
+const { className, styles } = css.resolve`
+    a {
+        text-decoration: none;
+    }
+`
 
 function ListItem({
     title,
-    path,
+    name,
     icon,
     image,
     description,
@@ -16,10 +25,10 @@ function ListItem({
     dataTest = 'headerbar-list-item',
 }) {
     const showDescription = type === COMMAND
-    return (
-        <a
-            href={path || undefined}
-            target="_self"
+    const isApp = type === APP
+
+    const item = (
+        <div
             onClick={onClickHandler}
             className={cx('item', { highlighted })}
             data-test={dataTest}
@@ -94,8 +103,23 @@ function ListItem({
                     }
                 `}
             </style>
-        </a>
+        </div>
     )
+
+    if (isApp) {
+        // Use react-router client-side routing to apps:
+        return (
+            <Link
+                to={`apps/${name?.replace('dhis-web-', '')}`}
+                className={className}
+            >
+                {item}
+                {styles}
+            </Link>
+        )
+    }
+
+    return item
 }
 
 ListItem.propTypes = {
@@ -104,7 +128,7 @@ ListItem.propTypes = {
     highlighted: PropTypes.bool,
     icon: PropTypes.node,
     image: PropTypes.string,
-    path: PropTypes.string,
+    name: PropTypes.string,
     title: PropTypes.string,
     type: PropTypes.string,
     onClickHandler: PropTypes.func,
