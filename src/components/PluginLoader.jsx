@@ -68,6 +68,15 @@ const watchForHashRouteChanges = (event) => {
     })
 }
 
+const listenForCommandPaletteToggle = (event) => {
+    if (window.toggleCommandPaletteListener) {
+        event.target.contentDocument.addEventListener(
+            'keydown',
+            window.toggleCommandPaletteListener
+        )
+    }
+}
+
 /**
  * If the iframe loads a page that is different from the pluginSource given to
  * it, navigate the whole page there. This should handle two cases:
@@ -167,6 +176,7 @@ export const PluginLoader = ({ appsInfoQuery }) => {
             initClientOfflineInterface({
                 clientWindow: event.target.contentWindow,
             })
+            listenForCommandPaletteToggle(event)
         },
         [pluginHref, showNavigationWarning, initClientOfflineInterface]
     )
