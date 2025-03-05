@@ -2,7 +2,7 @@ import { colors, spacers } from '@dhis2/ui-constants'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router'
 import css from 'styled-jsx/css'
 
 // Need to do this to undo <a> styles in the Link component
