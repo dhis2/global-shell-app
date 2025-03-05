@@ -106,7 +106,7 @@ describe('Command Palette - Home View', () => {
         const appsGrid = queryByTestId('headerbar-top-apps-list')
         expect(appsGrid).toBeInTheDocument()
 
-        const topApps = appsGrid.querySelectorAll('a')
+        const topApps = appsGrid.querySelectorAll('.item')
         expect(topApps.length).toBe(minAppsNum)
         const firstApp = topApps[0]
 
@@ -147,7 +147,7 @@ describe('Command Palette - Home View', () => {
         // topApps
         const appsGrid = getByTestId('headerbar-top-apps-list')
 
-        const topApps = appsGrid.querySelectorAll('a')
+        const topApps = appsGrid.querySelectorAll('.item')
         expect(topApps.length).toBe(minAppsNum)
         const firstApp = topApps[0]
         const lastAppInFirstRow = topApps[3]
@@ -194,7 +194,7 @@ describe('Command Palette - Home View', () => {
         const appsGrid = queryByTestId('headerbar-top-apps-list')
         expect(appsGrid).toBeInTheDocument()
 
-        const topApps = appsGrid.querySelectorAll('a')
+        const topApps = appsGrid.querySelectorAll('.item')
         expect(topApps.length).toBe(minAppsNum)
         const rowOneFirstApp = topApps[0]
         const rowTwoFirstApp = topApps[4]
@@ -247,7 +247,7 @@ describe('Command Palette - Home View', () => {
 
         // topApps
         const appsGrid = getByTestId('headerbar-top-apps-list')
-        const topApps = appsGrid.querySelectorAll('a')
+        const topApps = appsGrid.querySelectorAll('.item')
 
         const rowOneFirstApp = topApps[0]
         const rowTwoFirstApp = topApps[4]

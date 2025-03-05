@@ -196,7 +196,7 @@ describe('Command Palette - List View - Search Results', () => {
         expect(searchField).toHaveValue('')
 
         const appsGrid = getByTestId('headerbar-top-apps-list')
-        const firstGridApp = appsGrid.querySelectorAll('a')[0]
+        const firstGridApp = appsGrid.querySelectorAll('.item')[0]
 
         expect(firstGridApp).toHaveClass('highlighted')
         expect(firstGridApp.querySelector('span')).toHaveTextContent(
