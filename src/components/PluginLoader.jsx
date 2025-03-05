@@ -1,8 +1,9 @@
 import { useAlert, useConfig } from '@dhis2/app-runtime'
 // eslint-disable-next-line import/no-unresolved
 import { Plugin } from '@dhis2/app-runtime/experimental'
+import { CircularLoader, CenteredContent, NoticeBox } from '@dhis2/ui'
 import PropTypes from 'prop-types'
-import React from 'react'
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import { useLocation, useParams } from 'react-router'
 import { useClientOfflineInterface } from '../lib/clientPWAUpdateState.jsx'
 import i18n from '../locales/index.js'
@@ -78,6 +79,8 @@ const listenForCommandPaletteToggle = (event) => {
 }
 
 /**
+ * ⭐️ This is what redirects back to the regular login app when logged out ⭐️
+ *
  * If the iframe loads a page that is different from the pluginSource given to
  * it, navigate the whole page there. This should handle two cases:
  * 1. The navigation is outside the DHIS2 instance: we want to leave the shell
@@ -104,8 +107,8 @@ export const PluginLoader = ({ appsInfoQuery }) => {
     const params = useParams()
     const location = useLocation()
     const { baseUrl } = useConfig()
-    const [pluginEntrypoint, setPluginEntrypoint] = React.useState()
-    const [rerenderKey, setRerenderKey] = React.useState(0)
+    const [pluginEntrypoint, setPluginEntrypoint] = useState()
+    const [rerenderKey, setRerenderKey] = useState(0)
     const { show: showNavigationWarning } = useAlert(
         i18n.t(
             'Unable to load the requested page from DHIS2. Returned to previous page.'
@@ -113,10 +116,11 @@ export const PluginLoader = ({ appsInfoQuery }) => {
         { warning: true }
     )
     const initClientOfflineInterface = useClientOfflineInterface()
+    const [error, setError] = useState()
 
     // test prop messaging and updates
-    const [color, setColor] = React.useState('blue')
-    const toggleColor = React.useCallback(
+    const [color, setColor] = useState('blue')
+    const toggleColor = useCallback(
         () => setColor((prev) => (prev === 'blue' ? 'red' : 'blue')),
         []
     )
@@ -124,7 +128,7 @@ export const PluginLoader = ({ appsInfoQuery }) => {
     // todo: add query string to entrypoint (e.g. maps /dhis-web-maps/?currentAnalyticalObject=true)
     // Can use `urlObject.searchParams.append('redirect', 'false')`
     // (or is this a backend thing?)
-    React.useEffect(() => {
+    useEffect(() => {
         if (!appsInfoQuery.data) {
             return
         }
@@ -137,12 +141,31 @@ export const PluginLoader = ({ appsInfoQuery }) => {
                 appsInfoQuery.data.appMenu.modules,
                 baseUrl
             )
+
+            if (!newPluginEntrypoint) {
+                console.error(
+                    `The app slug "${params.appName}" did not match any app. Redirecting to the home page in 5 seconds`
+                )
+                setError(
+                    i18n.t(
+                        'Unable to find an app for this URL. Redirecting to home page.'
+                    )
+                )
+                setTimeout(() => {
+                    window.location.href = baseUrl
+                }, 5000)
+                return
+            }
+
             setPluginEntrypoint(newPluginEntrypoint)
         }
         asyncWork()
     }, [params.appName, baseUrl, appsInfoQuery.data])
 
-    const pluginHref = React.useMemo(() => {
+    const pluginHref = useMemo(() => {
+        if (pluginEntrypoint === undefined) {
+            return
+        }
         // An absolute URL helps compare to the location inside the iframe:
         const pluginUrl = new URL(pluginEntrypoint, window.location)
         pluginUrl.hash = location.hash
@@ -151,7 +174,7 @@ export const PluginLoader = ({ appsInfoQuery }) => {
         return pluginUrl.href
     }, [pluginEntrypoint, location.hash, location.search])
 
-    const handleLoad = React.useCallback(
+    const handleLoad = useCallback(
         (event) => {
             // If we can't access the new page's Document, this is a cross-domain page.
             // Disallow that; return to previous plugin state.
@@ -181,8 +204,23 @@ export const PluginLoader = ({ appsInfoQuery }) => {
         [pluginHref, showNavigationWarning, initClientOfflineInterface]
     )
 
+    if (error) {
+        return (
+            <CenteredContent>
+                <NoticeBox title={i18n.t('Something went wrong')} error>
+                    <div className={styles.marginBottom}>{error}</div>
+                    <CircularLoader small />
+                </NoticeBox>
+            </CenteredContent>
+        )
+    }
+
     if (!pluginHref) {
-        return 'Loading...' // todo
+        return (
+            <CenteredContent>
+                <CircularLoader />
+            </CenteredContent>
+        )
     }
 
     return (
