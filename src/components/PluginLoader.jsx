@@ -1,6 +1,7 @@
 import { useAlert, useConfig } from '@dhis2/app-runtime'
 // eslint-disable-next-line import/no-unresolved
 import { Plugin } from '@dhis2/app-runtime/experimental'
+import { CircularLoader, CenteredContent, NoticeBox } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import { useLocation, useParams } from 'react-router'
@@ -115,6 +116,7 @@ export const PluginLoader = ({ appsInfoQuery }) => {
         { warning: true }
     )
     const initClientOfflineInterface = useClientOfflineInterface()
+    const [error, setError] = useState()
 
     // test prop messaging and updates
     const [color, setColor] = useState('blue')
@@ -139,12 +141,31 @@ export const PluginLoader = ({ appsInfoQuery }) => {
                 appsInfoQuery.data.appMenu.modules,
                 baseUrl
             )
+
+            if (!newPluginEntrypoint) {
+                console.error(
+                    `The app slug ${params.appName} did not match any app. Redirecting to the home page in 5 seconds`
+                )
+                setError(
+                    i18n.t(
+                        'Unable to find an app for this URL. Redirecting to home page.'
+                    )
+                )
+                setTimeout(() => {
+                    window.location.href = baseUrl
+                }, 5000)
+                return
+            }
+
             setPluginEntrypoint(newPluginEntrypoint)
         }
         asyncWork()
     }, [params.appName, baseUrl, appsInfoQuery.data])
 
     const pluginHref = useMemo(() => {
+        if (pluginEntrypoint === undefined) {
+            return
+        }
         // An absolute URL helps compare to the location inside the iframe:
         const pluginUrl = new URL(pluginEntrypoint, window.location)
         pluginUrl.hash = location.hash
@@ -183,8 +204,23 @@ export const PluginLoader = ({ appsInfoQuery }) => {
         [pluginHref, showNavigationWarning, initClientOfflineInterface]
     )
 
+    if (error) {
+        return (
+            <CenteredContent>
+                <NoticeBox title={i18n.t('Something went wrong')} error>
+                    <div className={styles.marginBottom}>{error}</div>
+                    <CircularLoader small />
+                </NoticeBox>
+            </CenteredContent>
+        )
+    }
+
     if (!pluginHref) {
-        return 'Loading...' // todo
+        return (
+            <CenteredContent>
+                <CircularLoader />
+            </CenteredContent>
+        )
     }
 
     return (
