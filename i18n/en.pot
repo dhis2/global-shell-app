@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2025-03-05T12:12:10.076Z\n"
-"PO-Revision-Date: 2025-03-05T12:12:10.076Z\n"
+"POT-Creation-Date: 2025-03-05T12:25:47.036Z\n"
+"PO-Revision-Date: 2025-03-05T12:25:47.036Z\n"
 
 msgid "Save your data"
 msgstr "Save your data"
@@ -137,9 +137,6 @@ msgstr "Log out"
 
 msgid "App updates available — Click to reload"
 msgstr "App updates available — Click to reload"
-
-msgid "New app version available — Reload to update"
-msgstr "New app version available — Reload to update"
 
 msgid "header bar profile"
 msgstr "header bar profile"
