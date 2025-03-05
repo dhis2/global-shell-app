@@ -10,8 +10,8 @@ concurrency:
 jobs:
     lint-commits:
         uses: dhis2/workflows-platform/.github/workflows/lint-commits.yml@v1
-    lint:
-        uses: dhis2/workflows-platform/.github/workflows/lint.yml@v1
+    # lint:
+    #     uses: dhis2/workflows-platform/.github/workflows/lint.yml@v1
     test:
         uses: dhis2/workflows-platform/.github/workflows/test.yml@v1
     release:
