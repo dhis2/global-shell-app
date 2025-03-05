@@ -1,0 +1,42 @@
+# 1.0.0 (2025-03-05)
+
+
+### Bug Fixes
+
+* classname for headerbar button ([#11](https://github.com/dhis2/global-shell-app/issues/11)) ([847f1d1](https://github.com/dhis2/global-shell-app/commit/847f1d1c286f120631f2dea564ccade1a3361219))
+* correct app-adapter patch ([356b1cf](https://github.com/dhis2/global-shell-app/commit/356b1cf1adf07cc06781f0ca261aaabe56821f69))
+* doc title before app loads ([0c649c6](https://github.com/dhis2/global-shell-app/commit/0c649c617f388c18e4f49b7eac0aed04489b713f))
+* generalize profile menu pwa update ([#16](https://github.com/dhis2/global-shell-app/issues/16)) ([6834276](https://github.com/dhis2/global-shell-app/commit/6834276dc40890701c109d448b37dce360afcf0d))
+* update UI for correct app links ([9c4ad78](https://github.com/dhis2/global-shell-app/commit/9c4ad78673ffadc1bc47da80088908befa30fbb5))
+* **deps:** latest cli-app-scripts & patch ([66563cc](https://github.com/dhis2/global-shell-app/commit/66563cc4439e7c1e27e60bfe3c424fef912c502a))
+* **deps:** pwa package patch ([07cc3df](https://github.com/dhis2/global-shell-app/commit/07cc3df8878fa9063ba0c48070b18b2451236b94))
+* **deps:** try to fix @dhis2/pwa patch ([751ec0e](https://github.com/dhis2/global-shell-app/commit/751ec0eec5abae59adf00e67b4e0f0d7683878b8))
+* **deps:** update @dhis2/app-runtime and patches ([5ed8dbc](https://github.com/dhis2/global-shell-app/commit/5ed8dbc8d45ab4c6013ff6f5a0c29abc10cbf3a7))
+* **deps:** update @dhis2/ui and the header-bar patch ([5765a6d](https://github.com/dhis2/global-shell-app/commit/5765a6dd1f9ef461caddfda1d33f9c748041daf3))
+* **deps:** upgrade @dhis2/cli-app-scrippts, pwa, and their patches ([686200b](https://github.com/dhis2/global-shell-app/commit/686200b94430a36048567584703377aa5eed5689))
+* **header-bar:** correct hiding styles ([c939b81](https://github.com/dhis2/global-shell-app/commit/c939b81a6b6fb76a394bf1ad447d10ab67c1c738))
+* **header-bar:** display name resolution ([906c390](https://github.com/dhis2/global-shell-app/commit/906c390c9847fcdb33717882ab10cbeeebef4d0e))
+* **plugin-loader:** correct source routing ([9e8fcbc](https://github.com/dhis2/global-shell-app/commit/9e8fcbc5c167016d85ba27ceb14b9efdbfc8dd46))
+* hide own header bar ([2a6dd94](https://github.com/dhis2/global-shell-app/commit/2a6dd94d03a27abe11a0e7695ce32d48ab0ba7bc))
+* improve error message ([df19795](https://github.com/dhis2/global-shell-app/commit/df19795035e86e51718be258c79eeb486e51c69a))
+* improve plugin resetting logic ([59c693c](https://github.com/dhis2/global-shell-app/commit/59c693c6e87d1bb4e0ad189ccd54b42d88805e7a))
+* patch app adapter for absolute URLs for data service ([f71327a](https://github.com/dhis2/global-shell-app/commit/f71327a2ae3964e528b10cf0c2e5ab8e8e1638f4))
+* rerender plugin component for new sources ([5630b29](https://github.com/dhis2/global-shell-app/commit/5630b2965a3d7b9d6f2ef506bd32a09732954450))
+* routing to legacy data entry ([8b746f8](https://github.com/dhis2/global-shell-app/commit/8b746f8cc5b823f09b0200533330d85d01538658))
+
+
+### Features
+
+* add command palette here (more changes coming) ([#6](https://github.com/dhis2/global-shell-app/issues/6)) ([bfc32c2](https://github.com/dhis2/global-shell-app/commit/bfc32c27d7819ea028df1861693d7b3e05d4bb52))
+* add header-bar design changes ([#8](https://github.com/dhis2/global-shell-app/issues/8)) ([76e3998](https://github.com/dhis2/global-shell-app/commit/76e3998719f298365296774ac03a0a0bf5db97c9))
+* app version in header bar ([#17](https://github.com/dhis2/global-shell-app/issues/17)) ([3f0db5a](https://github.com/dhis2/global-shell-app/commit/3f0db5a869c22b168a7b503d8fb23cbab57a977a))
+* **command palette:** grid layout and navigation ([#7](https://github.com/dhis2/global-shell-app/issues/7)) ([a077caa](https://github.com/dhis2/global-shell-app/commit/a077caae7db2b6407ad2027f52dc05f0f6aa2fa5))
+* improved routing and styles ([#4](https://github.com/dhis2/global-shell-app/issues/4)) ([e57c4ac](https://github.com/dhis2/global-shell-app/commit/e57c4ac1d807ac3c2b56fd69ee6a3ad5d61962e3))
+* patch @dhis2/app-service-plugin for flexible sizing and onLoad handler ([9b0fdad](https://github.com/dhis2/global-shell-app/commit/9b0fdad8817093b4873746cf9dff1df367da797b))
+* patch header bar for routing and app-menu closing fix ([6a336d4](https://github.com/dhis2/global-shell-app/commit/6a336d4000423bb9244ac32a190acaed3dbc03d9))
+* pwa and updates for global shell ([455f756](https://github.com/dhis2/global-shell-app/commit/455f7563bb746ca73e9036f8b27f3a86e8be93f6))
+* pwa-update prototype ([1d9c8d3](https://github.com/dhis2/global-shell-app/commit/1d9c8d3c2ba0b8fc5fff8a35568d39c947da5eee))
+* routing, remove chaff, hide header bar in legacy client apps ([bab5228](https://github.com/dhis2/global-shell-app/commit/bab52285f5d2fcd22b1e847c9f3b134d51489464))
+* test pluginified app entrypoint by default and fall back to app root ([b997729](https://github.com/dhis2/global-shell-app/commit/b997729e6619f8345633751112536254dd6f5c44))
+* use client app name in header bar ([635511c](https://github.com/dhis2/global-shell-app/commit/635511c644f2bb33136325c45988fe481d42b810))
+* watch for pwa updates in plugin ([#5](https://github.com/dhis2/global-shell-app/issues/5)) ([fcbe234](https://github.com/dhis2/global-shell-app/commit/fcbe234bf73783b6ba46f5f075d46733c87696eb))
