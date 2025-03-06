@@ -6,6 +6,7 @@ import {
     IconLogOut16,
     IconRedo16,
     IconTerminalWindow16,
+    IconWindow16,
 } from '@dhis2/ui-icons'
 import React, { useCallback, useMemo } from 'react'
 import i18n from '../../../../locales/index.js'
@@ -22,6 +23,7 @@ import {
     MIN_COMMANDS_NUM,
     MIN_SHORTCUTS_NUM,
 } from '../utils/constants.js'
+import { patchPwaApps } from '../utils/patch-pwa-apps.ts'
 
 export const useAvailableActions = ({ apps, shortcuts, commands }) => {
     const { baseUrl } = useConfig()
@@ -83,6 +85,14 @@ export const useAvailableActions = ({ apps, shortcuts, commands }) => {
                 icon: <IconLogOut16 color={colors.grey700} />,
                 dataTest: 'headerbar-logout',
                 action: () => logoutAction(logoutURL),
+            })
+            // Todo: remove
+            actionsArray.push({
+                type: ACTION,
+                name: 'Patch blank PWA apps — Bug bash',
+                icon: <IconWindow16 color={colors.grey700} />,
+                dataTest: 'headerbar-patch-pwa-apps-action',
+                action: patchPwaApps,
             })
         } else {
             actionsArray.push({
