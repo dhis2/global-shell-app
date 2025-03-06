@@ -1,3 +1,15 @@
+# [1.3.0](https://github.com/dhis2/global-shell-app/compare/v1.2.0...v1.3.0) (2025-03-06)
+
+
+### Bug Fixes
+
+* hide global shell in headerbar title ([#24](https://github.com/dhis2/global-shell-app/issues/24)) ([75acb16](https://github.com/dhis2/global-shell-app/commit/75acb160cf05a13bc6a37dcf2eac5b5b1d6d8b96))
+
+
+### Features
+
+* improve search functionality ([#15](https://github.com/dhis2/global-shell-app/issues/15)) ([4f53abc](https://github.com/dhis2/global-shell-app/commit/4f53abca1454247999111d61b830bc3f08b12640))
+
 # [1.2.0](https://github.com/dhis2/global-shell-app/compare/v1.1.3...v1.2.0) (2025-03-06)
 
 
