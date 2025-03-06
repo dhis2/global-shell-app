@@ -130,7 +130,7 @@ const ProfileContents = ({
                 div {
                     width: 100%;
                     padding: 0;
-                    background: white;
+                    background: ${colors.white};
                     box-shadow: ${elevations.e300};
                     border-radius: 3px;
                     border: 1px solid ${colors.grey300};
