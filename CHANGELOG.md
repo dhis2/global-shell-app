@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/dhis2/global-shell-app/compare/v1.1.3...v1.2.0) (2025-03-06)
+
+
+### Features
+
+* command to fix pwa app index.html precache redirects ([#23](https://github.com/dhis2/global-shell-app/issues/23)) ([a9fa576](https://github.com/dhis2/global-shell-app/commit/a9fa576cc0c6ac15c689fc8408c408dd5e7a3c3c))
+
 ## [1.1.3](https://github.com/dhis2/global-shell-app/compare/v1.1.2...v1.1.3) (2025-03-05)
 
 
