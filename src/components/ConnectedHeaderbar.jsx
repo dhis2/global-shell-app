@@ -51,8 +51,7 @@ export function ConnectedHeaderBar({ appsInfoQuery }) {
 
     const appName = useMemo(() => {
         if (!params.appName || !appsInfoQuery.data) {
-            // `undefined` defaults to app title in header bar component, i.e. "Global Shell"
-            return ' '
+            return
         }
         if (appsInfoQuery.data) {
             return getAppDisplayName(
@@ -100,7 +99,9 @@ export function ConnectedHeaderBar({ appsInfoQuery }) {
         <>
             <HeaderBar
                 className={'global-shell-header'}
-                appName={appName}
+                // `undefined` defaults to app title in header bar component,
+                // i.e. "Global Shell" -- use ' ' instead (and not '')
+                appName={appName || ' '}
                 appVersion={appVersion}
                 updateAvailable={updateAvailable}
                 onApplyAvailableUpdate={confirmReload}
