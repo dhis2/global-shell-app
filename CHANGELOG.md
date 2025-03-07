@@ -1,3 +1,10 @@
+## [1.3.1](https://github.com/dhis2/global-shell-app/compare/v1.3.0...v1.3.1) (2025-03-07)
+
+
+### Bug Fixes
+
+* **profile-menu:** close profile menu and debug info on backdrop click ([#26](https://github.com/dhis2/global-shell-app/issues/26)) ([399b6bf](https://github.com/dhis2/global-shell-app/commit/399b6bf8eb201e914d03a7bf791b9179bf0c303b))
+
 # [1.3.0](https://github.com/dhis2/global-shell-app/compare/v1.2.0...v1.3.0) (2025-03-06)
 
 
