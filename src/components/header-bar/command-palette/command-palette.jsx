@@ -10,9 +10,9 @@ import ModalContainer from './sections/modal-container.jsx'
 import NavigationKeysLegend from './sections/navigation-keys-legend.jsx'
 import SearchFilter from './sections/search-filter.jsx'
 import { APP, HOME_VIEW } from './utils/constants.js'
+import { filterItemsPerView } from './utils/filter.js'
 import HomeView from './views/home-view.jsx'
 import ListView from './views/list-view.jsx'
-import { filterItemsPerView } from './utils/filter.js'
 
 const CommandPalette = ({ apps, commands, shortcuts }) => {
     const containerEl = useRef(null)
