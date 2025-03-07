@@ -49,6 +49,11 @@ const NavigationKeysLegend = () => {
                     display: flex;
                     gap: ${spacers.dp24};
                 }
+                @media screen and (max-width: 480px) {
+                    div {
+                        display: none;
+                    }
+                }
             `}</style>
         </div>
     )
