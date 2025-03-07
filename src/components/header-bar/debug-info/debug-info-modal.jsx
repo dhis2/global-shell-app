@@ -21,7 +21,11 @@ export function DebugInfoModal({ onClose }) {
     }
 
     return (
-        <Modal position="middle" dataTest="dhis2-ui-headerbar-debuginfomodal">
+        <Modal
+            onClose={onClose}
+            position="middle"
+            dataTest="dhis2-ui-headerbar-debuginfomodal"
+        >
             <ModalTitle>{i18n.t('Debug info')}</ModalTitle>
             <ModalContent>
                 <DebugInfoTable />
