@@ -1,6 +1,5 @@
 import { colors, theme, spacers } from '@dhis2/ui-constants'
 import { IconMessages24, IconMail24 } from '@dhis2/ui-icons'
-import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { Link } from 'react-router'
@@ -54,7 +53,7 @@ export const NotificationIcon = ({
     <Link
         dir="ltr"
         to={path}
-        className={cx('link', kind, className)}
+        className={className}
         data-test={dataTestId}
         title={i18n.t(title)}
         aria-label={i18n.t(ariaLabel)}
@@ -65,28 +64,6 @@ export const NotificationIcon = ({
 
         {styles}
         <style jsx>{`
-            a {
-                position: relative;
-                margin: 0;
-                cursor: pointer;
-                padding: 0 ${spacers.dp8};
-                height: 100%;
-                display: flex;
-                align-items: center;
-            }
-            a:focus {
-                outline: 2px solid white;
-                outline-offset: -2px;
-            }
-            a:focus:not(:focus-visible) {
-                outline: none;
-            }
-            a:hover {
-                background: #104f7e;
-            }
-            a:active {
-                background: #0d4168;
-            }
             span {
                 display: flex;
                 justify-content: center;
