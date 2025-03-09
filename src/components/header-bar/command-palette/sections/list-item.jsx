@@ -3,15 +3,8 @@ import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { Link } from 'react-router'
-import css from 'styled-jsx/css'
+import { linkClassName, linkStyles } from '../../react-router-link-styles.jsx'
 import { COMMAND, APP } from '../utils/constants.js'
-
-// Need to do this to undo <a> styles in the Link component
-const { className, styles } = css.resolve`
-    a {
-        text-decoration: none;
-    }
-`
 
 function ListItem({
     title,
@@ -112,12 +105,12 @@ function ListItem({
         return (
             <Link
                 to={`apps/${name?.replace('dhis-web-', '')}`}
-                className={className}
+                className={linkClassName}
                 // ...and then close the palette
                 onClick={resetModal}
             >
                 {item}
-                {styles}
+                {linkStyles}
             </Link>
         )
     }

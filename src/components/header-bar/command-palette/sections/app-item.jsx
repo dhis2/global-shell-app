@@ -3,27 +3,20 @@ import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { Link } from 'react-router'
-import css from 'styled-jsx/css'
-
-// Need to do this to undo <a> styles in the Link component
-const { className, styles } = css.resolve`
-    a {
-        text-decoration: none;
-    }
-`
+import { linkClassName, linkStyles } from '../../react-router-link-styles.jsx'
 
 function AppItem({ name, displayName, img, highlighted, resetModal }) {
     return (
         <Link
             to={`apps/${name.replace('dhis-web-', '')}`}
-            className={className}
+            className={linkClassName}
             onClick={resetModal}
         >
             <div className={cx('item', { highlighted })} tabIndex={-1}>
                 <img src={img} alt="app" className="app-icon" />
                 <span className="app-name">{displayName}</span>
             </div>
-            {styles}
+            {linkStyles}
             <style jsx>{`
                 .item {
                     display: flex;
