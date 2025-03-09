@@ -56,6 +56,7 @@ const ProfileContents = ({
                 <Link
                     to={'/apps/user-profile#/settings'}
                     className={linkClassName}
+                    onClick={hideProfileMenu}
                 >
                     <MenuItem
                         dense
@@ -67,6 +68,7 @@ const ProfileContents = ({
                 <Link
                     to={'/apps/user-profile#/account'}
                     className={linkClassName}
+                    onClick={hideProfileMenu}
                 >
                     <MenuItem
                         dense
@@ -78,6 +80,7 @@ const ProfileContents = ({
                 <Link
                     to={'/apps/user-profile#/profile'}
                     className={linkClassName}
+                    onClick={hideProfileMenu}
                 >
                     <MenuItem
                         dense
@@ -101,6 +104,7 @@ const ProfileContents = ({
                 <Link
                     to={'/apps/user-profile#/aboutPage'}
                     className={linkClassName}
+                    onClick={hideProfileMenu}
                 >
                     <MenuItem
                         dense
