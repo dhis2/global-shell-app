@@ -1,10 +1,11 @@
 import { useConfig, useDataQuery } from '@dhis2/app-runtime'
 import PropTypes from 'prop-types'
 import React from 'react'
-import { BrowserRouter, Routes, Route, Link, Outlet } from 'react-router'
+import { BrowserRouter, Routes, Route, Outlet } from 'react-router'
 import styles from './App.module.css'
 import { ConnectedHeaderBar } from './components/ConnectedHeaderbar.jsx'
 import { PluginLoader } from './components/PluginLoader.jsx'
+import { RedirectHandler } from './components/RedirectHandler.tsx'
 import { ClientPWAProvider } from './lib/clientPWAUpdateState.jsx'
 
 const APPS_INFO_QUERY = {
@@ -19,13 +20,17 @@ const APPS_INFO_QUERY = {
     bundledApps: {
         resource: 'legacy::bundledApps',
     },
+    systemSettings: {
+        resource: 'systemSettings',
+    },
 }
 
 const Layout = ({ appsInfoQuery }) => {
     return (
         <div className={styles.container}>
             <ConnectedHeaderBar appsInfoQuery={appsInfoQuery} />
-            <Outlet />
+            {/* Skip the routes in dev; they don't make the same sense */}
+            {process.env.NODE_ENV !== 'development' ? <Outlet /> : null}
         </div>
     )
 }
@@ -40,7 +45,7 @@ const MyApp = () => {
         if (process.env.NODE_ENV === 'development') {
             return // undefined is okay
         }
-        return new URL(baseUrl).pathname
+        return new URL('apps', baseUrl).pathname
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
@@ -53,12 +58,15 @@ const MyApp = () => {
                 <Routes>
                     <Route element={<Layout appsInfoQuery={appsInfoQuery} />}>
                         <Route
-                            // todo: remove when done testing
-                            path="*"
-                            element={<Link to="/apps/localApp">Local App</Link>}
+                            path="/"
+                            element={
+                                <RedirectHandler
+                                    appsInfoQuery={appsInfoQuery}
+                                />
+                            }
                         />
                         <Route
-                            path="/apps/:appName"
+                            path="/:appName"
                             element={
                                 <PluginLoader appsInfoQuery={appsInfoQuery} />
                             }
