@@ -1,3 +1,10 @@
+## [1.4.2](https://github.com/dhis2/global-shell-app/compare/v1.4.1...v1.4.2) (2025-03-10)
+
+
+### Bug Fixes
+
+* **routing:** simplify routing; redirect to startModule at /apps/ ([#29](https://github.com/dhis2/global-shell-app/issues/29)) ([041f71e](https://github.com/dhis2/global-shell-app/commit/041f71e48e87fbe658593c0947cf66f5a418cd13))
+
 ## [1.4.1](https://github.com/dhis2/global-shell-app/compare/v1.4.0...v1.4.1) (2025-03-10)
 
 
