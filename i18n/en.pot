@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2025-03-05T22:04:46.885Z\n"
-"PO-Revision-Date: 2025-03-05T22:04:46.885Z\n"
+"POT-Creation-Date: 2025-03-07T15:43:41.711Z\n"
+"PO-Revision-Date: 2025-03-07T15:43:41.712Z\n"
 
 msgid "Save your data"
 msgstr "Save your data"
@@ -41,6 +41,9 @@ msgstr "Unable to find an app for this URL. Redirecting to home page."
 
 msgid "Something went wrong"
 msgstr "Something went wrong"
+
+msgid "Command palette"
+msgstr "Command palette"
 
 msgid "Browse apps"
 msgstr "Browse apps"

@@ -14,9 +14,11 @@ import { CircularLoader } from '@dhis2-ui/loader'
 import { MenuDivider, MenuItem } from '@dhis2-ui/menu'
 import PropTypes from 'prop-types'
 import React, { useState } from 'react'
+import { Link } from 'react-router'
 import i18n from '../../../locales/index.js'
 import { DebugInfoMenuItem } from '../debug-info/debug-info-menu-item.jsx'
 import { joinPath } from '../join-path.js'
+import { linkClassName, linkStyles } from '../react-router-link-styles.jsx'
 import { ProfileHeader } from './profile-header.jsx'
 import { UpdateNotification } from './update-notification.jsx'
 
@@ -51,28 +53,45 @@ const ProfileContents = ({
                 avatarId={avatarId}
             />
             <ul data-test="headerbar-profile-menu">
-                <MenuItem
-                    dense
-                    href={joinPath(baseUrl, 'dhis-web-user-profile/#/settings')}
-                    label={i18n.t('Settings')}
-                    value="settings"
-                    icon={<IconSettings16 color={colors.grey600} />}
-                />
-                <MenuItem
-                    dense
-                    href={joinPath(baseUrl, 'dhis-web-user-profile/#/account')}
-                    label={i18n.t('Account security')}
-                    value="account"
-                    icon={<IconLock16 color={colors.grey600} />}
-                />
-                <MenuItem
-                    dense
-                    href={joinPath(baseUrl, 'dhis-web-user-profile/#/profile')}
-                    label={i18n.t('My profile')}
-                    value="account"
-                    icon={<IconUser16 color={colors.grey600} />}
-                />
+                <Link
+                    to={'/apps/user-profile#/settings'}
+                    className={linkClassName}
+                    onClick={hideProfileMenu}
+                >
+                    <MenuItem
+                        dense
+                        label={i18n.t('Settings')}
+                        value="settings"
+                        icon={<IconSettings16 color={colors.grey600} />}
+                    />
+                </Link>
+                <Link
+                    to={'/apps/user-profile#/account'}
+                    className={linkClassName}
+                    onClick={hideProfileMenu}
+                >
+                    <MenuItem
+                        dense
+                        label={i18n.t('Account security')}
+                        value="account"
+                        icon={<IconLock16 color={colors.grey600} />}
+                    />
+                </Link>
+                <Link
+                    to={'/apps/user-profile#/profile'}
+                    className={linkClassName}
+                    onClick={hideProfileMenu}
+                >
+                    <MenuItem
+                        dense
+                        label={i18n.t('My profile')}
+                        value="profile"
+                        icon={<IconUser16 color={colors.grey600} />}
+                    />
+                </Link>
+
                 <MenuDivider dense />
+
                 {helpUrl && (
                     <MenuItem
                         dense
@@ -82,17 +101,21 @@ const ProfileContents = ({
                         icon={<IconQuestion16 color={colors.grey600} />}
                     />
                 )}
-                <MenuItem
-                    dense
-                    href={joinPath(
-                        baseUrl,
-                        'dhis-web-user-profile/#/aboutPage'
-                    )}
-                    label={i18n.t('System info')}
-                    value="about"
-                    icon={<IconMore16 color={colors.grey600} />}
-                />
+                <Link
+                    to={'/apps/user-profile#/aboutPage'}
+                    className={linkClassName}
+                    onClick={hideProfileMenu}
+                >
+                    <MenuItem
+                        dense
+                        label={i18n.t('System info')}
+                        value="about"
+                        icon={<IconMore16 color={colors.grey600} />}
+                    />
+                </Link>
+
                 <MenuDivider dense />
+
                 <MenuItem
                     dense
                     href={joinPath(
@@ -126,6 +149,7 @@ const ProfileContents = ({
 
             {loading && <LoadingMask />}
 
+            {linkStyles}
             <style jsx>{`
                 div {
                     width: 100%;

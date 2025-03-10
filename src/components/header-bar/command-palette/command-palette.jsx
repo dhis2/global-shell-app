@@ -2,6 +2,7 @@ import { colors, spacers } from '@dhis2/ui-constants'
 import { IconApps24 } from '@dhis2/ui-icons'
 import PropTypes from 'prop-types'
 import React, { useCallback, useRef, useEffect, useMemo } from 'react'
+import i18n from '../../../locales/index.js'
 import { useCommandPaletteContext } from './context/command-palette-context.jsx'
 import { useAvailableActions } from './hooks/use-actions.jsx'
 import useGridNavigation from './hooks/use-grid-navigation.js'
@@ -143,6 +144,8 @@ const CommandPalette = ({ apps, commands, shortcuts }) => {
             <button
                 onClick={handleVisibilityToggle}
                 data-test="headerbar-apps-icon"
+                title={i18n.t('Command palette')}
+                aria-label={i18n.t('Command palette')}
             >
                 <IconApps24 color={colors.white} />
             </button>

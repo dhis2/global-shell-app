@@ -70,7 +70,7 @@ export const HeaderBar = ({
         // todo: remove this command
         {
             type: COMMAND,
-            name: 'Patch blank PWA apps — Bug bash',
+            name: 'Patch blank PWA apps',
             icon: <IconWindow16 color={colors.grey700} />,
             dataTest: 'headerbar-patch-pwa-apps-action',
             description:
