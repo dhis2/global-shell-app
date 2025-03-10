@@ -3,7 +3,7 @@ import { useAlert, useConfig } from '@dhis2/app-runtime'
 import { Plugin } from '@dhis2/app-runtime/experimental'
 import { CircularLoader, CenteredContent, NoticeBox } from '@dhis2/ui'
 import PropTypes from 'prop-types'
-import React, { useCallback, useEffect, useMemo, useState } from 'react'
+import React, { useCallback, useMemo, useState } from 'react'
 import { useLocation, useParams } from 'react-router'
 import { useClientOfflineInterface } from '../lib/clientPWAUpdateState.jsx'
 import i18n from '../locales/index.js'
@@ -40,8 +40,7 @@ const getAppDefaultAction = (appName, modules) => {
     )?.defaultAction
 }
 
-// todo: why is there a request to /apps/undefined?redirect=false
-const getPluginEntrypoint = async (appName, modules /* baseUrl */) => {
+const getPluginEntrypoint = (appName, modules /* baseUrl */) => {
     const defaultAction = getAppDefaultAction(appName, modules)
 
     // todo: app.html handling ----
@@ -107,7 +106,6 @@ export const PluginLoader = ({ appsInfoQuery }) => {
     const params = useParams()
     const location = useLocation()
     const { baseUrl } = useConfig()
-    const [pluginEntrypoint, setPluginEntrypoint] = useState()
     const [rerenderKey, setRerenderKey] = useState(0)
     const { show: showNavigationWarning } = useAlert(
         i18n.t(
@@ -125,54 +123,47 @@ export const PluginLoader = ({ appsInfoQuery }) => {
         []
     )
 
-    // todo: add query string to entrypoint (e.g. maps /dhis-web-maps/?currentAnalyticalObject=true)
-    // Can use `urlObject.searchParams.append('redirect', 'false')`
-    // (or is this a backend thing?)
-    useEffect(() => {
+    const pluginHref = useMemo(() => {
         if (!appsInfoQuery.data) {
             return
         }
-        // Performed async to test for index/app entrypoint
-        // todo: this could be better if this can be detected from app entrypoints API
-        const asyncWork = async () => {
-            // for testing: params.appName === 'localApp' ? 'http://localhost:3001/app.html'
-            const newPluginEntrypoint = await getPluginEntrypoint(
-                params.appName,
-                appsInfoQuery.data.appMenu.modules,
-                baseUrl
+
+        // for testing: params.appName === 'localApp' ? 'http://localhost:3001/app.html'
+        const newPluginEntrypoint = getPluginEntrypoint(
+            params.appName,
+            appsInfoQuery.data.appMenu.modules,
+            baseUrl
+        )
+
+        if (!newPluginEntrypoint) {
+            console.error(
+                `The app slug "${params.appName}" did not match any app. Redirecting to the home page in 5 seconds`
             )
-
-            if (!newPluginEntrypoint) {
-                console.error(
-                    `The app slug "${params.appName}" did not match any app. Redirecting to the home page in 5 seconds`
+            setError(
+                i18n.t(
+                    'Unable to find an app for this URL. Redirecting to home page.'
                 )
-                setError(
-                    i18n.t(
-                        'Unable to find an app for this URL. Redirecting to home page.'
-                    )
-                )
-                setTimeout(() => {
-                    window.location.href = baseUrl
-                }, 5000)
-                return
-            }
-
-            setPluginEntrypoint(newPluginEntrypoint)
-        }
-        asyncWork()
-    }, [params.appName, baseUrl, appsInfoQuery.data])
-
-    const pluginHref = useMemo(() => {
-        if (pluginEntrypoint === undefined) {
+            )
+            setTimeout(() => {
+                window.location.href = baseUrl
+            }, 5000)
             return
         }
+
         // An absolute URL helps compare to the location inside the iframe:
-        const pluginUrl = new URL(pluginEntrypoint, window.location)
+        const pluginUrl = new URL(newPluginEntrypoint, window.location)
         pluginUrl.hash = location.hash
         pluginUrl.search = location.search
         pluginUrl.searchParams.append('redirect', 'false')
+
         return pluginUrl.href
-    }, [pluginEntrypoint, location.hash, location.search])
+    }, [
+        location.hash,
+        location.search,
+        appsInfoQuery.data,
+        baseUrl,
+        params.appName,
+    ])
 
     const handleLoad = useCallback(
         (event) => {
