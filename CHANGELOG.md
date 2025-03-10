@@ -1,3 +1,10 @@
+# [1.4.0](https://github.com/dhis2/global-shell-app/compare/v1.3.1...v1.4.0) (2025-03-10)
+
+
+### Features
+
+* **header-bar:** client-side routes for rest of header bar ([#27](https://github.com/dhis2/global-shell-app/issues/27)) ([86cb493](https://github.com/dhis2/global-shell-app/commit/86cb493a4c3ce3ecee6ba86c3518f9fd188bb766))
+
 ## [1.3.1](https://github.com/dhis2/global-shell-app/compare/v1.3.0...v1.3.1) (2025-03-07)
 
 
