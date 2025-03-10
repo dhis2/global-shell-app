@@ -1,3 +1,10 @@
+## [1.4.1](https://github.com/dhis2/global-shell-app/compare/v1.4.0...v1.4.1) (2025-03-10)
+
+
+### Bug Fixes
+
+* **plugin-loader:** avoid hash-route race condition ([#28](https://github.com/dhis2/global-shell-app/issues/28)) ([fbd0f19](https://github.com/dhis2/global-shell-app/commit/fbd0f193b35800c6d2a78b8383c1037a3c5564a1))
+
 # [1.4.0](https://github.com/dhis2/global-shell-app/compare/v1.3.1...v1.4.0) (2025-03-10)
 
 
