@@ -104,7 +104,7 @@ function ListItem({
         // Use react-router client-side routing to apps:
         return (
             <Link
-                to={`apps/${name?.replace('dhis-web-', '')}`}
+                to={`/${name?.replace('dhis-web-', '')}`}
                 className={linkClassName}
                 // ...and then close the palette
                 onClick={resetModal}

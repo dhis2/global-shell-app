@@ -8,7 +8,7 @@ import { linkClassName, linkStyles } from '../../react-router-link-styles.jsx'
 function AppItem({ name, displayName, img, highlighted, resetModal }) {
     return (
         <Link
-            to={`apps/${name.replace('dhis-web-', '')}`}
+            to={`/${name.replace('dhis-web-', '')}`}
             className={linkClassName}
             onClick={resetModal}
         >

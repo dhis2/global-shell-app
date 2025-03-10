@@ -19,7 +19,7 @@ export const Notifications = ({
             {hasAuthority(userAuthorities, 'M_dhis-web-interpretation') && (
                 <NotificationIcon
                     count={interpretations}
-                    path={'/apps/interpretation'}
+                    path={'/interpretation'}
                     kind="message"
                     dataTestId="headerbar-interpretations"
                     title={i18n.t('Interpretations')}
@@ -31,7 +31,7 @@ export const Notifications = ({
                 <NotificationIcon
                     message="email"
                     count={messages}
-                    path={'/apps/messaging'}
+                    path={'/messaging'}
                     kind="interpretation"
                     dataTestId="headerbar-messages"
                     title={i18n.t('Messages')}

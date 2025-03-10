@@ -60,7 +60,7 @@ export const HeaderBar = ({
             type: APP,
             icon: getPath(app.icon),
             action: () => {
-                navigate(`apps/${app.name.replace('dhis-web-', '')}`)
+                navigate(`/${app.name.replace('dhis-web-', '')}`)
             },
         }))
     }, [data, baseUrl, navigate])

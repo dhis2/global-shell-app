@@ -54,7 +54,7 @@ const ProfileContents = ({
             />
             <ul data-test="headerbar-profile-menu">
                 <Link
-                    to={'/apps/user-profile#/settings'}
+                    to={'/user-profile#/settings'}
                     className={linkClassName}
                     onClick={hideProfileMenu}
                 >
@@ -66,7 +66,7 @@ const ProfileContents = ({
                     />
                 </Link>
                 <Link
-                    to={'/apps/user-profile#/account'}
+                    to={'/user-profile#/account'}
                     className={linkClassName}
                     onClick={hideProfileMenu}
                 >
@@ -78,7 +78,7 @@ const ProfileContents = ({
                     />
                 </Link>
                 <Link
-                    to={'/apps/user-profile#/profile'}
+                    to={'/user-profile#/profile'}
                     className={linkClassName}
                     onClick={hideProfileMenu}
                 >
@@ -102,7 +102,7 @@ const ProfileContents = ({
                     />
                 )}
                 <Link
-                    to={'/apps/user-profile#/aboutPage'}
+                    to={'/user-profile#/aboutPage'}
                     className={linkClassName}
                     onClick={hideProfileMenu}
                 >
