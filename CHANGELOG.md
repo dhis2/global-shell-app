@@ -1,3 +1,10 @@
+## [1.4.4](https://github.com/dhis2/global-shell-app/compare/v1.4.3...v1.4.4) (2025-03-11)
+
+
+### Bug Fixes
+
+* **pwa-updates:** reset 'update available' upon switching apps ([#32](https://github.com/dhis2/global-shell-app/issues/32)) ([3a64a9e](https://github.com/dhis2/global-shell-app/commit/3a64a9e458e16853bc3d74dc325e426ecf0cb37c))
+
 ## [1.4.3](https://github.com/dhis2/global-shell-app/compare/v1.4.2...v1.4.3) (2025-03-11)
 
 
