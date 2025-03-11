@@ -68,6 +68,7 @@ export const ClientPWAProvider = ({ children }) => {
         const newOfflineInterface = new PWAUpdateOfflineInterface({
             targetWindow: clientWindow,
         })
+        setUpdateAvailable(false)
         // Reset this, if it's keeping a dialog open from a previous reload
         setClientsCount(null)
         setOfflineInterface(newOfflineInterface)
