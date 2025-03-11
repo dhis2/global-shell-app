@@ -1,3 +1,10 @@
+## [1.4.3](https://github.com/dhis2/global-shell-app/compare/v1.4.2...v1.4.3) (2025-03-11)
+
+
+### Bug Fixes
+
+* **router:** correct basename resolution to work on base URLs with subpaths ([#30](https://github.com/dhis2/global-shell-app/issues/30)) ([678cc7e](https://github.com/dhis2/global-shell-app/commit/678cc7e9091c592dfd0a8cfe2e43c429bb3071b2))
+
 ## [1.4.2](https://github.com/dhis2/global-shell-app/compare/v1.4.1...v1.4.2) (2025-03-10)
 
 
