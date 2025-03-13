@@ -40,7 +40,7 @@ const MyApp = () => {
         if (process.env.NODE_ENV === 'development') {
             return // undefined is okay
         }
-        return new URL(baseUrl).pathname
+        return new URL(baseUrl, window.location.href).pathname
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
