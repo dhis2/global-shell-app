@@ -1,3 +1,10 @@
+# [1.5.0](https://github.com/dhis2/global-shell-app/compare/v1.4.4...v1.5.0) (2025-03-14)
+
+
+### Features
+
+* remove navigation key legend from small screens ([#25](https://github.com/dhis2/global-shell-app/issues/25)) ([206ef4a](https://github.com/dhis2/global-shell-app/commit/206ef4a4079b6460a89267e8762606fed201915e))
+
 ## [1.4.4](https://github.com/dhis2/global-shell-app/compare/v1.4.3...v1.4.4) (2025-03-11)
 
 
