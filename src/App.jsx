@@ -1,4 +1,5 @@
 import { useConfig, useDataQuery } from '@dhis2/app-runtime'
+import { CssVariables } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { BrowserRouter, Routes, Route, Outlet } from 'react-router'
@@ -54,6 +55,7 @@ const MyApp = () => {
 
     return (
         <ClientPWAProvider>
+            <CssVariables colors />
             <BrowserRouter basename={basename}>
                 <Routes>
                     <Route element={<Layout appsInfoQuery={appsInfoQuery} />}>
