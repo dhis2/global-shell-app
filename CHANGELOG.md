@@ -1,3 +1,10 @@
+## [1.6.1](https://github.com/dhis2/global-shell-app/compare/v1.6.0...v1.6.1) (2025-03-17)
+
+
+### Bug Fixes
+
+* fix infinite loop ([#35](https://github.com/dhis2/global-shell-app/issues/35)) ([6bff801](https://github.com/dhis2/global-shell-app/commit/6bff801d220c94fbcd189ff4811af8e9ca339ff7))
+
 # [1.6.0](https://github.com/dhis2/global-shell-app/compare/v1.5.0...v1.6.0) (2025-03-17)
 
 
