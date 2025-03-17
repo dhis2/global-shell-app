@@ -35,10 +35,10 @@ const ModalContainer = forwardRef(function ModalContainer(
             <style jsx>{`
                 dialog {
                     position: fixed;
-                    margin: 0;
+                    margin: 0 auto;
                     top: 40px;
-                    inset-inline-end: 40px;
-                    inset-inline-start: auto;
+                    inset-inline-end: 0;
+                    inset-inline-start: 0;
                     display: flex;
                     flex-direction: row;
                     border: none;
@@ -49,6 +49,13 @@ const ModalContainer = forwardRef(function ModalContainer(
                     border-radius: 3px;
                     background: ${colors.white};
                     box-shadow: ${elevations.e100};
+                }
+                @media screen and (min-width: 480px) {
+                    dialog {
+                        margin: 0;
+                        inset-inline-start: auto;
+                        inset-inline-end: 40px;
+                    }
                 }
             `}</style>
         </>
