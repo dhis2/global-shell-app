@@ -1,4 +1,3 @@
-import { useConfig } from '@dhis2/app-runtime'
 // eslint-disable-next-line import/no-unresolved
 import { Plugin } from '@dhis2/app-runtime/experimental'
 import { CircularLoader, CenteredContent, NoticeBox } from '@dhis2/ui'
@@ -33,29 +32,11 @@ const injectHeaderbarHidingStyles = (event) => {
 }
 
 // todo: this is kinda duplicated between here and the header bar
-const getAppDefaultAction = (appName, modules) => {
+const getPluginEntrypoint = (appName, modules) => {
     // If core apps get a different naming scheme, this needs revisiting
     return modules.find(
         (m) => m.name === appName || m.name === 'dhis-web-' + appName
     )?.defaultAction
-}
-
-const getPluginEntrypoint = (appName, modules /* baseUrl */) => {
-    const defaultAction = getAppDefaultAction(appName, modules)
-
-    // todo: app.html handling ----
-    // todo: this could be better if this can be detected from app entrypoints API
-    // const defaultAppUrl = new URL(defaultAction, baseUrl)
-    // const pluginifiedAppUrl = new URL('./app.html', defaultAppUrl)
-
-    // Start by trying to load pluginified app, `app.html`
-    // const pluginifiedAppResponse = await fetch(pluginifiedAppUrl)
-    // if (pluginifiedAppResponse.ok) {
-    //     return pluginifiedAppUrl.href
-    // }
-
-    // If pluginified app is not found, fall back to app root
-    return defaultAction
 }
 
 const watchForHashRouteChanges = (event) => {
@@ -112,16 +93,8 @@ const failedLoadErrorMessage =
 export const PluginLoader = ({ appsInfoQuery }) => {
     const params = useParams()
     const location = useLocation()
-    const { baseUrl } = useConfig()
     const initClientOfflineInterface = useClientOfflineInterface()
     const [error, setError] = useState(null)
-
-    // test prop messaging and updates
-    const [color, setColor] = useState('blue')
-    const toggleColor = useCallback(
-        () => setColor((prev) => (prev === 'blue' ? 'red' : 'blue')),
-        []
-    )
 
     const pluginHref = useMemo(() => {
         if (!appsInfoQuery.data) {
@@ -132,8 +105,7 @@ export const PluginLoader = ({ appsInfoQuery }) => {
         // for testing: params.appName === 'localApp' ? 'http://localhost:3001/app.html'
         const newPluginEntrypoint = getPluginEntrypoint(
             params.appName,
-            appsInfoQuery.data.appMenu.modules,
-            baseUrl
+            appsInfoQuery.data.appMenu.modules
         )
 
         if (!newPluginEntrypoint) {
@@ -151,13 +123,7 @@ export const PluginLoader = ({ appsInfoQuery }) => {
         pluginUrl.searchParams.append('redirect', 'false')
 
         return pluginUrl.href
-    }, [
-        location.hash,
-        location.search,
-        appsInfoQuery.data,
-        baseUrl,
-        params.appName,
-    ])
+    }, [location.hash, location.search, appsInfoQuery.data, params.appName])
 
     const handleLoad = useCallback(
         (event) => {
@@ -211,10 +177,6 @@ export const PluginLoader = ({ appsInfoQuery }) => {
             // pass URL hash down to the client app
             pluginSource={pluginHref}
             onLoad={handleLoad}
-            // Other props
-            // (for testing:)
-            color={color}
-            toggleColor={toggleColor}
         />
     )
 }
