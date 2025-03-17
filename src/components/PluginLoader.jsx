@@ -4,7 +4,7 @@ import { Plugin } from '@dhis2/app-runtime/experimental'
 import { CircularLoader, CenteredContent, NoticeBox } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React, { useCallback, useMemo, useState } from 'react'
-import { useLocation, useParams } from 'react-router'
+import { Link, useLocation, useParams } from 'react-router'
 import { useClientOfflineInterface } from '../lib/clientPWAUpdateState.jsx'
 import i18n from '../locales/index.js'
 import styles from './PluginLoader.module.css'
@@ -137,16 +137,9 @@ export const PluginLoader = ({ appsInfoQuery }) => {
 
         if (!newPluginEntrypoint) {
             console.error(
-                `The app slug "${params.appName}" did not match any app. Redirecting to the home page in 5 seconds`
+                `The app slug "${params.appName}" did not match any app.`
             )
-            setError(
-                i18n.t(
-                    'Unable to find an app for this URL. Redirecting to home page.'
-                )
-            )
-            setTimeout(() => {
-                window.location.href = baseUrl
-            }, 5000)
+            setError(i18n.t('Unable to find an app for this URL.'))
             return
         }
 
@@ -200,7 +193,9 @@ export const PluginLoader = ({ appsInfoQuery }) => {
             <CenteredContent>
                 <NoticeBox title={i18n.t('Something went wrong')} error>
                     <div className={styles.marginBottom}>{error}</div>
-                    <CircularLoader small />
+                    <Link to={'/'} className={styles.link}>
+                        {i18n.t('Return to home page')}
+                    </Link>
                 </NoticeBox>
             </CenteredContent>
         )
