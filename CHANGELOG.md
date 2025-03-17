@@ -1,3 +1,15 @@
+# [1.6.0](https://github.com/dhis2/global-shell-app/compare/v1.5.0...v1.6.0) (2025-03-17)
+
+
+### Bug Fixes
+
+* prevent current tab navigation on cmd/ctrl + click app ([#33](https://github.com/dhis2/global-shell-app/issues/33)) ([9cd38cf](https://github.com/dhis2/global-shell-app/commit/9cd38cf7b030940b2892203aa938a30af2012af0))
+
+
+### Features
+
+* move command palette to below the apps menu icon ([#34](https://github.com/dhis2/global-shell-app/issues/34)) ([530262c](https://github.com/dhis2/global-shell-app/commit/530262cf60b5d73013908acbf35afa61e87a0803))
+
 # [1.5.0](https://github.com/dhis2/global-shell-app/compare/v1.4.4...v1.5.0) (2025-03-14)
 
 
