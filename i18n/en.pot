@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2025-03-17T14:58:43.041Z\n"
-"PO-Revision-Date: 2025-03-17T14:58:43.042Z\n"
+"POT-Creation-Date: 2025-03-17T20:48:36.929Z\n"
+"PO-Revision-Date: 2025-03-17T20:48:36.929Z\n"
 
 msgid "Save your data"
 msgstr "Save your data"
@@ -33,11 +33,11 @@ msgstr "Cancel"
 msgid "Reload"
 msgstr "Reload"
 
-msgid "Unable to load the requested page from DHIS2. Returned to previous page."
-msgstr "Unable to load the requested page from DHIS2. Returned to previous page."
-
 msgid "Unable to find an app for this URL."
 msgstr "Unable to find an app for this URL."
+
+msgid "The requested page is not accessible from DHIS2."
+msgstr "The requested page is not accessible from DHIS2."
 
 msgid "Something went wrong"
 msgstr "Something went wrong"

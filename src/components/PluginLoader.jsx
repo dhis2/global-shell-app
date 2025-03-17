@@ -1,4 +1,4 @@
-import { useAlert, useConfig } from '@dhis2/app-runtime'
+import { useConfig } from '@dhis2/app-runtime'
 // eslint-disable-next-line import/no-unresolved
 import { Plugin } from '@dhis2/app-runtime/experimental'
 import { CircularLoader, CenteredContent, NoticeBox } from '@dhis2/ui'
@@ -102,19 +102,19 @@ const handleExternalNavigation = (iframeLoadEvent, pluginHref) => {
     }
 }
 
+const failedLoadErrorMessage =
+    'The requested page is not accessible by the DHIS2 global shell, ' +
+    'and the URL is therefore inaccessible to be printed here. ' +
+    'The server might be down, or the requested page is on a ' +
+    'different domain. ' +
+    'In the second case, the link should be opened in a new tab instead.'
+
 export const PluginLoader = ({ appsInfoQuery }) => {
     const params = useParams()
     const location = useLocation()
     const { baseUrl } = useConfig()
-    const [rerenderKey, setRerenderKey] = useState(0)
-    const { show: showNavigationWarning } = useAlert(
-        i18n.t(
-            'Unable to load the requested page from DHIS2. Returned to previous page.'
-        ),
-        { warning: true }
-    )
     const initClientOfflineInterface = useClientOfflineInterface()
-    const [error, setError] = useState()
+    const [error, setError] = useState(null)
 
     // test prop messaging and updates
     const [color, setColor] = useState('blue')
@@ -127,6 +127,7 @@ export const PluginLoader = ({ appsInfoQuery }) => {
         if (!appsInfoQuery.data) {
             return
         }
+        setError(null)
 
         // for testing: params.appName === 'localApp' ? 'http://localhost:3001/app.html'
         const newPluginEntrypoint = getPluginEntrypoint(
@@ -161,17 +162,12 @@ export const PluginLoader = ({ appsInfoQuery }) => {
     const handleLoad = useCallback(
         (event) => {
             // If we can't access the new page's Document, this is a cross-domain page.
-            // Disallow that; return to previous plugin state.
-            // todo: can cause an infinite reload if the current pluginHref loads
-            // an entirely broken page -- this is a rare case though; one example is
-            // a PWA app where the precache has been deleted. 404s are fine.
+            // Disallow that and show an error
             if (!event.target.contentDocument) {
-                setRerenderKey((k) => k + 1)
-                showNavigationWarning()
-                console.error(
-                    'The linked page is not accessible by the DHIS2 global shell; returned to previous plugin state. ' +
-                        'This link should be opened in a new tab instead'
+                setError(
+                    i18n.t('The requested page is not accessible from DHIS2.')
                 )
+                console.error(failedLoadErrorMessage)
                 return
             }
 
@@ -185,7 +181,7 @@ export const PluginLoader = ({ appsInfoQuery }) => {
             })
             listenForCommandPaletteToggle(event)
         },
-        [pluginHref, showNavigationWarning, initClientOfflineInterface]
+        [pluginHref, initClientOfflineInterface]
     )
 
     if (error) {
@@ -215,7 +211,6 @@ export const PluginLoader = ({ appsInfoQuery }) => {
             // pass URL hash down to the client app
             pluginSource={pluginHref}
             onLoad={handleLoad}
-            key={rerenderKey}
             // Other props
             // (for testing:)
             color={color}
