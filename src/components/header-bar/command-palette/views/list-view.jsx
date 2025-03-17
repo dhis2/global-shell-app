@@ -29,7 +29,7 @@ const ListView = ({ grid, currentItem, resetModal }) => {
                         return (
                             <ListItem
                                 type={type}
-                                key={`app-${name}-${idx}`}
+                                key={`list-item-${idx}-${name}`}
                                 name={name}
                                 title={displayName || name}
                                 image={isImage ? icon : undefined}

@@ -19,13 +19,15 @@ function ListItem({
     dataTest = 'headerbar-list-item',
 }) {
     const showDescription = type === COMMAND
+    // todo: extend this to support shortcut links as well
     const isApp = type === APP
 
     const item = (
         <div
-            onClick={onClickHandler}
+            onClick={isApp ? undefined : onClickHandler}
             className={cx('item', { highlighted })}
             data-test={dataTest}
+            role={isApp ? undefined : 'button'}
             tabIndex={-1}
         >
             <div className="icon">
