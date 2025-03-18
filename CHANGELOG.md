@@ -1,3 +1,11 @@
+## [1.6.2](https://github.com/dhis2/global-shell-app/compare/v1.6.1...v1.6.2) (2025-03-18)
+
+
+### Bug Fixes
+
+* **command-palette:** adjust backdrop ([332be2a](https://github.com/dhis2/global-shell-app/commit/332be2a0c8143e7d7097372e89852d9e5e93c67b))
+* **command-palette:** adjust height ([347741e](https://github.com/dhis2/global-shell-app/commit/347741e7ec31bf5dfb219b257c0c871f24519728))
+
 ## [1.6.1](https://github.com/dhis2/global-shell-app/compare/v1.6.0...v1.6.1) (2025-03-17)
 
 
