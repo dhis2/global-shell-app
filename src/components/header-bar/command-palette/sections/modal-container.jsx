@@ -34,18 +34,24 @@ const ModalContainer = forwardRef(function ModalContainer(
             <dialog ref={ref}>{children}</dialog>
             <style jsx>{`
                 dialog {
+                    position: fixed;
+                    margin: 0;
+                    top: 40px;
+                    inset-inline-end: 40px;
+                    inset-inline-start: auto;
                     display: flex;
                     flex-direction: row;
                     border: none;
                     border-radius: 1px;
                     padding: 1px;
                     width: 572px;
-                    max-height: 544px;
-                    margin: 0 auto;
+                    max-height: 560px;
                     border-radius: 3px;
                     background: ${colors.white};
-                    box-shadow: ${elevations.e100};
-                    margin-top: 92px;
+                    box-shadow: ${elevations.e400};
+                }
+                dialog::backdrop {
+                    background-color: transparent;
                 }
             `}</style>
         </>

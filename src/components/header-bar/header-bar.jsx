@@ -2,6 +2,7 @@ import { useDataQuery, useConfig } from '@dhis2/app-runtime'
 import { colors } from '@dhis2/ui-constants'
 import PropTypes from 'prop-types'
 import React, { useCallback, useMemo } from 'react'
+import { useNavigate } from 'react-router'
 import i18n from '../../locales/index.js'
 import CommandPalette from './command-palette/command-palette.jsx'
 import { CommandPaletteContextProvider } from './command-palette/context/command-palette-context.jsx'
@@ -44,6 +45,7 @@ export const HeaderBar = ({
 }) => {
     const { appName: configAppName, baseUrl, pwaEnabled } = useConfig()
     const { loading, error, data } = useDataQuery(query)
+    const navigate = useNavigate()
 
     const getPath = useCallback(
         (path) =>
@@ -59,11 +61,12 @@ export const HeaderBar = ({
             type: APP,
             icon: getPath(app.icon),
             action: () => {
-                window.location.href = getPath(app.defaultAction)
+                navigate(`/${app.name.replace('dhis-web-', '')}`)
             },
         }))
-    }, [data, getPath])
+    }, [data, baseUrl, navigate])
 
+    
     // fetch commands
     const commands = []
 

@@ -1,7 +1,7 @@
 import { usePWAUpdateState } from '@dhis2/pwa'
 import PropTypes from 'prop-types'
 import React, { useMemo, useEffect } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams } from 'react-router'
 import { useClientPWAUpdateState } from '../lib/clientPWAUpdateState.jsx'
 import { ConfirmUpdateModal } from './ConfirmUpdateModal.tsx'
 import { HeaderBar } from './header-bar/index.js'
@@ -51,7 +51,6 @@ export function ConnectedHeaderBar({ appsInfoQuery }) {
 
     const appName = useMemo(() => {
         if (!params.appName || !appsInfoQuery.data) {
-            // `undefined` defaults to app title in header bar component, i.e. "Global Shell"
             return
         }
         if (appsInfoQuery.data) {
@@ -100,7 +99,9 @@ export function ConnectedHeaderBar({ appsInfoQuery }) {
         <>
             <HeaderBar
                 className={'global-shell-header'}
-                appName={appName}
+                // `undefined` defaults to app title in header bar component,
+                // i.e. "Global Shell" -- use ' ' instead (and not '')
+                appName={appName || ' '}
                 appVersion={appVersion}
                 updateAvailable={updateAvailable}
                 onApplyAvailableUpdate={confirmReload}

@@ -1,3 +1,126 @@
+## [1.6.2](https://github.com/dhis2/global-shell-app/compare/v1.6.1...v1.6.2) (2025-03-18)
+
+
+### Bug Fixes
+
+* **command-palette:** adjust backdrop ([332be2a](https://github.com/dhis2/global-shell-app/commit/332be2a0c8143e7d7097372e89852d9e5e93c67b))
+* **command-palette:** adjust height ([347741e](https://github.com/dhis2/global-shell-app/commit/347741e7ec31bf5dfb219b257c0c871f24519728))
+
+## [1.6.1](https://github.com/dhis2/global-shell-app/compare/v1.6.0...v1.6.1) (2025-03-17)
+
+
+### Bug Fixes
+
+* fix infinite loop ([#35](https://github.com/dhis2/global-shell-app/issues/35)) ([6bff801](https://github.com/dhis2/global-shell-app/commit/6bff801d220c94fbcd189ff4811af8e9ca339ff7))
+
+# [1.6.0](https://github.com/dhis2/global-shell-app/compare/v1.5.0...v1.6.0) (2025-03-17)
+
+
+### Bug Fixes
+
+* prevent current tab navigation on cmd/ctrl + click app ([#33](https://github.com/dhis2/global-shell-app/issues/33)) ([9cd38cf](https://github.com/dhis2/global-shell-app/commit/9cd38cf7b030940b2892203aa938a30af2012af0))
+
+
+### Features
+
+* move command palette to below the apps menu icon ([#34](https://github.com/dhis2/global-shell-app/issues/34)) ([530262c](https://github.com/dhis2/global-shell-app/commit/530262cf60b5d73013908acbf35afa61e87a0803))
+
+# [1.5.0](https://github.com/dhis2/global-shell-app/compare/v1.4.4...v1.5.0) (2025-03-14)
+
+
+### Features
+
+* remove navigation key legend from small screens ([#25](https://github.com/dhis2/global-shell-app/issues/25)) ([206ef4a](https://github.com/dhis2/global-shell-app/commit/206ef4a4079b6460a89267e8762606fed201915e))
+
+## [1.4.4](https://github.com/dhis2/global-shell-app/compare/v1.4.3...v1.4.4) (2025-03-11)
+
+
+### Bug Fixes
+
+* **pwa-updates:** reset 'update available' upon switching apps ([#32](https://github.com/dhis2/global-shell-app/issues/32)) ([3a64a9e](https://github.com/dhis2/global-shell-app/commit/3a64a9e458e16853bc3d74dc325e426ecf0cb37c))
+
+## [1.4.3](https://github.com/dhis2/global-shell-app/compare/v1.4.2...v1.4.3) (2025-03-11)
+
+
+### Bug Fixes
+
+* **router:** correct basename resolution to work on base URLs with subpaths ([#30](https://github.com/dhis2/global-shell-app/issues/30)) ([678cc7e](https://github.com/dhis2/global-shell-app/commit/678cc7e9091c592dfd0a8cfe2e43c429bb3071b2))
+
+## [1.4.2](https://github.com/dhis2/global-shell-app/compare/v1.4.1...v1.4.2) (2025-03-10)
+
+
+### Bug Fixes
+
+* **routing:** simplify routing; redirect to startModule at /apps/ ([#29](https://github.com/dhis2/global-shell-app/issues/29)) ([041f71e](https://github.com/dhis2/global-shell-app/commit/041f71e48e87fbe658593c0947cf66f5a418cd13))
+
+## [1.4.1](https://github.com/dhis2/global-shell-app/compare/v1.4.0...v1.4.1) (2025-03-10)
+
+
+### Bug Fixes
+
+* **plugin-loader:** avoid hash-route race condition ([#28](https://github.com/dhis2/global-shell-app/issues/28)) ([fbd0f19](https://github.com/dhis2/global-shell-app/commit/fbd0f193b35800c6d2a78b8383c1037a3c5564a1))
+
+# [1.4.0](https://github.com/dhis2/global-shell-app/compare/v1.3.1...v1.4.0) (2025-03-10)
+
+
+### Features
+
+* **header-bar:** client-side routes for rest of header bar ([#27](https://github.com/dhis2/global-shell-app/issues/27)) ([86cb493](https://github.com/dhis2/global-shell-app/commit/86cb493a4c3ce3ecee6ba86c3518f9fd188bb766))
+
+## [1.3.1](https://github.com/dhis2/global-shell-app/compare/v1.3.0...v1.3.1) (2025-03-07)
+
+
+### Bug Fixes
+
+* **profile-menu:** close profile menu and debug info on backdrop click ([#26](https://github.com/dhis2/global-shell-app/issues/26)) ([399b6bf](https://github.com/dhis2/global-shell-app/commit/399b6bf8eb201e914d03a7bf791b9179bf0c303b))
+
+# [1.3.0](https://github.com/dhis2/global-shell-app/compare/v1.2.0...v1.3.0) (2025-03-06)
+
+
+### Bug Fixes
+
+* hide global shell in headerbar title ([#24](https://github.com/dhis2/global-shell-app/issues/24)) ([75acb16](https://github.com/dhis2/global-shell-app/commit/75acb160cf05a13bc6a37dcf2eac5b5b1d6d8b96))
+
+
+### Features
+
+* improve search functionality ([#15](https://github.com/dhis2/global-shell-app/issues/15)) ([4f53abc](https://github.com/dhis2/global-shell-app/commit/4f53abca1454247999111d61b830bc3f08b12640))
+
+# [1.2.0](https://github.com/dhis2/global-shell-app/compare/v1.1.3...v1.2.0) (2025-03-06)
+
+
+### Features
+
+* command to fix pwa app index.html precache redirects ([#23](https://github.com/dhis2/global-shell-app/issues/23)) ([a9fa576](https://github.com/dhis2/global-shell-app/commit/a9fa576cc0c6ac15c689fc8408c408dd5e7a3c3c))
+
+## [1.1.3](https://github.com/dhis2/global-shell-app/compare/v1.1.2...v1.1.3) (2025-03-05)
+
+
+### Bug Fixes
+
+* **plugin-loader:** handle faulty app urls to avoid loops ([#22](https://github.com/dhis2/global-shell-app/issues/22)) ([f61fc80](https://github.com/dhis2/global-shell-app/commit/f61fc80ed538d08e8cb0f13b8f2c80922f22b9c9))
+
+## [1.1.2](https://github.com/dhis2/global-shell-app/compare/v1.1.1...v1.1.2) (2025-03-05)
+
+
+### Bug Fixes
+
+* remove adapter header bar + direction: 'auto' in config ([#21](https://github.com/dhis2/global-shell-app/issues/21)) ([4ce0e7c](https://github.com/dhis2/global-shell-app/commit/4ce0e7c68132298a2e2dd144fef51383ddf26ff3))
+
+## [1.1.1](https://github.com/dhis2/global-shell-app/compare/v1.1.0...v1.1.1) (2025-03-05)
+
+
+### Bug Fixes
+
+* revert app name to global-app-shell for now ([#20](https://github.com/dhis2/global-shell-app/issues/20)) ([3c7d270](https://github.com/dhis2/global-shell-app/commit/3c7d270d86861ac9926190f13291a3b69793f8dc))
+
+# [1.1.0](https://github.com/dhis2/global-shell-app/compare/v1.0.1...v1.1.0) (2025-03-05)
+
+
+### Features
+
+* client side app routing ([#19](https://github.com/dhis2/global-shell-app/issues/19)) ([a81eaa1](https://github.com/dhis2/global-shell-app/commit/a81eaa131866eeef30cea8f021a1c69281ebe971))
+
 ## [1.0.1](https://github.com/dhis2/global-shell-app/compare/v1.0.0...v1.0.1) (2025-03-05)
 
 

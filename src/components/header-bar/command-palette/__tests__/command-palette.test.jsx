@@ -2,6 +2,7 @@ import { fireEvent, render as originalRender } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
 import PropTypes from 'prop-types'
 import React from 'react'
+import { BrowserRouter } from 'react-router'
 import CommandPalette from '../command-palette.jsx'
 import { CommandPaletteContextProvider } from '../context/command-palette-context.jsx'
 import { MIN_APPS_NUM } from '../utils/constants.js'
@@ -52,6 +53,12 @@ export const testShortcuts = [
     },
 ]
 
+const WrappedCommandPalette = () => (
+    <BrowserRouter>
+        <CommandPalette apps={[]} shortcuts={[]} commands={[]} />
+    </BrowserRouter>
+)
+
 describe('Command Palette Component', () => {
     beforeAll(() => {
         // Testing environment does not support the <dialog> component yet so it has to mocked
@@ -62,7 +69,7 @@ describe('Command Palette Component', () => {
     it('renders bare default view when Command Palette is opened', async () => {
         const user = userEvent.setup()
         const { getByTestId, queryByTestId, getByPlaceholderText } = render(
-            <CommandPalette apps={[]} shortcuts={[]} commands={[]} />
+            <WrappedCommandPalette />
         )
 
         // modal not rendered yet
@@ -102,9 +109,7 @@ describe('Command Palette Component', () => {
     })
 
     it('opens and closes Command Palette using ctrl + k', async () => {
-        const { container, queryByTestId } = render(
-            <CommandPalette apps={[]} shortcuts={[]} commands={[]} />
-        )
+        const { container, queryByTestId } = render(<WrappedCommandPalette />)
         // modal not rendered yet
         expect(queryByTestId(modalTest)).not.toBeInTheDocument()
 
@@ -118,9 +123,7 @@ describe('Command Palette Component', () => {
     })
 
     it('opens and closes Command Palette using meta + k', async () => {
-        const { container, queryByTestId } = render(
-            <CommandPalette apps={[]} shortcuts={[]} commands={[]} />
-        )
+        const { container, queryByTestId } = render(<WrappedCommandPalette />)
         // modal not rendered yet
         expect(queryByTestId(modalTest)).not.toBeInTheDocument()
 
@@ -135,9 +138,7 @@ describe('Command Palette Component', () => {
 
     it('closes Command Palette using Esc key in default view', async () => {
         const user = userEvent.setup()
-        const { container, queryByTestId } = render(
-            <CommandPalette apps={[]} shortcuts={[]} commands={[]} />
-        )
+        const { container, queryByTestId } = render(<WrappedCommandPalette />)
         // modal not rendered yet
         expect(queryByTestId(modalTest)).not.toBeInTheDocument()
 
@@ -153,7 +154,13 @@ describe('Command Palette Component', () => {
     it('closes Command Palette using Esc key in any list view', async () => {
         const user = userEvent.setup()
         const { container, getByTestId, queryByTestId, queryByText } = render(
-            <CommandPalette apps={[]} shortcuts={testShortcuts} commands={[]} />
+            <BrowserRouter>
+                <CommandPalette
+                    apps={[]}
+                    shortcuts={testShortcuts}
+                    commands={[]}
+                />
+            </BrowserRouter>
         )
         // modal not rendered yet
         expect(queryByTestId(modalTest)).not.toBeInTheDocument()
@@ -174,11 +181,13 @@ describe('Command Palette Component', () => {
     it('deletes the search filter with the backspace key', async () => {
         const user = userEvent.setup()
         const { container, getByPlaceholderText } = render(
-            <CommandPalette
-                apps={testApps}
-                shortcuts={testShortcuts}
-                commands={testCommands}
-            />
+            <BrowserRouter>
+                <CommandPalette
+                    apps={testApps}
+                    shortcuts={testShortcuts}
+                    commands={testCommands}
+                />
+            </BrowserRouter>
         )
         // open modal
         fireEvent.keyDown(container, { key: 'k', ctrlKey: true })
@@ -208,11 +217,13 @@ describe('Command Palette Component', () => {
         const user = userEvent.setup()
         const { container, getByPlaceholderText, getByTestId, queryByTestId } =
             render(
-                <CommandPalette
-                    apps={[]}
-                    shortcuts={testShortcuts}
-                    commands={[]}
-                />
+                <BrowserRouter>
+                    <CommandPalette
+                        apps={[]}
+                        shortcuts={testShortcuts}
+                        commands={[]}
+                    />
+                </BrowserRouter>
             )
         // open modal
         fireEvent.keyDown(container, { key: 'k', ctrlKey: true })

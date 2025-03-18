@@ -1,6 +1,7 @@
 import { fireEvent } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
 import React from 'react'
+import { BrowserRouter } from 'react-router'
 import CommandPalette from '../command-palette.jsx'
 import {
     testApps,
@@ -27,7 +28,9 @@ describe('Command Palette - List View - Browse Apps View', () => {
             queryByText,
             queryAllByTestId,
         } = render(
-            <CommandPalette apps={testApps} shortcuts={[]} commands={[]} />
+            <BrowserRouter>
+                <CommandPalette apps={testApps} shortcuts={[]} commands={[]} />
+            </BrowserRouter>
         )
         // open command palette
         await user.click(getByTestId(headerBarIconTest))
@@ -74,11 +77,13 @@ describe('Command Palette - List View - Browse Apps View', () => {
             findByTestId,
             getByTestId,
         } = render(
-            <CommandPalette
-                apps={testApps}
-                shortcuts={testShortcuts}
-                commands={testCommands}
-            />
+            <BrowserRouter>
+                <CommandPalette
+                    apps={testApps}
+                    shortcuts={testShortcuts}
+                    commands={testCommands}
+                />
+            </BrowserRouter>
         )
         // open modal with (meta + k) keys
         fireEvent.keyDown(container, { key: 'k', metaKey: true })

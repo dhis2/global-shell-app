@@ -1,6 +1,6 @@
 {
     "name": "global-shell-app",
-    "version": "1.0.1",
+    "version": "1.6.2",
     "description": "",
     "license": "BSD-3-Clause",
     "private": true,
@@ -9,8 +9,10 @@
         "start": "d2-app-scripts start",
         "test": "d2-app-scripts test",
         "deploy": "D2_PASSWORD=district d2-app-scripts deploy http://localhost:8080 --username admin",
+        "deploy-debug": "D2_PASSWORD=district d2-app-scripts deploy https://debug.dhis2.org/dev --username admin",
         "postinstall": "patch-package",
         "bd": "yarn build && yarn deploy",
+        "bdd": "yarn build && yarn deploy-debug",
         "del-adapter": "rm -rf node_modules/@dhis2/app-adapter/build",
         "del-cli": "rm -rf node_modules/@dhis2/cli-app-scripts",
         "del-pwa": "rm -rf node_modules/@dhis2/pwa/build",
@@ -50,7 +52,7 @@
         "@dhis2/app-runtime": "^3.14.0",
         "@dhis2/pwa": "^12.3.0",
         "@dhis2/ui": "^10.1.13",
-        "react-router-dom": "^6.22.0",
+        "react-router": "^7.2.0",
         "styled-jsx": "^4.0.1"
     }
 }

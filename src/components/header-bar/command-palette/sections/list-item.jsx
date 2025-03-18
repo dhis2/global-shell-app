@@ -2,27 +2,32 @@ import { colors, spacers } from '@dhis2/ui-constants'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React from 'react'
-import { COMMAND } from '../utils/constants.js'
+import { Link } from 'react-router'
+import { linkClassName, linkStyles } from '../../react-router-link-styles.jsx'
+import { COMMAND, APP } from '../utils/constants.js'
 
 function ListItem({
     title,
-    path,
+    name,
     icon,
     image,
     description,
     type,
     onClickHandler,
     highlighted,
+    resetModal,
     dataTest = 'headerbar-list-item',
 }) {
     const showDescription = type === COMMAND
-    return (
-        <a
-            href={path || undefined}
-            target="_self"
-            onClick={onClickHandler}
+    // todo: extend this to support shortcut links as well
+    const isApp = type === APP
+
+    const item = (
+        <div
+            onClick={isApp ? undefined : onClickHandler}
             className={cx('item', { highlighted })}
             data-test={dataTest}
+            role={isApp ? undefined : 'button'}
             tabIndex={-1}
         >
             <div className="icon">
@@ -94,8 +99,25 @@ function ListItem({
                     }
                 `}
             </style>
-        </a>
+        </div>
     )
+
+    if (isApp) {
+        // Use react-router client-side routing to apps:
+        return (
+            <Link
+                to={`/${name?.replace('dhis-web-', '')}`}
+                className={linkClassName}
+                // ...and then close the palette
+                onClick={resetModal}
+            >
+                {item}
+                {linkStyles}
+            </Link>
+        )
+    }
+
+    return item
 }
 
 ListItem.propTypes = {
@@ -104,7 +126,8 @@ ListItem.propTypes = {
     highlighted: PropTypes.bool,
     icon: PropTypes.node,
     image: PropTypes.string,
-    path: PropTypes.string,
+    name: PropTypes.string,
+    resetModal: PropTypes.func,
     title: PropTypes.string,
     type: PropTypes.string,
     onClickHandler: PropTypes.func,

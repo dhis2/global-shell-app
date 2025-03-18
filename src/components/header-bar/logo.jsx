@@ -7,7 +7,7 @@ export const Logo = () => {
 
     return (
         <div data-test="headerbar-logo">
-            <a href={baseUrl}>
+            <a href={baseUrl + '/apps/'}>
                 <LogoImage />
             </a>
 

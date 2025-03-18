@@ -1,3 +1,17 @@
+diff --git a/node_modules/@dhis2/app-adapter/build/cjs/components/AppWrapper.js b/node_modules/@dhis2/app-adapter/build/cjs/components/AppWrapper.js
+index 3673f9a..b2c0a3d 100644
+--- a/node_modules/@dhis2/app-adapter/build/cjs/components/AppWrapper.js
++++ b/node_modules/@dhis2/app-adapter/build/cjs/components/AppWrapper.js
+@@ -56,9 +56,6 @@ const AppWrapper = _ref => {
+   }, /*#__PURE__*/_react.default.createElement(_style.default, {
+     id: _AppWrapperStyle.styles.__hash
+   }, _AppWrapperStyle.styles), /*#__PURE__*/_react.default.createElement("div", {
+-    dir: localeDirection,
+-    className: `jsx-${_AppWrapperStyle.styles.__hash}`
+-  }, /*#__PURE__*/_react.default.createElement(_ConnectedHeaderBar.ConnectedHeaderBar, null)), /*#__PURE__*/_react.default.createElement("div", {
+     className: `jsx-${_AppWrapperStyle.styles.__hash}` + " " + "app-shell-app"
+   }, /*#__PURE__*/_react.default.createElement(_ErrorBoundary.ErrorBoundary, {
+     onRetry: () => window.location.reload()
 diff --git a/node_modules/@dhis2/app-adapter/build/cjs/components/ConnectedHeaderBar.js b/node_modules/@dhis2/app-adapter/build/cjs/components/ConnectedHeaderBar.js
 index 19da430..ff8af53 100644
 --- a/node_modules/@dhis2/app-adapter/build/cjs/components/ConnectedHeaderBar.js
@@ -191,6 +205,20 @@ index 3b757f9..0000000
 -};
 -exports.usePWAUpdateState = usePWAUpdateState;
 \ No newline at end of file
+diff --git a/node_modules/@dhis2/app-adapter/build/es/components/AppWrapper.js b/node_modules/@dhis2/app-adapter/build/es/components/AppWrapper.js
+index 292218e..f5fc387 100644
+--- a/node_modules/@dhis2/app-adapter/build/es/components/AppWrapper.js
++++ b/node_modules/@dhis2/app-adapter/build/es/components/AppWrapper.js
+@@ -49,9 +49,6 @@ const AppWrapper = _ref => {
+   }, /*#__PURE__*/React.createElement(_JSXStyle, {
+     id: styles.__hash
+   }, styles), /*#__PURE__*/React.createElement("div", {
+-    dir: localeDirection,
+-    className: `jsx-${styles.__hash}`
+-  }, /*#__PURE__*/React.createElement(ConnectedHeaderBar, null)), /*#__PURE__*/React.createElement("div", {
+     className: `jsx-${styles.__hash}` + " " + "app-shell-app"
+   }, /*#__PURE__*/React.createElement(ErrorBoundary, {
+     onRetry: () => window.location.reload()
 diff --git a/node_modules/@dhis2/app-adapter/build/es/components/ConnectedHeaderBar.js b/node_modules/@dhis2/app-adapter/build/es/components/ConnectedHeaderBar.js
 index 950f05c..809a074 100644
 --- a/node_modules/@dhis2/app-adapter/build/es/components/ConnectedHeaderBar.js

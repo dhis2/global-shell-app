@@ -2,6 +2,8 @@ import { colors, theme, spacers } from '@dhis2/ui-constants'
 import { IconMessages24, IconMail24 } from '@dhis2/ui-icons'
 import PropTypes from 'prop-types'
 import React from 'react'
+import { Link } from 'react-router'
+import css from 'styled-jsx/css'
 import i18n from '../../locales/index.js'
 
 function icon(kind) {
@@ -12,18 +14,46 @@ function icon(kind) {
     }
 }
 
+const { className, styles } = css.resolve`
+    a {
+        /* Need this to undo <a> styles in Link component: */
+        text-decoration: none;
+        /* Rest of styles: */
+        position: relative;
+        margin: 0;
+        cursor: pointer;
+        padding: 0 ${spacers.dp8};
+        height: 100%;
+        display: flex;
+        align-items: center;
+    }
+    a:focus {
+        outline: 2px solid white;
+        outline-offset: -2px;
+    }
+    a:focus:not(:focus-visible) {
+        outline: none;
+    }
+    a:hover {
+        background: #104f7e;
+    }
+    a:active {
+        background: #0d4168;
+    }
+`
+
 export const NotificationIcon = ({
     count = 0,
-    href,
+    path,
     kind,
     dataTestId,
     title,
     'aria-label': ariaLabel,
 }) => (
-    <a
+    <Link
         dir="ltr"
-        href={href}
-        className={kind}
+        to={path}
+        className={className}
         data-test={dataTestId}
         title={i18n.t(title)}
         aria-label={i18n.t(ariaLabel)}
@@ -32,29 +62,8 @@ export const NotificationIcon = ({
 
         {count > 0 && <span data-test={`${dataTestId}-count`}>{count}</span>}
 
+        {styles}
         <style jsx>{`
-            a {
-                position: relative;
-                margin: 0;
-                cursor: pointer;
-                padding: 0 ${spacers.dp8};
-                height: 100%;
-                display: flex;
-                align-items: center;
-            }
-            a:focus {
-                outline: 2px solid white;
-                outline-offset: -2px;
-            }
-            a:focus:not(:focus-visible) {
-                outline: none;
-            }
-            a:hover {
-                background: #104f7e;
-            }
-            a:active {
-                background: #0d4168;
-            }
             span {
                 display: flex;
                 justify-content: center;
@@ -80,12 +89,12 @@ export const NotificationIcon = ({
                 padding: 0 ${spacers.dp4};
             }
         `}</style>
-    </a>
+    </Link>
 )
 
 NotificationIcon.propTypes = {
     'aria-label': PropTypes.string.isRequired,
-    href: PropTypes.string.isRequired,
+    path: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     count: PropTypes.number,
     dataTestId: PropTypes.string,

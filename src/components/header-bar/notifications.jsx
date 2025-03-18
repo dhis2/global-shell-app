@@ -1,8 +1,6 @@
-import { useConfig } from '@dhis2/app-runtime'
 import PropTypes from 'prop-types'
 import React from 'react'
 import i18n from '../../locales/index.js'
-import { joinPath } from './join-path.js'
 import { NotificationIcon } from './notification-icon.jsx'
 
 const hasAuthority = (userAuthorities, authId) =>
@@ -16,14 +14,12 @@ export const Notifications = ({
     messages,
     userAuthorities,
 }) => {
-    const { baseUrl } = useConfig()
-
     return (
         <div data-test="headerbar-notifications">
             {hasAuthority(userAuthorities, 'M_dhis-web-interpretation') && (
                 <NotificationIcon
                     count={interpretations}
-                    href={joinPath(baseUrl, 'dhis-web-interpretation')}
+                    path={'/interpretation'}
                     kind="message"
                     dataTestId="headerbar-interpretations"
                     title={i18n.t('Interpretations')}
@@ -35,7 +31,7 @@ export const Notifications = ({
                 <NotificationIcon
                     message="email"
                     count={messages}
-                    href={joinPath(baseUrl, 'dhis-web-messaging')}
+                    path={'/messaging'}
                     kind="interpretation"
                     dataTestId="headerbar-messages"
                     title={i18n.t('Messages')}
