@@ -1,3 +1,10 @@
+## [1.7.2](https://github.com/dhis2/global-shell-app/compare/v1.7.1...v1.7.2) (2025-03-18)
+
+
+### Bug Fixes
+
+* revert to centered position on mobile form-factors ([#36](https://github.com/dhis2/global-shell-app/issues/36)) ([03094a6](https://github.com/dhis2/global-shell-app/commit/03094a6b4b2c6189a016093b63109c0f40aea1ba))
+
 ## [1.7.1](https://github.com/dhis2/global-shell-app/compare/v1.7.0...v1.7.1) (2025-03-18)
 
 
