@@ -1,3 +1,10 @@
+## [1.7.1](https://github.com/dhis2/global-shell-app/compare/v1.7.0...v1.7.1) (2025-03-18)
+
+
+### Bug Fixes
+
+* browser routing forward/back - don't mutate browser history ([#39](https://github.com/dhis2/global-shell-app/issues/39)) ([3a2ea94](https://github.com/dhis2/global-shell-app/commit/3a2ea9467ce1b7589bca2308242f1678b209fdd1))
+
 # [1.7.0](https://github.com/dhis2/global-shell-app/compare/v1.6.3...v1.7.0) (2025-03-18)
 
 
