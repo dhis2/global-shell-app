@@ -1,8 +1,8 @@
-import { TextEncoder, TextDecoder } from 'util';
+import { TextEncoder, TextDecoder } from 'util'
 import { configure } from '@testing-library/dom'
 import '@testing-library/jest-dom'
 
-Object.assign(global, { TextDecoder, TextEncoder });
+Object.assign(global, { TextDecoder, TextEncoder })
 
 configure({
     testIdAttribute: 'data-test',

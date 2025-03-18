@@ -1,10 +1,11 @@
+import { IconChevronRight16 } from '@dhis2/ui'
 import { colors, spacers } from '@dhis2/ui-constants'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { Link } from 'react-router'
 import { linkClassName, linkStyles } from '../../react-router-link-styles.jsx'
-import { COMMAND, APP } from '../utils/constants.js'
+import { COMMAND, APP, SHORTCUT } from '../utils/constants.js'
 
 function ListItem({
     title,
@@ -16,11 +17,13 @@ function ListItem({
     onClickHandler,
     highlighted,
     resetModal,
+    appName,
     dataTest = 'headerbar-list-item',
 }) {
     const showDescription = type === COMMAND
     // todo: extend this to support shortcut links as well
     const isApp = type === APP
+    const isShortcut = type === SHORTCUT
 
     const item = (
         <div
@@ -30,14 +33,29 @@ function ListItem({
             role={isApp ? undefined : 'button'}
             tabIndex={-1}
         >
-            <div className="icon">
+            <div
+                className={cx('icon', {
+                    'icon-shortcut': isShortcut,
+                })}
+            >
                 {icon && <span className="icon-content">{icon}</span>}
                 {image && (
                     <img className="icon-content" src={image} alt="img" />
                 )}
             </div>
             <div className="text-content">
-                <span className="title">{title}</span>
+                <span className="title">
+                    {isShortcut && (
+                        <>
+                            <span className="shortcut-app-name">
+                                {appName}
+
+                                <IconChevronRight16 />
+                            </span>
+                        </>
+                    )}
+                    {title}
+                </span>
                 {showDescription && (
                     <span className="description">{description}</span>
                 )}
@@ -97,6 +115,12 @@ function ListItem({
                         font-size: 14px;
                         margin-right: ${spacers.dp4};
                     }
+                    .shortcut-app-name {
+                        color: ${colors.grey600};
+                        display: inline-flex;
+                        line-height: 16px;
+                        align-items: center;
+                    }
                 `}
             </style>
         </div>
@@ -121,6 +145,7 @@ function ListItem({
 }
 
 ListItem.propTypes = {
+    appName: PropTypes.string,
     dataTest: PropTypes.string,
     description: PropTypes.string,
     highlighted: PropTypes.bool,

@@ -1,12 +1,12 @@
 import { useDataQuery, useConfig } from '@dhis2/app-runtime'
 import { colors } from '@dhis2/ui-constants'
 import PropTypes from 'prop-types'
-import React, { useMemo } from 'react'
+import React, { useCallback, useMemo } from 'react'
 import { useNavigate } from 'react-router'
 import i18n from '../../locales/index.js'
 import CommandPalette from './command-palette/command-palette.jsx'
 import { CommandPaletteContextProvider } from './command-palette/context/command-palette-context.jsx'
-import { APP } from './command-palette/utils/constants.js'
+import { APP, SHORTCUT } from './command-palette/utils/constants.js'
 import { HeaderBarContextProvider } from './header-bar-context.jsx'
 import { joinPath } from './join-path.js'
 import { Logo } from './logo.jsx'
@@ -47,12 +47,15 @@ export const HeaderBar = ({
     const { loading, error, data } = useDataQuery(query)
     const navigate = useNavigate()
 
-    const apps = useMemo(() => {
-        const getPath = (path) =>
+    const getPath = useCallback(
+        (path) =>
             path.startsWith('http:') || path.startsWith('https:')
                 ? path
-                : joinPath(baseUrl, 'api', path)
+                : joinPath(baseUrl, 'api', path),
+        [baseUrl]
+    )
 
+    const apps = useMemo(() => {
         return data?.apps.modules.map((app) => ({
             ...app,
             type: APP,
@@ -67,7 +70,33 @@ export const HeaderBar = ({
     const commands = []
 
     // fetch shortcuts
-    const shortcuts = []
+    const shortcuts = useMemo(() => {
+        if (!data?.apps?.modules) {
+            return []
+        }
+
+        return data.apps.modules?.reduce((acc, currModule) => {
+            const { defaultAction, icon, displayName: appName } = currModule
+            const shortcuts =
+                currModule.shortcuts?.map(({ name, displayName, url }) => {
+                    const shortcutDefaultAction = getPath(defaultAction) + url
+                    return {
+                        type: SHORTCUT,
+                        name: displayName ?? name,
+                        appName,
+                        // ToDo: confirm what the default action should be in Global shell
+                        // ToDo: check why dhis-web-pivot doesn't have manifest
+                        defaultAction: shortcutDefaultAction,
+                        icon: getPath(icon),
+                        action: () => {
+                            window.location.href = shortcutDefaultAction
+                        },
+                    }
+                }) ?? []
+
+            return [...acc, ...shortcuts]
+        }, [])
+    }, [data, getPath])
 
     // See https://jira.dhis2.org/browse/LIBS-180
     if (!loading && !error) {
