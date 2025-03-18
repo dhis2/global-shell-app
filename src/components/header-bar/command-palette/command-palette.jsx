@@ -211,7 +211,7 @@ const CommandPalette = ({ apps, commands, shortcuts }) => {
                 }
                 .headerbar-menu-content {
                     overflow-y: auto;
-                    max-height: calc(544px - 100px);
+                    max-height: calc(560px - 100px);
                 }
             `}</style>
         </div>
