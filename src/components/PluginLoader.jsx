@@ -2,7 +2,7 @@
 import { Plugin } from '@dhis2/app-runtime/experimental'
 import { CircularLoader, CenteredContent, NoticeBox } from '@dhis2/ui'
 import PropTypes from 'prop-types'
-import React, { useCallback, useMemo, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Link, useLocation, useParams } from 'react-router'
 import { useClientOfflineInterface } from '../lib/clientPWAUpdateState.jsx'
 import i18n from '../locales/index.js'
@@ -43,9 +43,17 @@ const watchForHashRouteChanges = (event) => {
     const iframe = event?.target || document.querySelector('iframe')
 
     iframe.contentWindow.addEventListener('popstate', (event) => {
-        // Note: this updates the pluginSource on the Plugin component;
-        // check if this causes rerenders. Seems okay in a Dashboard
-        window.location.hash = event.target.location.hash
+        const locationUrl = new URL(window.location)
+        const targetHash = event.target.location.hash
+
+        // Only update hashes have changed
+        if (locationUrl.hash !== targetHash) {
+            // Update hash in the current location
+            locationUrl.hash = targetHash
+            // *Replace* here because popstate events in iframes already create
+            // history entries in the stack; don't create another one.
+            window.location.replace(locationUrl)
+        }
     })
 }
 
@@ -76,9 +84,15 @@ const listenForCommandPaletteToggle = (event) => {
  * Returns `true` if navigating
  */
 const handleExternalNavigation = (iframeLoadEvent, pluginHref) => {
-    const iframeHref = iframeLoadEvent.target.contentDocument?.location?.href
-    if (iframeHref !== pluginHref) {
-        window.location.href = iframeHref
+    const currentUrl = new URL(pluginHref)
+    const iframeUrl = new URL(iframeLoadEvent.target.contentWindow?.location)
+    // Hash and search aren't as important
+    if (
+        iframeUrl.origin !== currentUrl.origin ||
+        iframeUrl.pathname !== currentUrl.pathname
+    ) {
+        // Replace to not lose 'forward' history?
+        window.location.replace(iframeUrl)
         return true
     }
 }
@@ -95,6 +109,8 @@ export const PluginLoader = ({ appsInfoQuery }) => {
     const location = useLocation()
     const initClientOfflineInterface = useClientOfflineInterface()
     const [error, setError] = useState(null)
+    const iframeRef = useRef()
+    const originalSrcRef = useRef()
 
     const pluginHref = useMemo(() => {
         if (!appsInfoQuery.data) {
@@ -127,6 +143,8 @@ export const PluginLoader = ({ appsInfoQuery }) => {
 
     const handleLoad = useCallback(
         (event) => {
+            iframeRef.current = event.target
+
             // If we can't access the new page's Document, this is a cross-domain page.
             // Disallow that and show an error
             if (!event.target.contentDocument) {
@@ -150,6 +168,23 @@ export const PluginLoader = ({ appsInfoQuery }) => {
         [pluginHref, initClientOfflineInterface]
     )
 
+    useEffect(() => {
+        if (!pluginHref) {
+            return
+        }
+
+        // Set pluginSource one time (subsequent times interfere with history)
+        if (originalSrcRef.current === undefined) {
+            originalSrcRef.current = pluginHref
+            return
+        }
+
+        // For further updates, replace iframe window location
+        if (iframeRef.current) {
+            iframeRef.current.contentWindow.location.replace(pluginHref)
+        }
+    }, [pluginHref])
+
     if (error) {
         return (
             <CenteredContent>
@@ -163,7 +198,7 @@ export const PluginLoader = ({ appsInfoQuery }) => {
         )
     }
 
-    if (!pluginHref) {
+    if (!originalSrcRef.current && !pluginHref) {
         return (
             <CenteredContent>
                 <CircularLoader />
@@ -175,7 +210,7 @@ export const PluginLoader = ({ appsInfoQuery }) => {
         <Plugin
             className={styles.flexGrow}
             // pass URL hash down to the client app
-            pluginSource={pluginHref}
+            pluginSource={originalSrcRef.current || pluginHref}
             onLoad={handleLoad}
         />
     )

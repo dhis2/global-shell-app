@@ -54,7 +54,7 @@ export const RedirectHandler = ({ appsInfoQuery }: RedirectHandlerProps) => {
                 'dhis-web-',
                 ''
             )
-        navigate(`/${startModuleAppName}`)
+        navigate(`/${startModuleAppName}`, { replace: true })
     }, [appsInfoQuery.data, navigate])
 
     return (
