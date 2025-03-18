@@ -1,3 +1,10 @@
+## [1.6.3](https://github.com/dhis2/global-shell-app/compare/v1.6.2...v1.6.3) (2025-03-18)
+
+
+### Bug Fixes
+
+* remove temporary patch-pwa command ([#38](https://github.com/dhis2/global-shell-app/issues/38)) ([42f87fc](https://github.com/dhis2/global-shell-app/commit/42f87fcf0c52a77d13f3b1586de171783e98e948))
+
 ## [1.6.2](https://github.com/dhis2/global-shell-app/compare/v1.6.1...v1.6.2) (2025-03-18)
 
 
