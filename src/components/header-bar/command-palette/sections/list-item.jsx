@@ -1,3 +1,4 @@
+import { IconChevronRight16 } from '@dhis2/ui'
 import { colors, spacers } from '@dhis2/ui-constants'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
@@ -45,9 +46,13 @@ function ListItem({
             <div className="text-content">
                 <span className="title">
                     {isShortcut && (
-                        <span className="shortcut-app-name">
-                            {appName} {' > '}&nbsp;
-                        </span>
+                        <>
+                            <span className="shortcut-app-name">
+                                {appName}
+
+                                <IconChevronRight16 />
+                            </span>
+                        </>
                     )}
                     {title}
                 </span>
@@ -112,10 +117,9 @@ function ListItem({
                     }
                     .shortcut-app-name {
                         color: ${colors.grey600};
-                        display: inline-block;
-                    }
-                    .icon-shortcut {
-                        background-color: red;
+                        display: inline-flex;
+                        line-height: 16px;
+                        align-items: center;
                     }
                 `}
             </style>
