@@ -48,7 +48,10 @@ const ModalContainer = forwardRef(function ModalContainer(
                     max-height: 560px;
                     border-radius: 3px;
                     background: ${colors.white};
-                    box-shadow: ${elevations.e100};
+                    box-shadow: ${elevations.e400};
+                }
+                dialog::backdrop {
+                    background-color: transparent;
                 }
             `}</style>
         </>
