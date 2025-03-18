@@ -1,3 +1,10 @@
+# [1.7.0](https://github.com/dhis2/global-shell-app/compare/v1.6.3...v1.7.0) (2025-03-18)
+
+
+### Features
+
+* **command-palette:** add support for shortcuts ([#18](https://github.com/dhis2/global-shell-app/issues/18)) ([cd9d9fd](https://github.com/dhis2/global-shell-app/commit/cd9d9fdd7924fadf8372754ff873a39bf20655e4))
+
 ## [1.6.3](https://github.com/dhis2/global-shell-app/compare/v1.6.2...v1.6.3) (2025-03-18)
 
 
