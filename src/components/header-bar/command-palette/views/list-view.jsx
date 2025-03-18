@@ -15,6 +15,7 @@ const ListView = ({ grid, currentItem, resetModal }) => {
                 <div data-test="headerbar-list">
                     {listItems.map((item, idx) => {
                         const {
+                            appName,
                             action,
                             displayName,
                             name,
@@ -30,6 +31,7 @@ const ListView = ({ grid, currentItem, resetModal }) => {
                             <ListItem
                                 type={type}
                                 key={`list-item-${idx}-${name}`}
+                                appName={appName}
                                 name={name}
                                 title={displayName || name}
                                 image={isImage ? icon : undefined}

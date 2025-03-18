@@ -8,6 +8,8 @@
         "build": "d2-app-scripts build",
         "start": "d2-app-scripts start",
         "test": "d2-app-scripts test",
+        "format": "d2-style apply",
+        "lint": "d2-style check",
         "deploy": "D2_PASSWORD=district d2-app-scripts deploy http://localhost:8080 --username admin",
         "deploy-debug": "D2_PASSWORD=district d2-app-scripts deploy https://debug.dhis2.org/dev --username admin",
         "postinstall": "patch-package",
