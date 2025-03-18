@@ -45,7 +45,7 @@ const ModalContainer = forwardRef(function ModalContainer(
                     border-radius: 1px;
                     padding: 1px;
                     width: 572px;
-                    max-height: 544px;
+                    max-height: 560px;
                     border-radius: 3px;
                     background: ${colors.white};
                     box-shadow: ${elevations.e100};
