@@ -46,7 +46,7 @@ const watchForHashRouteChanges = (event) => {
         const locationUrl = new URL(window.location)
         const targetHash = event.target.location.hash
 
-        // Only update hashes have changed
+        // Only update if hashes have changed
         if (locationUrl.hash !== targetHash) {
             // Update hash in the current location
             locationUrl.hash = targetHash
@@ -91,7 +91,7 @@ const handleExternalNavigation = (iframeLoadEvent, pluginHref) => {
         iframeUrl.origin !== currentUrl.origin ||
         iframeUrl.pathname !== currentUrl.pathname
     ) {
-        // Replace to not lose 'forward' history?
+        // Replace to not lose 'forward' history
         window.location.replace(iframeUrl)
         return true
     }
