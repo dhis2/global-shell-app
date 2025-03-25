@@ -1,3 +1,10 @@
+## [1.7.3](https://github.com/dhis2/global-shell-app/compare/v1.7.2...v1.7.3) (2025-03-25)
+
+
+### Bug Fixes
+
+* **pwa:** update cli-app-scripts to ensure SW registration ([#40](https://github.com/dhis2/global-shell-app/issues/40)) ([c56eb75](https://github.com/dhis2/global-shell-app/commit/c56eb75607df4d68bb665225d961c0fbdabb812e))
+
 ## [1.7.2](https://github.com/dhis2/global-shell-app/compare/v1.7.1...v1.7.2) (2025-03-18)
 
 
