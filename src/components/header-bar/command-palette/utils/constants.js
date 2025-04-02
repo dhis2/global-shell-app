@@ -13,7 +13,7 @@ export const MOBILE_GRID_COLUMNS = 2
 export const DESKTOP_GRID_COLUMNS = 4
 
 // actions
-export const MIN_APPS_NUM = 8
+export const MIN_APPS_NUM = 99999
 export const MIN_COMMANDS_NUM = 0
 export const MIN_SHORTCUTS_NUM = 0
 
