@@ -35,7 +35,7 @@
         "import-pwa": "yarn del-pwa && yarn del-nm-cache && yarn cp-pwa && yarn patch-package @dhis2/pwa",
         "import-headerbar": "yarn del-headerbar && yarn del-nm-cache && yarn cp-headerbar && yarn patch-package @dhis2-ui/header-bar",
         "import-plugin": "yarn del-plugin && yarn del-nm-cache && yarn cp-plugin && yarn patch-package @dhis2/app-service-plugin",
-        "import-offline": "yarn del-offline && yarn del-nm-cache && yarn cp-offline",
+        "import-offline": "yarn del-offline && yarn del-nm-cache && yarn cp-offline && yarn patch-package @dhis2/app-service-offline",
         "import-data": "yarn del-data && yarn del-nm-cache && yarn cp-data && yarn patch-package @dhis2/app-service-data"
     },
     "devDependencies": {
