@@ -136,7 +136,6 @@ export const PluginLoader = ({ appsInfoQuery }) => {
         const pluginUrl = new URL(newPluginEntrypoint, window.location)
         pluginUrl.hash = location.hash
         pluginUrl.search = location.search
-        pluginUrl.searchParams.append('redirect', 'false')
 
         return pluginUrl.href
     }, [location.hash, location.search, appsInfoQuery.data, params.appName])
