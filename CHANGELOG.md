@@ -1,3 +1,10 @@
+## [1.7.4](https://github.com/dhis2/global-shell-app/compare/v1.7.3...v1.7.4) (2025-04-10)
+
+
+### Bug Fixes
+
+* track offline status even when iframes are focused ([#43](https://github.com/dhis2/global-shell-app/issues/43)) ([34a3ebe](https://github.com/dhis2/global-shell-app/commit/34a3ebe85dec813d162a75b8d7ec4a4b393805fc))
+
 ## [1.7.3](https://github.com/dhis2/global-shell-app/compare/v1.7.2...v1.7.3) (2025-03-25)
 
 
