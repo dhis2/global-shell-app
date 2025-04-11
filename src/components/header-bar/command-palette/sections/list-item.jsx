@@ -99,6 +99,16 @@ function ListItem({
                         align-items: center;
                         justify-content: center;
                     }
+                    .icon-shortcut::before {
+                        content: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0nMTAnIGhlaWdodD0nMTAnIHZpZXdCb3g9JzAgMCAxMCAxMCcgZmlsbD0nbm9uZScgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJz48cGF0aCBkPSdNMCAwSDhDOS4xMDQ1NyAwIDEwIDAuODk1NDMxIDEwIDJWMTBIMFYwWicgZmlsbD0nd2hpdGUnLz48cGF0aCBmaWxsLXJ1bGU9J2V2ZW5vZGQnIGNsaXAtcnVsZT0nZXZlbm9kZCcgZD0nTTYuMjkyOTcgM0gzVjJIOFY3SDdWMy43MDcxOEwxLjg1MzU5IDguODUzNTlMMS4xNDY0OCA4LjE0NjQ4TDYuMjkyOTcgM1onIGZpbGw9JyMyMTI5MzQnLz48L3N2Zz4K');
+                        position: absolute;
+                        bottom: 0;
+                        left: 0;
+                        width: 10px;
+                        height: 10px;
+                        display: flex;
+                        align-items: center;
+                    }
                     .text-content {
                         display: flex;
                         flex-direction: column;
