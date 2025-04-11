@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2025-03-17T20:48:36.929Z\n"
-"PO-Revision-Date: 2025-03-17T20:48:36.929Z\n"
+"POT-Creation-Date: 2025-04-08T13:42:10.776Z\n"
+"PO-Revision-Date: 2025-04-08T13:42:10.777Z\n"
 
 msgid "Save your data"
 msgstr "Save your data"
@@ -32,6 +32,9 @@ msgstr "Cancel"
 
 msgid "Reload"
 msgstr "Reload"
+
+msgid "A redirect error was encountered"
+msgstr "A redirect error was encountered"
 
 msgid "Unable to find an app for this URL."
 msgstr "Unable to find an app for this URL."
