@@ -1,3 +1,10 @@
+## [1.7.5](https://github.com/dhis2/global-shell-app/compare/v1.7.4...v1.7.5) (2025-04-11)
+
+
+### Bug Fixes
+
+* **command-palette:** shortcut icon overlay ([#42](https://github.com/dhis2/global-shell-app/issues/42)) ([3e7c371](https://github.com/dhis2/global-shell-app/commit/3e7c371c1e60f2cfc4df245295a8760f9e879c81))
+
 ## [1.7.4](https://github.com/dhis2/global-shell-app/compare/v1.7.3...v1.7.4) (2025-04-10)
 
 
