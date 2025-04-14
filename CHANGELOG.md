@@ -1,3 +1,10 @@
+## [1.7.6](https://github.com/dhis2/global-shell-app/compare/v1.7.5...v1.7.6) (2025-04-14)
+
+
+### Bug Fixes
+
+* test URL equivalency before replacing iframe location to avoid reloads ([#46](https://github.com/dhis2/global-shell-app/issues/46)) ([eef989d](https://github.com/dhis2/global-shell-app/commit/eef989dcaa74681a67809aa46ec0bbf03e2b7ccd))
+
 ## [1.7.5](https://github.com/dhis2/global-shell-app/compare/v1.7.4...v1.7.5) (2025-04-11)
 
 
