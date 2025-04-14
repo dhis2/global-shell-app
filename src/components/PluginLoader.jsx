@@ -97,6 +97,33 @@ const handleExternalNavigation = (iframeLoadEvent, pluginHref) => {
     }
 }
 
+/**
+ * Equivalent URLs:
+ * <appRoot>/
+ * <appRoot>/index.html
+ * <appRoot>/index.html?redirect=false
+ *
+ * newUrl is expected to come from pluginHref,
+ * and will always have /index.html?redirect=false
+ */
+const isBaseEquivalent = (currentUrlOrig, newUrlOrig) => {
+    // Copy before mutating
+    const [currentUrl, newUrl] = [new URL(currentUrlOrig), new URL(newUrlOrig)]
+    newUrl.searchParams.sort()
+    // If redirect is not already false in the search set that
+    currentUrl.searchParams.set('redirect', 'false')
+    currentUrl.searchParams.sort()
+    // If pathname doesn't end in html, add that
+    if (currentUrl.pathname.endsWith('/')) {
+        currentUrl.pathname = currentUrl.pathname + 'index.html'
+    }
+
+    const [newBase] = newUrl.href.split('#')
+    const [currentBase] = currentUrl.href.split('#')
+
+    return newBase === currentBase
+}
+
 const failedLoadErrorMessage =
     'The requested page is not accessible by the DHIS2 global shell, ' +
     'and the URL is therefore inaccessible to be printed here. ' +
@@ -179,9 +206,23 @@ export const PluginLoader = ({ appsInfoQuery }) => {
             return
         }
 
+        if (!iframeRef.current) {
+            return
+        }
+
+        const newUrl = new URL(pluginHref)
+        const currentLocationUrl = new URL(
+            iframeRef.current.contentWindow.location
+        )
         // For further updates, replace iframe window location
-        if (iframeRef.current) {
+        if (!isBaseEquivalent(currentLocationUrl, newUrl)) {
+            // If 'base' has changed, replace whole location
             iframeRef.current.contentWindow.location.replace(pluginHref)
+            return
+        } else if (newUrl.hash !== currentLocationUrl.hash) {
+            // If 'base' is functionally equivalent, update just hash,
+            // if it has changed. Tested and preserves location state
+            iframeRef.current.contentWindow.location.hash = newUrl.hash
         }
     }, [pluginHref])
 
