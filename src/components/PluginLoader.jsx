@@ -218,12 +218,12 @@ export const PluginLoader = ({ appsInfoQuery }) => {
         if (!isBaseEquivalent(currentLocationUrl, newUrl)) {
             // If 'base' has changed, replace whole location
             iframeRef.current.contentWindow.location.replace(pluginHref)
-            return
         } else if (newUrl.hash !== currentLocationUrl.hash) {
             // If 'base' is functionally equivalent, update just hash,
             // if it has changed. Tested and preserves location state
             iframeRef.current.contentWindow.location.hash = newUrl.hash
         }
+        // Otherwise, URLs are identical; don't need to update
     }, [pluginHref])
 
     if (error) {
