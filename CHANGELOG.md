@@ -1,3 +1,10 @@
+## [1.7.7](https://github.com/dhis2/global-shell-app/compare/v1.7.6...v1.7.7) (2025-04-30)
+
+
+### Bug Fixes
+
+* handle legacy startModule format ([#49](https://github.com/dhis2/global-shell-app/issues/49)) ([1745d33](https://github.com/dhis2/global-shell-app/commit/1745d33477a9da54f96a02233e34c4482bfa157e))
+
 ## [1.7.6](https://github.com/dhis2/global-shell-app/compare/v1.7.5...v1.7.6) (2025-04-14)
 
 
