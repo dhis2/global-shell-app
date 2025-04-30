@@ -1,3 +1,4 @@
+import { useConfig } from '@dhis2/app-runtime'
 // eslint-disable-next-line import/no-unresolved
 import { Plugin } from '@dhis2/app-runtime/experimental'
 import { CircularLoader, CenteredContent, NoticeBox } from '@dhis2/ui'
@@ -131,11 +132,15 @@ const failedLoadErrorMessage =
     'different domain. ' +
     'In the second case, the link should be opened in a new tab instead.'
 
+const redirectErrorMessage = i18n.t('A redirect error was encountered')
+
 export const PluginLoader = ({ appsInfoQuery }) => {
+    const { baseUrl } = useConfig()
     const params = useParams()
     const location = useLocation()
     const initClientOfflineInterface = useClientOfflineInterface()
     const [error, setError] = useState(null)
+    const [redirectError, setRedirectError] = useState(false)
     const iframeRef = useRef()
     const originalSrcRef = useRef()
 
@@ -163,10 +168,15 @@ export const PluginLoader = ({ appsInfoQuery }) => {
         const pluginUrl = new URL(newPluginEntrypoint, window.location)
         pluginUrl.hash = location.hash
         pluginUrl.search = location.search
-        pluginUrl.searchParams.append('redirect', 'false')
+
+        // If the app in the iframe got redirected back to the iframe, try again
+        // with ?redirect=false
+        if (redirectError) {
+            pluginUrl.searchParams.append('redirect', 'false')
+        }
 
         return pluginUrl.href
-    }, [location.hash, location.search, appsInfoQuery.data, params.appName])
+    }, [location.hash, location.search, appsInfoQuery.data, params.appName, redirectError])
 
     const handleLoad = useCallback(
         (event) => {
@@ -182,6 +192,22 @@ export const PluginLoader = ({ appsInfoQuery }) => {
                 return
             }
 
+            const targetLocation = event.target.contentWindow.location
+            const isTryingToLoadGlobalShell = targetLocation.href.startsWith(baseUrl + '/apps/')
+            if (isTryingToLoadGlobalShell && redirectError) {
+                // If this is the second time in a row we get redirected to the
+                // global shell, we're probably in a loop :(
+                // Set an error for the UI
+                setError(redirectErrorMessage)
+                return
+            }
+            if (isTryingToLoadGlobalShell) {
+                // Got redirected to the global shell... Set this error,
+                // so pluginHref adds ?redirect=false to the location
+                setRedirectError(true)
+                return
+            }
+
             if (handleExternalNavigation(event, pluginHref)) {
                 return
             }
@@ -192,7 +218,7 @@ export const PluginLoader = ({ appsInfoQuery }) => {
             })
             listenForCommandPaletteToggle(event)
         },
-        [pluginHref, initClientOfflineInterface]
+        [pluginHref, initClientOfflineInterface, baseUrl, redirectError]
     )
 
     useEffect(() => {
