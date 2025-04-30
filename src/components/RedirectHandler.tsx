@@ -50,9 +50,9 @@ export const RedirectHandler = ({ appsInfoQuery }: RedirectHandlerProps) => {
             return
         }
         const startModuleAppName = appsInfoQuery.data.systemSettings.startModule
-            .replace('dhis-web-', '')
+            .replace(/^dhis-web-/, '')
             // Handle legacy startModule values for custom apps
-            .replace('app:', '')
+            .replace(/^app:/, '')
         navigate(`/${startModuleAppName}`, { replace: true })
     }, [appsInfoQuery.data, navigate])
 
