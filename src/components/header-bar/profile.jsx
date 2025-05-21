@@ -28,8 +28,8 @@ const Profile = ({ name, avatarId, helpUrl, username }) => {
             <button
                 className="headerbar-profile-btn"
                 onClick={toggleProfileMenu}
-                title={i18n.t('header bar profile')}
-                aria-label={i18n.t('header bar profile')}
+                title={i18n.t('Profile menu')}
+                aria-label={i18n.t('Profile menu')}
             >
                 <UserAvatar
                     avatarId={avatarId}
