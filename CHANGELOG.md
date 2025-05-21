@@ -1,3 +1,10 @@
+## [1.7.8](https://github.com/dhis2/global-shell-app/compare/v1.7.7...v1.7.8) (2025-05-21)
+
+
+### Bug Fixes
+
+* profile menu title ([#51](https://github.com/dhis2/global-shell-app/issues/51)) ([e5a2261](https://github.com/dhis2/global-shell-app/commit/e5a2261d0f5db9bd10ff6e0baf282903e1b812f5))
+
 ## [1.7.7](https://github.com/dhis2/global-shell-app/compare/v1.7.6...v1.7.7) (2025-04-30)
 
 
