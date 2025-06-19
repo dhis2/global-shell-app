@@ -51,6 +51,7 @@ export const HeaderBar = ({
         (path) =>
             path.startsWith('http:') || path.startsWith('https:')
                 ? path
+                // ! This shouldn't be reached: -- instead, make a warning or 'icon not found'
                 : joinPath(baseUrl, 'api', path),
         [baseUrl]
     )
@@ -64,7 +65,7 @@ export const HeaderBar = ({
                 navigate(`/${app.name.replace('dhis-web-', '')}`)
             },
         }))
-    }, [data, baseUrl, navigate])
+    }, [data, navigate, getPath])
 
     // fetch commands
     const commands = []
