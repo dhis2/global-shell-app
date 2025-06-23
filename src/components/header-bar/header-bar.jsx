@@ -106,10 +106,6 @@ export const HeaderBar = ({
                     }
                 }) ?? []
 
-            if (shortcuts.length > 0) {
-                console.log({ currModule, shortcuts })
-            }
-
             return [...acc, ...shortcuts]
         }, [])
     }, [data, getPath, navigate])
