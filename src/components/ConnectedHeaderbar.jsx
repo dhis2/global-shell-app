@@ -19,7 +19,7 @@ const getAppVersion = (appName, apps, bundledApps) => {
     const parsedAppName = appName.replace('dhis-web-', '')
     // First
     return (
-        apps.find((a) => a.short_name === parsedAppName)?.version ||
+        apps.find((a) => a.key === parsedAppName)?.version ||
         bundledApps.find((ba) => ba.name === parsedAppName)?.version
     )
 }
