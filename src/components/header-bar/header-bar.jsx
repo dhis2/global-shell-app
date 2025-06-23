@@ -36,7 +36,6 @@ const query = {
     },
 }
 
-// todo: use app 'key' instead (DHIS2-19255)
 const getAppPath = (app) => {
     return `/${app.name.replace('dhis-web-', '')}`
 }
