@@ -23,6 +23,7 @@ const ListView = ({ grid, currentItem, resetModal }) => {
                             description,
                             type,
                             dataTest,
+                            path,
                         } = item
                         const isImage = typeof icon === 'string'
                         const isIcon = React.isValidElement(icon)
@@ -32,7 +33,7 @@ const ListView = ({ grid, currentItem, resetModal }) => {
                                 type={type}
                                 key={`list-item-${idx}-${name}`}
                                 appName={appName}
-                                name={name}
+                                path={path}
                                 title={displayName || name}
                                 image={isImage ? icon : undefined}
                                 icon={isIcon ? icon : undefined}

@@ -9,7 +9,6 @@ import { COMMAND, APP, SHORTCUT } from '../utils/constants.js'
 
 function ListItem({
     title,
-    name,
     icon,
     image,
     description,
@@ -19,18 +18,19 @@ function ListItem({
     resetModal,
     appName,
     dataTest = 'headerbar-list-item',
+    path,
 }) {
     const showDescription = type === COMMAND
-    // todo: extend this to support shortcut links as well
     const isApp = type === APP
     const isShortcut = type === SHORTCUT
+    const isNavigableLink = isApp || isShortcut
 
     const item = (
         <div
-            onClick={isApp ? undefined : onClickHandler}
+            onClick={isNavigableLink ? undefined : onClickHandler}
             className={cx('item', { highlighted })}
             data-test={dataTest}
-            role={isApp ? undefined : 'button'}
+            role={isNavigableLink ? undefined : 'button'}
             tabIndex={-1}
         >
             <div
@@ -136,11 +136,11 @@ function ListItem({
         </div>
     )
 
-    if (isApp) {
+    if (isNavigableLink) {
         // Use react-router client-side routing to apps:
         return (
             <Link
-                to={`/${name?.replace('dhis-web-', '')}`}
+                to={path}
                 className={linkClassName}
                 // ...and then close the palette
                 onClick={resetModal}
@@ -161,7 +161,7 @@ ListItem.propTypes = {
     highlighted: PropTypes.bool,
     icon: PropTypes.node,
     image: PropTypes.string,
-    name: PropTypes.string,
+    path: PropTypes.string,
     resetModal: PropTypes.func,
     title: PropTypes.string,
     type: PropTypes.string,

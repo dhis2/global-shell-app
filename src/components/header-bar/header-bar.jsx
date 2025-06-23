@@ -36,6 +36,11 @@ const query = {
     },
 }
 
+// todo: use app 'key' instead (DHIS2-19255)
+const getAppPath = (app) => {
+    return `/${app.name.replace('dhis-web-', '')}`
+}
+
 export const HeaderBar = ({
     appName,
     appVersion,
@@ -51,20 +56,24 @@ export const HeaderBar = ({
         (path) =>
             path.startsWith('http:') || path.startsWith('https:')
                 ? path
-                // ! This shouldn't be reached: -- instead, make a warning or 'icon not found'
-                : joinPath(baseUrl, 'api', path),
+                : // ! This shouldn't be reached: -- instead, make a warning or 'icon not found'
+                  joinPath(baseUrl, 'api', path),
         [baseUrl]
     )
 
     const apps = useMemo(() => {
-        return data?.apps.modules.map((app) => ({
-            ...app,
-            type: APP,
-            icon: getPath(app.icon),
-            action: () => {
-                navigate(`/${app.name.replace('dhis-web-', '')}`)
-            },
-        }))
+        return data?.apps.modules.map((app) => {
+            const appPath = getAppPath(app)
+            return {
+                ...app,
+                type: APP,
+                icon: getPath(app.icon),
+                path: appPath,
+                action: () => {
+                    navigate(appPath)
+                },
+            }
+        })
     }, [data, navigate, getPath])
 
     // fetch commands
@@ -80,24 +89,31 @@ export const HeaderBar = ({
             const { defaultAction, icon, displayName: appName } = currModule
             const shortcuts =
                 currModule.shortcuts?.map(({ name, displayName, url }) => {
+                    // `url` is the shortcut hash path,
+                    // e.g. '#/list/categorySection/category'
                     const shortcutDefaultAction = getPath(defaultAction) + url
+                    const shortcutPath = getAppPath(currModule) + url
                     return {
                         type: SHORTCUT,
                         name: displayName ?? name,
                         appName,
                         // ToDo: confirm what the default action should be in Global shell
-                        // ToDo: check why dhis-web-pivot doesn't have manifest
                         defaultAction: shortcutDefaultAction,
                         icon: getPath(icon),
+                        path: shortcutPath,
                         action: () => {
-                            window.location.href = shortcutDefaultAction
+                            navigate(shortcutPath)
                         },
                     }
                 }) ?? []
 
+            if (shortcuts.length > 0) {
+                console.log({ currModule, shortcuts })
+            }
+
             return [...acc, ...shortcuts]
         }, [])
-    }, [data, getPath])
+    }, [data, getPath, navigate])
 
     // See https://jira.dhis2.org/browse/LIBS-180
     if (!loading && !error) {
