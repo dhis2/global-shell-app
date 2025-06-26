@@ -10,7 +10,7 @@ import useModal from './hooks/use-modal.js'
 import ModalContainer from './sections/modal-container.jsx'
 import NavigationKeysLegend from './sections/navigation-keys-legend.jsx'
 import SearchFilter from './sections/search-filter.jsx'
-import { APP, HOME_VIEW } from './utils/constants.js'
+import { APP, HOME_VIEW, SHORTCUT } from './utils/constants.js'
 import { filterItemsPerView } from './utils/filter.js'
 import HomeView from './views/home-view.jsx'
 import ListView from './views/list-view.jsx'
@@ -80,7 +80,7 @@ const CommandPalette = ({ apps, commands, shortcuts }) => {
                 case 'Enter':
                     event.preventDefault()
                     currentItem?.['action']?.()
-                    if (currentItem?.type === APP) {
+                    if (currentItem?.type === APP || currentItem?.type === SHORTCUT) {
                         resetModal()
                     }
                     break
