@@ -1,3 +1,10 @@
+## [1.7.9](https://github.com/dhis2/global-shell-app/compare/v1.7.8...v1.7.9) (2025-06-24)
+
+
+### Bug Fixes
+
+* use app key instead of short_name to get version ([#54](https://github.com/dhis2/global-shell-app/issues/54)) ([4bce7af](https://github.com/dhis2/global-shell-app/commit/4bce7afb90aa0cf8b4bea54f64b1649adeda2b78))
+
 ## [1.7.8](https://github.com/dhis2/global-shell-app/compare/v1.7.7...v1.7.8) (2025-05-21)
 
 
