@@ -44,6 +44,10 @@ const validateUrl = (url) => {
     )
 }
 
+/**
+ * Returns the URL segment to load the app with React Router,
+ * e.g. '/line-listing'
+ */
 const getAppPath = (app) => {
     return `/${app.name.replace('dhis-web-', '')}`
 }
