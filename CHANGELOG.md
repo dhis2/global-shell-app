@@ -1,3 +1,10 @@
+# [1.8.0](https://github.com/dhis2/global-shell-app/compare/v1.7.9...v1.8.0) (2025-06-26)
+
+
+### Features
+
+* **command-palette:** client-side navigation for shortcuts ([#53](https://github.com/dhis2/global-shell-app/issues/53)) ([0fa5dbc](https://github.com/dhis2/global-shell-app/commit/0fa5dbcef9a5b572d31560a8cbfa1e35254b5d3b))
+
 ## [1.7.9](https://github.com/dhis2/global-shell-app/compare/v1.7.8...v1.7.9) (2025-06-24)
 
 
