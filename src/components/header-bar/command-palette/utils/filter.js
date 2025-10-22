@@ -34,6 +34,8 @@ export const filterItemsArray = (items, filter) => {
         return items
     }
     return items.filter(({ displayName, name }) => {
+        // Include both the translated name and the base name in the searchable string, so searching for either will return the result
+        // (the translated string is still the one that will be displayed)
         const itemName = `${displayName ?? ''}${name ?? ''}`
         const formattedItemName = itemName.toLowerCase()
         const formattedFilter = filter.toLowerCase()
