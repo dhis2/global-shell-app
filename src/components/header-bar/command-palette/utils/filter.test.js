@@ -71,4 +71,14 @@ describe('filter helper functions', () => {
             )
         }
     )
+
+    test('filterItemsArray should consider both name and displayName', () => {
+        const itemsToSearch = [
+            { name: 'category options', displayName: 'فئات الخيارت' },
+        ]
+        expect(filterItemsArray(itemsToSearch, 'فئات')).toEqual(itemsToSearch)
+        expect(filterItemsArray(itemsToSearch, 'category')).toEqual(
+            itemsToSearch
+        )
+    })
 })
