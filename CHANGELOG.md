@@ -1,3 +1,10 @@
+# [1.9.0](https://github.com/dhis2/global-shell-app/compare/v1.8.0...v1.9.0) (2025-10-22)
+
+
+### Features
+
+* **DHIS-20333:** fall back to base language when searching ([#55](https://github.com/dhis2/global-shell-app/issues/55)) ([027c3a7](https://github.com/dhis2/global-shell-app/commit/027c3a75e38c7684a35ad5f04f511c155681b9a4))
+
 # [1.8.0](https://github.com/dhis2/global-shell-app/compare/v1.7.9...v1.8.0) (2025-06-26)
 
 
