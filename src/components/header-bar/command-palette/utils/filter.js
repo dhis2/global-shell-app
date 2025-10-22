@@ -34,7 +34,7 @@ export const filterItemsArray = (items, filter) => {
         return items
     }
     return items.filter(({ displayName, name }) => {
-        const itemName = displayName || name
+        const itemName = `${displayName ?? ''}${name ?? ''}`
         const formattedItemName = itemName.toLowerCase()
         const formattedFilter = filter.toLowerCase()
 
