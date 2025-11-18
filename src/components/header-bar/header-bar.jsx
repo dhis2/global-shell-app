@@ -98,7 +98,8 @@ export const HeaderBar = ({
                     const shortcutPath = getAppPath(currModule) + url
                     return {
                         type: SHORTCUT,
-                        name: displayName ?? name,
+                        name,
+                        displayName: displayName ?? name,
                         appName,
                         // ToDo: confirm what the default action should be in Global shell
                         defaultAction: shortcutDefaultAction,
