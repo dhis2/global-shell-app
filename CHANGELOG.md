@@ -1,3 +1,10 @@
+## [1.9.1](https://github.com/dhis2/global-shell-app/compare/v1.9.0...v1.9.1) (2025-11-19)
+
+
+### Bug Fixes
+
+* **DHIS2-20333:** ensure both display and name are used in search logic ([#57](https://github.com/dhis2/global-shell-app/issues/57)) ([4b87c65](https://github.com/dhis2/global-shell-app/commit/4b87c656ec39b19ca3366bf8b8b816485d346e5b))
+
 # [1.9.0](https://github.com/dhis2/global-shell-app/compare/v1.8.0...v1.9.0) (2025-10-22)
 
 
