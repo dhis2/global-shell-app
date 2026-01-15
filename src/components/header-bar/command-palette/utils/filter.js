@@ -29,28 +29,41 @@ export function processString(text) {
     return removeAccentMarks(str)
 }
 
+export function filterByString(text, filter) {
+    if (text === null || text === undefined) {
+        return false
+    }
+
+    const formattedItemName = text.toLowerCase()
+    const formattedFilter = filter.toLowerCase()
+
+    const escapedFilter = escapeRegExpCharacters(formattedFilter)
+    if (formattedItemName.match(escapedFilter)) {
+        return true
+    }
+
+    const normalisedItemName = processString(formattedItemName)
+    const normalisedFilter = processString(formattedFilter)
+    if (normalisedFilter.length) {
+        return normalisedItemName.includes(normalisedFilter)
+    }
+    return false
+}
+
 export const filterItemsArray = (items, filter) => {
     if (!filter.length) {
         return items
     }
-    return items.filter(({ displayName, name }) => {
+    return items.filter(({ appName, displayName, name }) => {
         // Include both the translated name and the base name in the searchable string, so searching for either will return the result
         // (the translated string is still the one that will be displayed)
         const itemName = `${displayName ?? ''}${name ?? ''}`
-        const formattedItemName = itemName.toLowerCase()
-        const formattedFilter = filter.toLowerCase()
+        const appNameToCheck = appName || null
 
-        const escapedFilter = escapeRegExpCharacters(formattedFilter)
-        if (formattedItemName.match(escapedFilter)) {
-            return true
-        }
-
-        const normalisedItemName = processString(formattedItemName)
-        const normalisedFilter = processString(formattedFilter)
-        if (normalisedFilter.length) {
-            return normalisedItemName.includes(normalisedFilter)
-        }
-        return false
+        return (
+            filterByString(itemName, filter) ||
+            filterByString(appNameToCheck, filter)
+        )
     })
 }
 

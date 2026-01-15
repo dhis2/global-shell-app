@@ -80,7 +80,10 @@ const CommandPalette = ({ apps, commands, shortcuts }) => {
                 case 'Enter':
                     event.preventDefault()
                     currentItem?.['action']?.()
-                    if (currentItem?.type === APP || currentItem?.type === SHORTCUT) {
+                    if (
+                        currentItem?.type === APP ||
+                        currentItem?.type === SHORTCUT
+                    ) {
                         resetModal()
                     }
                     break

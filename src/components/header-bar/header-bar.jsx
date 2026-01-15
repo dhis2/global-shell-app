@@ -87,7 +87,7 @@ export const HeaderBar = ({
             return []
         }
 
-        return data.apps.modules?.reduce((acc, currModule) => {
+        const results = data.apps.modules?.reduce((acc, currModule) => {
             const { defaultAction, icon, displayName: appName } = currModule
             const shortcuts =
                 currModule.shortcuts?.map(({ name, displayName, url }) => {
@@ -113,6 +113,14 @@ export const HeaderBar = ({
 
             return [...acc, ...shortcuts]
         }, [])
+
+        // Sorting shortcuts by appName for order
+        // Method: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/localeCompare
+        const sortedShortcuts = results.sort((shortcut1, shortcut2) =>
+            shortcut1.appName.localeCompare(shortcut2.appName)
+        )
+
+        return sortedShortcuts
     }, [data, navigate])
 
     // See https://jira.dhis2.org/browse/LIBS-180
