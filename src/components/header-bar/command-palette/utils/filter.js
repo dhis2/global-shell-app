@@ -24,6 +24,19 @@ function removeAccentMarks(str) {
     return str.normalize('NFKD').replace(/[\u0300-\u036f]/g, '')
 }
 
+function hasSpaces(text) {
+    return /\s/.test(text);
+}
+
+function stringToArray(str) {
+    if (!str) return [];
+
+    return str
+        .trim()
+        .split(/\s+/)
+        .filter(Boolean);
+}
+
 export function processString(text) {
     const str = removePunctuationMarks(text)
     return removeAccentMarks(str)
@@ -39,18 +52,16 @@ export const filterItemsArray = (items, filter) => {
         const itemName = `${displayName ?? ''}${name ?? ''}`
         const formattedItemName = itemName.toLowerCase()
         const formattedFilter = filter.toLowerCase()
-
+        
         const escapedFilter = escapeRegExpCharacters(formattedFilter)
         if (formattedItemName.match(escapedFilter)) {
             return true
         }
-
+        
+        const splitedFilter = stringToArray(formattedFilter)
         const normalisedItemName = processString(formattedItemName)
-        const normalisedFilter = processString(formattedFilter)
-        if (normalisedFilter.length) {
-            return normalisedItemName.includes(normalisedFilter)
-        }
-        return false
+
+        return splitedFilter?.every(x => normalisedItemName.includes(x))
     })
 }
 
@@ -71,6 +82,7 @@ export const filterItemsPerView = ({
     const filteredShortcuts = filterItemsArray(shortcuts, filter)
     const filteredActions = filterItemsArray(searchableActions, filter)
 
+    console.log(filteredShortcuts, 'filtered')
     if (currentView === ALL_APPS_VIEW) {
         return filteredApps
     }
