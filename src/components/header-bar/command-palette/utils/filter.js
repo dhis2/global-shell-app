@@ -1,17 +1,11 @@
+import Fuse from 'fuse.js';
+import { useMemo } from 'react';
 import {
     ALL_APPS_VIEW,
     ALL_COMMANDS_VIEW,
     ALL_SHORTCUTS_VIEW,
     FILTERABLE_ACTION,
 } from './constants.js'
-
-/**
- * Copied from here:
- * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions#Escaping
- */
-function escapeRegExpCharacters(text) {
-    return text.replace(/[/.*+?^${}()|[\]\\]/g, '\\$&')
-}
 
 function removePunctuationMarks(text) {
     return text.replace(/[.,!;:`"'?\-_\s]/g, '')
@@ -24,45 +18,22 @@ function removeAccentMarks(str) {
     return str.normalize('NFKD').replace(/[\u0300-\u036f]/g, '')
 }
 
-function hasSpaces(text) {
-    return /\s/.test(text);
-}
-
-function stringToArray(str) {
-    if (!str) return [];
-
-    return str
-        .trim()
-        .split(/\s+/)
-        .filter(Boolean);
-}
-
 export function processString(text) {
     const str = removePunctuationMarks(text)
     return removeAccentMarks(str)
 }
 
 export const filterItemsArray = (items, filter) => {
-    if (!filter.length) {
-        return items
-    }
-    return items.filter(({ displayName, name }) => {
-        // Include both the translated name and the base name in the searchable string, so searching for either will return the result
-        // (the translated string is still the one that will be displayed)
-        const itemName = `${displayName ?? ''}${name ?? ''}`
-        const formattedItemName = itemName.toLowerCase()
-        const formattedFilter = filter.toLowerCase()
-        
-        const escapedFilter = escapeRegExpCharacters(formattedFilter)
-        if (formattedItemName.match(escapedFilter)) {
-            return true
-        }
-        
-        const splitedFilter = stringToArray(formattedFilter)
-        const normalisedItemName = processString(formattedItemName)
+    if (!items?.length) return []
 
-        return splitedFilter?.every(x => normalisedItemName.includes(x))
-    })
+    const fuse = new Fuse(items, {
+        includeScore: true,
+        threshold: 0.3,
+        ignoreLocation: true,
+        keys: ['displayName', 'name'],
+    });
+
+    return filter ? fuse?.search(filter)?.map(result => result.item) : items
 }
 
 export const filterItemsPerView = ({
@@ -82,7 +53,6 @@ export const filterItemsPerView = ({
     const filteredShortcuts = filterItemsArray(shortcuts, filter)
     const filteredActions = filterItemsArray(searchableActions, filter)
 
-    console.log(filteredShortcuts, 'filtered')
     if (currentView === ALL_APPS_VIEW) {
         return filteredApps
     }
