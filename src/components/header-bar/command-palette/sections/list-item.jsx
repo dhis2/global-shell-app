@@ -54,7 +54,9 @@ function ListItem({
                             </span>
                         </>
                     )}
-                    {title}
+                    <span className="truncate" title={title}>
+                        {title}
+                    </span>
                 </span>
                 {showDescription && (
                     <span className="description">{description}</span>
@@ -62,6 +64,13 @@ function ListItem({
             </div>
             <style jsx>
                 {`
+                    .truncate {
+                        display: inline-block; /* clé */
+                        max-width: 450px; /* clé */
+                        white-space: nowrap;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                    }
                     .item {
                         display: flex;
                         align-items: center;
