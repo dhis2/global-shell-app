@@ -1,6 +1,6 @@
 {
     "name": "global-shell-app",
-    "version": "1.9.1",
+    "version": "1.11.0",
     "description": "",
     "license": "BSD-3-Clause",
     "private": true,
@@ -51,9 +51,12 @@
         "typescript": "^5.7.3"
     },
     "dependencies": {
-        "@dhis2/app-runtime": "^3.14.0",
+        "@dhis2/app-runtime": "^3.16.0",
         "@dhis2/pwa": "^12.3.0",
         "@dhis2/ui": "^10.1.13",
+        "@types/js-cookie": "^3.0.6",
+        "js-cookie": "^3.0.5",
+        "post-robot": "^10.0.46",
         "react-router": "^7.2.0",
         "styled-jsx": "^4.0.1"
     },
