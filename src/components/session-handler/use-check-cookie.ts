@@ -1,51 +1,42 @@
-import Cookies from 'js-cookie'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
-const SESSION_EXPIRY_COOKIE_NAME = 'SESSION_EXPIRE'
-const WARNING_THRESHOLD_IN_SECONDS = 20
+// const WARNING_THRESHOLD_IN_SECONDS = 20
 const CHECK_INTERVAL = 1000 // ms countdown every second
-export const useCheckCookie = () => {
-    const [time, setTime] = useState(Infinity)
+export const useCheckCookie = ({ sessionTimeout, warningThreshold }) => {
+    const timeout = useRef(sessionTimeout)
+
+    // console.log('??? warningthreshold', warningThresholdSeconds)
+    const stime = useRef<number>(timeout.current)
+    const [time, setTime] = useState(timeout.current)
 
     const [expired, setExpired] = useState(false)
+    const [warningShown, setShowWarning] = useState(false)
 
+    const reset = () => {
+        stime.current = Math.round(sessionTimeout)
+        setExpired(false)
+        setShowWarning(false)
+        setTime(stime.current)
+    }
     useEffect(() => {
-        // ToDo: much better error handling
-        const sessionTimeout =
-            Number(Cookies.get(SESSION_EXPIRY_COOKIE_NAME)) * 1000
-
-        console.log(
-            `SESSION_EXPIRE value from cookie : ${sessionTimeout} ms (${new Date(
-                sessionTimeout
-            )})`
-        )
-
         const interval = setInterval(() => {
-            // ToDo: much better error handling
-            const sessionTimeout =
-                Number(Cookies.get(SESSION_EXPIRY_COOKIE_NAME)) * 1000
-
-            const remainingSeconds = Math.round(
-                (sessionTimeout - Date.now()) / 1000
-            )
-            console.log(`session  (remaining seconds): ${remainingSeconds}`)
-            if (Date.now() > sessionTimeout) {
-                // if (remainingSeconds < 290) {
-                // console.log(
-                //     '>>>>>>>>> fake time out when remaininSeconds  <  3540!'
-                // )
+            console.log(`[Session] Remaining seconds: ${stime.current}`)
+            setShowWarning(stime.current < warningThreshold)
+            if (stime.current === 1) {
                 setExpired(true)
                 clearInterval(interval)
             }
-            setTime(remainingSeconds)
+            stime.current = stime.current - 1
+            setTime(stime.current)
         }, CHECK_INTERVAL)
 
         return () => clearInterval(interval)
     }, [])
 
     return {
+        reset,
         time,
         expired,
-        showWarning: time < WARNING_THRESHOLD_IN_SECONDS,
+        showWarning: warningShown,
     }
 }

@@ -3100,6 +3100,11 @@
   resolved "https://registry.yarnpkg.com/@types/parse-json/-/parse-json-4.0.2.tgz#5950e50960793055845e956c427fc2b0d70c5239"
   integrity sha512-dISoDXWWQwUquiKsyZ4Ng+HX2KsPL7LyHKHQwgGFEA3IaKac4Obd+h2a/a6waisAoepJlBcx9paWqjA8/HVjCw==
 
+"@types/post-robot@^10.0.6":
+  version "10.0.6"
+  resolved "https://registry.yarnpkg.com/@types/post-robot/-/post-robot-10.0.6.tgz#9c8b1db55dd109cc36aa5a0d8edbd46827fd572c"
+  integrity sha512-x+LaZPQ4TYW8aBbKpFZsJn7TGipka7tC2ZokE8gpCAlh4E4XFgxxcvt19LD41BeExmlzAtjHh700r3r8SdfX9A==
+
 "@types/prettier@^2.1.5":
   version "2.7.3"
   resolved "https://registry.yarnpkg.com/@types/prettier/-/prettier-2.7.3.tgz#3e51a17e291d01d17d3fc61422015a933af7a08f"
