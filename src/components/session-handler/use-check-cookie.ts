@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import calculateSkew from './helpers/calculate-skew'
 import getSessionCookie from './helpers/get-session-cookie'
 
 // ToDo: when do we want to start showing warning -fixed or relative to cookie time
@@ -8,22 +9,34 @@ export const useCheckCookie = () => {
     const [time, setTime] = useState(Infinity)
 
     const [expired, setExpired] = useState(false)
+    const skew = useRef(0)
 
-    console.log('[Session] useCheckCookie')
+    console.log('[Session] ...')
+    useEffect(() => {
+        const { serverTime } = getSessionCookie()
+        if (serverTime) {
+            const calculatedSkew = calculateSkew(serverTime)
+            skew.current = calculatedSkew
+            console.log('[session] calculated skew:', skew.current)
+        }
+    }, [])
     useEffect(() => {
         const interval = setInterval(() => {
-            const sessionTimeout = getSessionCookie()
+            const nowDate = Date.now() - skew.current
+            const { sessionExpiryTime = NaN } = getSessionCookie()
+
             const remainingSeconds = Math.round(
-                (sessionTimeout - Date.now()) / 1000
+                (sessionExpiryTime - nowDate) / 1000
             )
-            if (Date.now() >= sessionTimeout || isNaN(sessionTimeout)) {
+
+            if (nowDate >= sessionExpiryTime || isNaN(sessionExpiryTime)) {
                 setExpired(true)
                 clearInterval(interval)
                 setTime(remainingSeconds)
                 return
             }
 
-            const endDate = new Date(sessionTimeout).toLocaleTimeString()
+            const endDate = new Date(sessionExpiryTime).toLocaleTimeString()
             console.log(
                 `[Session] Cookie time stamp: ${endDate} / ${remainingSeconds} seconds`
             )

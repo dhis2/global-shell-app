@@ -31,8 +31,8 @@ const APPS_INFO_QUERY = {
 }
 
 const Layout = ({ appsInfoQuery }) => {
-    const cookie = getSessionCookie()
-    const supportsSessionCookie = !isNaN(cookie)
+    const { sessionExpiryTime } = getSessionCookie()
+    const supportsSessionCookie = !isNaN(sessionExpiryTime)
 
     return (
         <div className={styles.container}>
