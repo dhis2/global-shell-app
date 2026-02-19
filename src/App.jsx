@@ -7,6 +7,10 @@ import styles from './App.module.css'
 import { ConnectedHeaderBar } from './components/ConnectedHeaderbar.jsx'
 import { PluginLoader } from './components/PluginLoader.jsx'
 import { RedirectHandler } from './components/RedirectHandler.tsx'
+import {
+    SessionHandler,
+    getSessionCookie,
+} from './components/session-handler/index.ts'
 import { ClientPWAProvider } from './lib/clientPWAUpdateState.jsx'
 
 const APPS_INFO_QUERY = {
@@ -27,8 +31,12 @@ const APPS_INFO_QUERY = {
 }
 
 const Layout = ({ appsInfoQuery }) => {
+    const cookie = getSessionCookie()
+    const supportsSessionCookie = !isNaN(cookie)
+
     return (
         <div className={styles.container}>
+            {supportsSessionCookie && <SessionHandler />}
             <ConnectedHeaderBar appsInfoQuery={appsInfoQuery} />
             {/* Skip the routes in dev; they don't make the same sense */}
             {process.env.NODE_ENV !== 'development' ? <Outlet /> : null}

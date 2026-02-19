@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2025-05-21T12:31:28.314Z\n"
-"PO-Revision-Date: 2025-05-21T12:31:28.314Z\n"
+"POT-Creation-Date: 2026-02-12T15:54:41.950Z\n"
+"PO-Revision-Date: 2026-02-12T15:54:41.951Z\n"
 
 msgid "Save your data"
 msgstr "Save your data"
@@ -152,3 +152,19 @@ msgstr "App updates available — Click to reload"
 
 msgid "Profile menu"
 msgstr "Profile menu"
+
+msgid "Your session is about to expire"
+msgstr "Your session is about to expire"
+
+msgid "Your session has expired"
+msgstr "Your session has expired"
+
+msgid "Your session has expired."
+msgstr "Your session has expired."
+
+msgid ""
+"You can go to the login page or dismiss the modal if the app supports "
+"working offline."
+msgstr ""
+"You can go to the login page or dismiss the modal if the app supports "
+"working offline."
