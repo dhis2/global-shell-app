@@ -5,4 +5,11 @@ module.exports = {
     rules: {
         'react/no-unknown-property': [2, { ignore: ['jsx'] }],
     },
+    settings: {
+        'import/resolver': {
+            node: {
+                extensions: ['.js', '.jsx', '.ts', '.tsx'],
+            },
+        },
+    },
 }

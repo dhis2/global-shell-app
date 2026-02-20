@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import calculateSkew from './helpers/calculate-skew'
 import getSessionCookie from './helpers/get-session-cookie'
 
@@ -11,14 +11,19 @@ export const useCheckCookie = () => {
     const [expired, setExpired] = useState(false)
     const skew = useRef(0)
 
-    console.log('[Session] ...')
-    useEffect(() => {
+    const reset = useCallback(() => {
+        // calculate the skew only once
         const { serverTime } = getSessionCookie()
         if (serverTime) {
             const calculatedSkew = calculateSkew(serverTime)
             skew.current = calculatedSkew
-            console.log('[session] calculated skew:', skew.current)
+            console.debug('[session] calculated skew:', skew.current)
         }
+    }, [])
+
+    console.debug('[Session] ...')
+    useEffect(() => {
+        reset()
     }, [])
     useEffect(() => {
         const interval = setInterval(() => {
@@ -37,7 +42,7 @@ export const useCheckCookie = () => {
             }
 
             const endDate = new Date(sessionExpiryTime).toLocaleTimeString()
-            console.log(
+            console.debug(
                 `[Session] Cookie time stamp: ${endDate} / ${remainingSeconds} seconds`
             )
 
@@ -51,5 +56,6 @@ export const useCheckCookie = () => {
         time,
         expired,
         showWarning: time < WARNING_THRESHOLD_IN_SECONDS,
+        reset,
     }
 }

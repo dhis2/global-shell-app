@@ -10,7 +10,11 @@ import {
 } from '@dhis2/ui'
 import * as React from 'react'
 
-export const ExpiredModal = ({ dismissModal }) => {
+type ExpiredModalProps = {
+    dismissModal: () => void
+}
+
+export const ExpiredModal: React.FC<ExpiredModalProps> = ({ dismissModal }) => {
     const { baseUrl } = useConfig()
 
     const goToLogin = () => {
@@ -19,7 +23,6 @@ export const ExpiredModal = ({ dismissModal }) => {
     const dismiss = () => {
         dismissModal()
     }
-    // console.log(config)
     return (
         <Modal>
             <ModalTitle>{i18n.t('Your session has expired')}</ModalTitle>
@@ -38,7 +41,7 @@ export const ExpiredModal = ({ dismissModal }) => {
                     <Button onClick={dismiss}>Dismiss</Button>
 
                     <Button primary onClick={goToLogin}>
-                        Go to login
+                        {i18n.t('Go to login')}
                     </Button>
                 </ButtonStrip>
             </ModalActions>
