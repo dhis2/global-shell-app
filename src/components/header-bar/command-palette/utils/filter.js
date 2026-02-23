@@ -1,5 +1,4 @@
 import Fuse from 'fuse.js';
-import { useMemo } from 'react';
 import {
     ALL_APPS_VIEW,
     ALL_COMMANDS_VIEW,
@@ -28,12 +27,16 @@ export const filterItemsArray = (items, filter) => {
 
     const fuse = new Fuse(items, {
         includeScore: true,
-        threshold: 0.3,
+        threshold: 0.5,
         ignoreLocation: true,
+        ignoreDiacritics: true,
+        shouldSort: true,
         keys: ['displayName', 'name'],
     });
 
-    return filter ? fuse?.search(filter)?.map(result => result.item) : items
+    const normalised = processString(filter)
+
+    return filter ? fuse?.search(normalised)?.map(result => result.item) : items
 }
 
 export const filterItemsPerView = ({
