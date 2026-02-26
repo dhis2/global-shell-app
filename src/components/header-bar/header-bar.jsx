@@ -7,6 +7,7 @@ import i18n from '../../locales/index.js'
 import CommandPalette from './command-palette/command-palette.jsx'
 import { CommandPaletteContextProvider } from './command-palette/context/command-palette-context.jsx'
 import { APP, SHORTCUT } from './command-palette/utils/constants.js'
+import { useCustomColorContext } from './custom-color-context.jsx'
 import { HeaderBarContextProvider } from './header-bar-context.jsx'
 import { Logo } from './logo.jsx'
 import { Notifications } from './notifications.jsx'
@@ -62,6 +63,12 @@ export const HeaderBar = ({
     const { appName: configAppName, pwaEnabled } = useConfig()
     const { loading, error, data } = useDataQuery(query)
     const navigate = useNavigate()
+
+    const { color, bgColor } = useCustomColorContext()
+    const customColorStyle = {
+        color,
+        backgroundColor: bgColor,
+    }
 
     const apps = useMemo(() => {
         return data?.apps.modules.map((app) => {
@@ -132,7 +139,7 @@ export const HeaderBar = ({
             clientAppVersion={appVersion}
         >
             <header className={className}>
-                <div className="main">
+                <div style={customColorStyle} className="main">
                     {!loading && !error && (
                         <>
                             <Logo />

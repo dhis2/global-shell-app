@@ -4,6 +4,8 @@ import React, { useMemo, useEffect } from 'react'
 import { useParams } from 'react-router'
 import { useClientPWAUpdateState } from '../lib/clientPWAUpdateState.jsx'
 import { ConfirmUpdateModal } from './ConfirmUpdateModal.tsx'
+import getContrastingColor from './get-contrasting-color.js'
+import { CustomColorProvider } from './header-bar/custom-color-context.jsx'
 import { HeaderBar } from './header-bar/index.js'
 
 const getAppDisplayName = (appName, modules) => {
@@ -95,8 +97,13 @@ export function ConnectedHeaderBar({ appsInfoQuery }) {
         ? selfPWAUpdateState
         : clientPWAUpdateState
 
+    const bgColor = appsInfoQuery?.data?.systemSettings.keyCustomColor
+    const color = useMemo(() => getContrastingColor(bgColor), [bgColor])
+
+    const colorProviderProps = bgColor ? { bgColor, color } : {}
+
     return (
-        <>
+        <CustomColorProvider {...colorProviderProps}>
             <HeaderBar
                 className={'global-shell-header'}
                 // `undefined` defaults to app title in header bar component,
@@ -113,7 +120,7 @@ export function ConnectedHeaderBar({ appsInfoQuery }) {
                     onCancel={onCancelUpdate}
                 />
             ) : null}
-        </>
+        </CustomColorProvider>
     )
 }
 ConnectedHeaderBar.propTypes = { appsInfoQuery: PropTypes.object }
