@@ -7,6 +7,7 @@ import React, { useCallback, useRef, useState } from 'react'
 import i18n from '../../locales/index.js'
 import { DebugInfoModal } from './debug-info/debug-info-modal.jsx'
 import { ProfileMenu } from './profile-menu/index.js'
+import { useCustomColorContext } from './custom-color-context.jsx'
 
 const Profile = ({ name, avatarId, helpUrl, username }) => {
     const [showProfileMenu, setShowProfileMenu] = useState(false)
@@ -18,6 +19,12 @@ const Profile = ({ name, avatarId, helpUrl, username }) => {
         () => setShowProfileMenu((show) => !show),
         []
     )
+
+    const customColor = useCustomColorContext()
+
+    const hoverStyle = customColor?.bgColor
+        ? 'opacity: 0.8;'
+        : 'background: #104f7e;'
 
     return (
         <div
@@ -83,10 +90,10 @@ const Profile = ({ name, avatarId, helpUrl, username }) => {
                     outline: none;
                 }
                 .headerbar-profile-btn:hover {
-                    background: #104f7e;
+                    ${hoverStyle}
                 }
                 .headerbar-profile-btn:active {
-                    background: #0d4168;
+                    ${hoverStyle}
                 }
             `}</style>
         </div>
