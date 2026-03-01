@@ -12,10 +12,16 @@ import * as React from 'react'
 
 type ExpiredModalProps = {
     dismissModal: () => void
+    sessionTimeout: number
 }
 
-export const ExpiredModal: React.FC<ExpiredModalProps> = ({ dismissModal }) => {
+export const ExpiredModal: React.FC<ExpiredModalProps> = ({
+    dismissModal,
+    sessionTimeout,
+}) => {
     const { baseUrl } = useConfig()
+
+    const sessionTimeoutInMinutes = Math.floor(sessionTimeout / 60)
 
     const goToLogin = () => {
         window.open(baseUrl)
@@ -25,23 +31,19 @@ export const ExpiredModal: React.FC<ExpiredModalProps> = ({ dismissModal }) => {
     }
     return (
         <Modal>
-            <ModalTitle>{i18n.t('Your session has expired')}</ModalTitle>
+            <ModalTitle>{i18n.t('You have been logged out')}</ModalTitle>
             <ModalContent>
-                {/* {i18n.t('Your session has expired.')}{' '} */}
-                {/* {i18n.t(
-                            'You can go to the login page or dismiss the modal if the app supports working offline.'
-                        )} */}
-                <br />
-                Eos omnis cumque quia quaerat aut. Neque consequuntur sed non a
-                quibusdam eligendi. Fugit eveniet expedita nihil ab maxime sequi
-                nihil quidem. Et aut nobis assumenda in iure.
+                {i18n.t(
+                    'Your session ended after {{sessionTimeoutInMinutes}} minutes without network activity. Log in again to continue.',
+                    { sessionTimeoutInMinutes }
+                )}
             </ModalContent>
             <ModalActions>
                 <ButtonStrip end>
-                    <Button onClick={dismiss}>Dismiss</Button>
+                    <Button onClick={dismiss}>{i18n.t('Dismiss')}</Button>
 
                     <Button primary onClick={goToLogin}>
-                        {i18n.t('Go to login')}
+                        {i18n.t('Log in')}
                     </Button>
                 </ButtonStrip>
             </ModalActions>

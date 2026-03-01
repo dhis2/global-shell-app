@@ -13,7 +13,7 @@ const SESSION_EXPIRY_COOKIE_NAME = 'SESSION_EXPIRE'
 type GetSessionCookieFn = () => {
     serverTime?: number
     sessionExpiryTime?: number
-}
+} | null
 
 const getSessionCookie: GetSessionCookieFn = () => {
     const cookieValue = Cookies.get(SESSION_EXPIRY_COOKIE_NAME) ?? {}
@@ -22,6 +22,15 @@ const getSessionCookie: GetSessionCookieFn = () => {
 
     const serverTime = Number(params.get('server_time')) * 1000
     const sessionExpiryTime = Number(params.get('expiry_time')) * 1000
+
+    if (
+        !serverTime ||
+        !sessionExpiryTime ||
+        isNaN(serverTime) ||
+        isNaN(sessionExpiryTime)
+    ) {
+        return null
+    }
 
     return {
         sessionExpiryTime,

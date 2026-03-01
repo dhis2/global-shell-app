@@ -13,9 +13,14 @@ const query = {
     },
 }
 
+type SessionHandlerProps = {
+    sessionTimeoutInSeconds: number
+}
 // ToDo: do we need to explicitly exclude this in the login app?
 // (it seems the shell is part of the login app when developing, but unsure if that's the case in the real thing)
-export const SessionHandler = () => {
+export const SessionHandler: React.FC<SessionHandlerProps> = ({
+    sessionTimeoutInSeconds,
+}) => {
     const { showWarning, time, expired, reset } = useCheckCookie()
     const [modalHidden, hideModal] = React.useState(false)
     // const [received401, setReceived401] = React.useState(false)
@@ -36,13 +41,19 @@ export const SessionHandler = () => {
                 countDown={time}
                 onExtendSession={dismissModal}
                 loading={loading}
+                sessionTimeout={sessionTimeoutInSeconds}
             />
         )
     }
 
     // ToDo: unsure - once dismissed, we don't show it again?
     if (expired && !modalHidden) {
-        return <ExpiredModal dismissModal={dismissModal} />
+        return (
+            <ExpiredModal
+                sessionTimeout={sessionTimeoutInSeconds}
+                dismissModal={dismissModal}
+            />
+        )
     }
     return null
 }

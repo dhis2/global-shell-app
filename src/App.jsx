@@ -31,12 +31,22 @@ const APPS_INFO_QUERY = {
 }
 
 const Layout = ({ appsInfoQuery }) => {
-    const { sessionExpiryTime } = getSessionCookie()
-    const supportsSessionCookie = !isNaN(sessionExpiryTime)
+    const sessionCookie = getSessionCookie()
+
+    const { systemInfo } = useConfig()
+
+    const supportsSessionHandler =
+        sessionCookie?.sessionExpiryTime &&
+        sessionCookie?.serverTime &&
+        systemInfo?.sessionTimeout
 
     return (
         <div className={styles.container}>
-            {supportsSessionCookie && <SessionHandler />}
+            {supportsSessionHandler && (
+                <SessionHandler
+                    sessionTimeoutInSeconds={systemInfo?.sessionTimeout}
+                />
+            )}
             <ConnectedHeaderBar appsInfoQuery={appsInfoQuery} />
             {/* Skip the routes in dev; they don't make the same sense */}
             {process.env.NODE_ENV !== 'development' ? <Outlet /> : null}

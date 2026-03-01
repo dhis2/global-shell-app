@@ -13,7 +13,7 @@ export const useCheckCookie = () => {
 
     const reset = useCallback(() => {
         // calculate the skew only once
-        const { serverTime } = getSessionCookie()
+        const serverTime = getSessionCookie()?.serverTime
         if (serverTime) {
             const calculatedSkew = calculateSkew(serverTime)
             skew.current = calculatedSkew
@@ -28,13 +28,17 @@ export const useCheckCookie = () => {
     useEffect(() => {
         const interval = setInterval(() => {
             const nowDate = Date.now() - skew.current
-            const { sessionExpiryTime = NaN } = getSessionCookie()
+            const sessionExpiryTime = getSessionCookie()?.sessionExpiryTime
 
             const remainingSeconds = Math.round(
-                (sessionExpiryTime - nowDate) / 1000
+                (sessionExpiryTime! - nowDate) / 1000
             )
 
-            if (nowDate >= sessionExpiryTime || isNaN(sessionExpiryTime)) {
+            if (
+                !sessionExpiryTime ||
+                nowDate >= sessionExpiryTime ||
+                isNaN(sessionExpiryTime)
+            ) {
                 setExpired(true)
                 clearInterval(interval)
                 setTime(remainingSeconds)
