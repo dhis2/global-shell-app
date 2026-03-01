@@ -7,10 +7,7 @@ const getConstrastingColor = (color) => {
 
     const apcaBlack = Math.abs(calcAPCA('black', color))
     const apcaWhite = Math.abs(calcAPCA('white', color))
-    console.log('apcaBlack', color, {
-        apcaWhite,
-        apcaBlack,
-    })
+
     if (apcaBlack > apcaWhite) {
         return 'black'
     }
