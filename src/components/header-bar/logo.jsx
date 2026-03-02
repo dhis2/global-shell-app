@@ -1,9 +1,13 @@
 import { useConfig } from '@dhis2/app-runtime'
 import React from 'react'
+import { useCustomColorContext } from './custom-color-context.jsx'
 import { LogoImage } from './logo-image.jsx'
 
 export const Logo = () => {
     const { baseUrl } = useConfig()
+    const customColor = useCustomColorContext()
+
+    const backgroundColor = customColor?.bgColor ?? '#104f7e'
 
     return (
         <div data-test="headerbar-logo">
@@ -22,7 +26,7 @@ export const Logo = () => {
                     border-inline-end: 1px solid rgba(32, 32, 32, 0.15);
                 }
                 div:hover {
-                    background-color: #104f7e;
+                    background-color: ${backgroundColor};
                 }
 
                 a,

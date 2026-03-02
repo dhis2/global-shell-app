@@ -1,3 +1,10 @@
+# [1.10.0](https://github.com/dhis2/global-shell-app/compare/v1.9.1...v1.10.0) (2026-03-01)
+
+
+### Features
+
+* **DHIS2-20879:** support custom colors for header bar ([#63](https://github.com/dhis2/global-shell-app/issues/63)) ([d4dc338](https://github.com/dhis2/global-shell-app/commit/d4dc338e07d1ae55a9efee43a1d0351aaffc543c))
+
 ## [1.9.1](https://github.com/dhis2/global-shell-app/compare/v1.9.0...v1.9.1) (2025-11-19)
 
 
