@@ -3,6 +3,7 @@ import i18n from '@dhis2/d2-i18n'
 import {
     Button,
     ButtonStrip,
+    IconLaunch16,
     Modal,
     ModalActions,
     ModalContent,
@@ -42,7 +43,7 @@ export const ExpiredModal: React.FC<ExpiredModalProps> = ({
                 <ButtonStrip end>
                     <Button onClick={dismiss}>{i18n.t('Dismiss')}</Button>
 
-                    <Button primary onClick={goToLogin}>
+                    <Button primary onClick={goToLogin} icon={<IconLaunch16 />}>
                         {i18n.t('Log in')}
                     </Button>
                 </ButtonStrip>
