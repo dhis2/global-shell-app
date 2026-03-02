@@ -1,11 +1,19 @@
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import getSessionCookie from './helpers/get-session-cookie'
 
 const CHECK_INTERVAL = 1 * 1000 // ms countdown every second
-
+const MIN_WARNING_THRESHOLD = 20
+const MAX_WARNING_THRESHOLD = 5 * 60
 export const useCheckCookie = (sessionTimeoutInSeconds: number) => {
     const [time, setTime] = useState<number>()
-    const warningThresholdInSeconds = Math.round(sessionTimeoutInSeconds * 0.1)
+    const warningThresholdInSeconds = useMemo(() => {
+        let threshold = Math.round(sessionTimeoutInSeconds * 0.1)
+        threshold = Math.min(
+            Math.max(threshold, MIN_WARNING_THRESHOLD),
+            MAX_WARNING_THRESHOLD
+        )
+        return threshold
+    }, [sessionTimeoutInSeconds])
 
     const [expired, setExpired] = useState(false)
 
@@ -18,11 +26,9 @@ export const useCheckCookie = (sessionTimeoutInSeconds: number) => {
         }
     }, [sessionTimeoutInSeconds])
 
-    console.debug('[Session] 4 ...')
-
     useEffect(() => {
         reset()
-    }, [reset])
+    }, [reset, warningThresholdInSeconds])
 
     useEffect(() => {
         if (!time) {
@@ -30,8 +36,6 @@ export const useCheckCookie = (sessionTimeoutInSeconds: number) => {
         }
         const interval = setInterval(() => {
             const sessionExpiryTime = getSessionCookie()?.sessionExpiryTime
-
-            console.log('[session] time', time)
 
             if (time === 1) {
                 setExpired(true)

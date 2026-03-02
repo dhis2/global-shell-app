@@ -23,15 +23,21 @@ export const SessionHandler: React.FC<SessionHandlerProps> = ({
     const { showWarning, time, expired, reset } = useCheckCookie(
         sessionTimeoutInSeconds
     )
-    const [modalHidden, hideModal] = React.useState(false)
+    const [feedbackManuallyDismissed, setFeedbackManuallyDismissed] =
+        React.useState(false)
     // const [received401, setReceived401] = React.useState(false)
 
     const { refetch: extendSession, loading } = useDataQuery(query, {
         lazy: true,
     })
 
+    const onExtendSession = async () => {
+        await extendSession()
+        reset()
+    }
+
     const dismissModal = async () => {
-        hideModal(true)
+        setFeedbackManuallyDismissed(true)
         await extendSession()
         reset()
     }
@@ -39,8 +45,8 @@ export const SessionHandler: React.FC<SessionHandlerProps> = ({
     if (!expired && showWarning) {
         return (
             <ExpirationCountdownModal
-                countDown={time}
-                onExtendSession={dismissModal}
+                countDown={time!}
+                onExtendSession={onExtendSession}
                 loading={loading}
                 sessionTimeout={sessionTimeoutInSeconds}
             />
@@ -48,7 +54,7 @@ export const SessionHandler: React.FC<SessionHandlerProps> = ({
     }
 
     // ToDo: unsure - once dismissed, we don't show it again?
-    if (expired && !modalHidden) {
+    if (expired && !feedbackManuallyDismissed) {
         return (
             <ExpiredModal
                 sessionTimeout={sessionTimeoutInSeconds}

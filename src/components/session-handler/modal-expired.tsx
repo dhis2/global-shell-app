@@ -24,7 +24,7 @@ export const ExpiredModal: React.FC<ExpiredModalProps> = ({
     const sessionTimeoutInMinutes = Math.floor(sessionTimeout / 60)
 
     const goToLogin = () => {
-        window.open(baseUrl)
+        window.open(baseUrl, '_blank', 'noopener,noreferrer')
     }
     const dismiss = () => {
         dismissModal()
