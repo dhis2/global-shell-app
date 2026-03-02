@@ -16,12 +16,13 @@ const query = {
 type SessionHandlerProps = {
     sessionTimeoutInSeconds: number
 }
-// ToDo: do we need to explicitly exclude this in the login app?
-// (it seems the shell is part of the login app when developing, but unsure if that's the case in the real thing)
+
 export const SessionHandler: React.FC<SessionHandlerProps> = ({
     sessionTimeoutInSeconds,
 }) => {
-    const { showWarning, time, expired, reset } = useCheckCookie()
+    const { showWarning, time, expired, reset } = useCheckCookie(
+        sessionTimeoutInSeconds
+    )
     const [modalHidden, hideModal] = React.useState(false)
     // const [received401, setReceived401] = React.useState(false)
 

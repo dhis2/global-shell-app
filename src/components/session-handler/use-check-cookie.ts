@@ -1,65 +1,62 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
-import calculateSkew from './helpers/calculate-skew'
 import getSessionCookie from './helpers/get-session-cookie'
 
-// ToDo: when do we want to start showing warning -fixed or relative to cookie time
-const WARNING_THRESHOLD_IN_SECONDS = 20
 const CHECK_INTERVAL = 1 * 1000 // ms countdown every second
-export const useCheckCookie = () => {
-    const [time, setTime] = useState(Infinity)
+
+export const useCheckCookie = (sessionTimeoutInSeconds: number) => {
+    const [time, setTime] = useState<number>()
+    const warningThresholdInSeconds = Math.round(sessionTimeoutInSeconds * 0.1)
 
     const [expired, setExpired] = useState(false)
-    const skew = useRef(0)
+
+    const sessionExpiryTimeValue = useRef<number | undefined>(undefined)
 
     const reset = useCallback(() => {
-        // calculate the skew only once
-        const serverTime = getSessionCookie()?.serverTime
-        if (serverTime) {
-            const calculatedSkew = calculateSkew(serverTime)
-            skew.current = calculatedSkew
-            console.debug('[session] calculated skew:', skew.current)
+        const { sessionExpiryTime } = getSessionCookie() ?? {}
+        if (sessionExpiryTime) {
+            setTime(sessionTimeoutInSeconds)
         }
-    }, [])
+    }, [sessionTimeoutInSeconds])
 
-    console.debug('[Session] ...')
+    console.debug('[Session] 4 ...')
+
     useEffect(() => {
         reset()
-    }, [])
+    }, [reset])
+
     useEffect(() => {
+        if (!time) {
+            return
+        }
         const interval = setInterval(() => {
-            const nowDate = Date.now() - skew.current
             const sessionExpiryTime = getSessionCookie()?.sessionExpiryTime
 
-            const remainingSeconds = Math.round(
-                (sessionExpiryTime! - nowDate) / 1000
-            )
+            console.log('[session] time', time)
 
-            if (
-                !sessionExpiryTime ||
-                nowDate >= sessionExpiryTime ||
-                isNaN(sessionExpiryTime)
-            ) {
+            if (time === 1) {
                 setExpired(true)
                 clearInterval(interval)
-                setTime(remainingSeconds)
                 return
             }
 
-            const endDate = new Date(sessionExpiryTime).toLocaleTimeString()
-            console.debug(
-                `[Session] Cookie time stamp: ${endDate} / ${remainingSeconds} seconds`
-            )
-
-            setTime(remainingSeconds)
+            // in effect, an update to the cookie - regardless of the value of the time out - is an indication to reset the timer
+            // the timer resets and counts to the session timeout value (no need to cater for skew)
+            if (sessionExpiryTimeValue.current != sessionExpiryTime) {
+                reset()
+                sessionExpiryTimeValue.current = sessionExpiryTime
+            } else if (time > 0) {
+                setTime(time - 1)
+                return
+            }
         }, CHECK_INTERVAL)
 
         return () => clearInterval(interval)
-    }, [])
+    }, [reset, time])
 
     return {
         time,
         expired,
-        showWarning: time < WARNING_THRESHOLD_IN_SECONDS,
+        showWarning: time && time < warningThresholdInSeconds,
         reset,
     }
 }
