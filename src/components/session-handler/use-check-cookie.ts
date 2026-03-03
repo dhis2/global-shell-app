@@ -22,11 +22,15 @@ export const useCheckCookie = (sessionTimeoutInSeconds: number) => {
     const reset = useCallback(() => {
         const { sessionExpiryTime } = getSessionCookie() ?? {}
         if (sessionExpiryTime) {
+            console.log('[session] -- reset --')
             setTime(sessionTimeoutInSeconds)
         }
     }, [sessionTimeoutInSeconds])
 
     useEffect(() => {
+        console.debug(
+            `[Session] Warning Threshold: "${warningThresholdInSeconds}s"`
+        )
         reset()
     }, [reset, warningThresholdInSeconds])
 
@@ -50,6 +54,8 @@ export const useCheckCookie = (sessionTimeoutInSeconds: number) => {
 
         const interval = setInterval(() => {
             const sessionExpiryTime = getSessionCookie()?.sessionExpiryTime
+
+            console.debug('[session] time', time)
 
             if (time === 1) {
                 setExpired(true)
