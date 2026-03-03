@@ -34,6 +34,21 @@ export const useCheckCookie = (sessionTimeoutInSeconds: number) => {
         if (!time) {
             return
         }
+        window.addEventListener(
+            'focus',
+            () => {
+                const sessionExpiryTime = getSessionCookie()?.sessionExpiryTime
+                if (
+                    sessionExpiryTime &&
+                    sessionExpiryTimeValue.current != sessionExpiryTime
+                ) {
+                    setExpired(false)
+                    reset()
+                    sessionExpiryTimeValue.current = sessionExpiryTime
+                }
+            },
+            false
+        )
         const interval = setInterval(() => {
             const sessionExpiryTime = getSessionCookie()?.sessionExpiryTime
 
