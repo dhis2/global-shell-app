@@ -34,21 +34,20 @@ export const useCheckCookie = (sessionTimeoutInSeconds: number) => {
         if (!time) {
             return
         }
-        window.addEventListener(
-            'focus',
-            () => {
-                const sessionExpiryTime = getSessionCookie()?.sessionExpiryTime
-                if (
-                    sessionExpiryTime &&
-                    sessionExpiryTimeValue.current != sessionExpiryTime
-                ) {
-                    setExpired(false)
-                    reset()
-                    sessionExpiryTimeValue.current = sessionExpiryTime
-                }
-            },
-            false
-        )
+        
+        const focusListener = () => {
+            const sessionExpiryTime = getSessionCookie()?.sessionExpiryTime
+            if (
+                sessionExpiryTime &&
+                sessionExpiryTimeValue.current != sessionExpiryTime
+            ) {
+                setExpired(false)
+                reset()
+                sessionExpiryTimeValue.current = sessionExpiryTime
+            }
+        }
+        window.addEventListener('focus', focusListener, false)
+
         const interval = setInterval(() => {
             const sessionExpiryTime = getSessionCookie()?.sessionExpiryTime
 
@@ -69,7 +68,10 @@ export const useCheckCookie = (sessionTimeoutInSeconds: number) => {
             }
         }, CHECK_INTERVAL)
 
-        return () => clearInterval(interval)
+        return () => {
+            clearInterval(interval)
+            window.removeEventListener('focus', focusListener, false)
+        }
     }, [reset, time])
 
     return {
