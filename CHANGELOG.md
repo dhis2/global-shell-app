@@ -1,3 +1,10 @@
+# [1.11.0](https://github.com/dhis2/global-shell-app/compare/v1.10.0...v1.11.0) (2026-03-03)
+
+
+### Features
+
+* handle session expiry with warning and expiry modals ([#62](https://github.com/dhis2/global-shell-app/issues/62)) ([adfb872](https://github.com/dhis2/global-shell-app/commit/adfb872ae164a12c1cd671b002ca0f09e5b5a853))
+
 # [1.10.0](https://github.com/dhis2/global-shell-app/compare/v1.9.1...v1.10.0) (2026-03-01)
 
 
