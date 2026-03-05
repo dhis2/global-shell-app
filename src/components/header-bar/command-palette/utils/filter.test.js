@@ -81,4 +81,18 @@ describe('filter helper functions', () => {
             itemsToSearch
         )
     })
+
+    test('filterItemsArray should consider appName if it is available', () => {
+        const itemsToSearch = [
+            { name: 'category options', appName: 'Maintenance' },
+            { name: 'Indicators', appName: 'Maintenance' },
+            { name: 'notifications', appName: 'System Settings' },
+        ]
+        expect(filterItemsArray(itemsToSearch, 'maintenance')).toEqual(
+            itemsToSearch.slice(0, 2)
+        )
+        expect(filterItemsArray(itemsToSearch, 'system')).toEqual(
+            itemsToSearch.slice(-1)
+        )
+    })
 })
