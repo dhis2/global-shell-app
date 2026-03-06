@@ -1,3 +1,4 @@
+import Fuse from 'fuse.js';
 import {
     ALL_APPS_VIEW,
     ALL_COMMANDS_VIEW,
@@ -5,13 +6,13 @@ import {
     FILTERABLE_ACTION,
 } from './constants.js'
 
-/**
- * Copied from here:
- * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions#Escaping
- */
-function escapeRegExpCharacters(text) {
-    return text.replace(/[/.*+?^${}()|[\]\\]/g, '\\$&')
-}
+// /**
+//  * Copied from here:
+//  * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions#Escaping
+//  */
+// function escapeRegExpCharacters(text) {
+//     return text.replace(/[/.*+?^${}()|[\]\\]/g, '\\$&')
+// }
 
 function removePunctuationMarks(text) {
     return text.replace(/[.,!;:`"'?\-_\s]/g, '')
@@ -29,42 +30,42 @@ export function processString(text) {
     return removeAccentMarks(str)
 }
 
-export function filterByString(text, filter) {
-    if (text === null || text === undefined) {
-        return false
-    }
+// export function filterByString(text, filter) {
+//     if (text === null || text === undefined) {
+//         return false
+//     }
 
-    const formattedItemName = text.toLowerCase()
-    const formattedFilter = filter.toLowerCase()
+//     const formattedItemName = text.toLowerCase()
+//     const formattedFilter = filter.toLowerCase()
 
-    const escapedFilter = escapeRegExpCharacters(formattedFilter)
-    if (formattedItemName.match(escapedFilter)) {
-        return true
-    }
+//     const escapedFilter = escapeRegExpCharacters(formattedFilter)
+//     if (formattedItemName.match(escapedFilter)) {
+//         return true
+//     }
 
-    const normalisedItemName = processString(formattedItemName)
-    const normalisedFilter = processString(formattedFilter)
-    if (normalisedFilter.length) {
-        return normalisedItemName.includes(normalisedFilter)
-    }
-    return false
-}
+//     const normalisedItemName = processString(formattedItemName)
+//     const normalisedFilter = processString(formattedFilter)
+//     if (normalisedFilter.length) {
+//         return normalisedItemName.includes(normalisedFilter)
+//     }
+//     return false
+// }
 
 export const filterItemsArray = (items, filter) => {
-    if (!filter.length) {
-        return items
-    }
-    return items.filter(({ appName, displayName, name }) => {
-        // Include both the translated name and the base name in the searchable string, so searching for either will return the result
-        // (the translated string is still the one that will be displayed)
-        const itemName = `${displayName ?? ''}${name ?? ''}`
-        const appNameToCheck = appName || null
+    if (!items?.length) return []
 
-        return (
-            filterByString(itemName, filter) ||
-            filterByString(appNameToCheck, filter)
-        )
-    })
+    const fuse = new Fuse(items, {
+        includeScore: true,
+        threshold: 0.5,
+        ignoreLocation: true,
+        ignoreDiacritics: true,
+        shouldSort: true,
+        keys: ['displayName', 'name'],
+    });
+
+    const normalised = processString(filter)
+
+    return filter ? fuse?.search(normalised)?.map(result => result.item) : items
 }
 
 export const filterItemsPerView = ({
