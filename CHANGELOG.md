@@ -1,3 +1,10 @@
+## [1.11.1](https://github.com/dhis2/global-shell-app/compare/v1.11.0...v1.11.1) (2026-03-09)
+
+
+### Bug Fixes
+
+* **session-expiration:** don't return 0 from getSessionCookie ([#64](https://github.com/dhis2/global-shell-app/issues/64)) ([328545a](https://github.com/dhis2/global-shell-app/commit/328545abdb78b0040cf3e7f9c6df7a108edcb245))
+
 # [1.11.0](https://github.com/dhis2/global-shell-app/compare/v1.10.0...v1.11.0) (2026-03-03)
 
 
