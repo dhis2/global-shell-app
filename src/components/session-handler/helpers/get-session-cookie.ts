@@ -16,7 +16,10 @@ type GetSessionCookieFn = () => {
 } | null
 
 const getSessionCookie: GetSessionCookieFn = () => {
-    const cookieValue = Cookies.get(SESSION_EXPIRY_COOKIE_NAME) ?? {}
+    const cookieValue = Cookies.get(SESSION_EXPIRY_COOKIE_NAME) 
+    if (!cookieValue) {
+        return null
+    }
 
     const params = new URLSearchParams(cookieValue)
 
