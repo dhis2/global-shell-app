@@ -20,27 +20,37 @@ type SessionHandlerProps = {
 export const SessionHandler: React.FC<SessionHandlerProps> = ({
     sessionTimeoutInSeconds,
 }) => {
-    const { showWarning, time, expired, reset } = useCheckCookie(
+    const { showWarning, time, forceExpire, expired, reset } = useCheckCookie(
         sessionTimeoutInSeconds
     )
     const [feedbackManuallyDismissed, setFeedbackManuallyDismissed] =
         React.useState(false)
-    // const [received401, setReceived401] = React.useState(false)
 
-    const { refetch: extendSession, loading } = useDataQuery(query, {
+    const {
+        refetch: extendSession,
+        loading,
+        error: errorExtending,
+    } = useDataQuery(query, {
         lazy: true,
     })
 
     const onExtendSession = async () => {
         await extendSession()
-        reset()
+        if (!errorExtending) {
+            reset()
+        }
     }
 
     const dismissModal = async () => {
         setFeedbackManuallyDismissed(true)
-        await extendSession()
         reset()
     }
+
+    React.useEffect(() => {
+        if (errorExtending?.details?.httpStatusCode == 401) {
+            forceExpire()
+        }
+    }, [errorExtending, forceExpire])
 
     if (!expired && showWarning) {
         return (

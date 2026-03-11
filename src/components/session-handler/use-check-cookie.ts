@@ -26,6 +26,11 @@ export const useCheckCookie = (sessionTimeoutInSeconds: number) => {
         }
     }, [sessionTimeoutInSeconds])
 
+    const forceExpire = () => {
+        setTime(0)
+        setExpired(true)
+    }
+
     useEffect(() => {
         reset()
     }, [reset, warningThresholdInSeconds])
@@ -77,6 +82,7 @@ export const useCheckCookie = (sessionTimeoutInSeconds: number) => {
     return {
         time,
         expired,
+        forceExpire,
         showWarning: time && time < warningThresholdInSeconds,
         reset,
     }
