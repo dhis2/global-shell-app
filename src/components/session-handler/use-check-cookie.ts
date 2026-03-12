@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import calculateSkew from './helpers/calculate-skew'
 import getSessionCookie from './helpers/get-session-cookie'
 
 const CHECK_INTERVAL = 1 * 1000 // ms countdown every second
@@ -17,14 +18,24 @@ export const useCheckCookie = (sessionTimeoutInSeconds: number) => {
 
     const [expired, setExpired] = useState(false)
 
+    // This is used to correct the skew when the time is misconfigured on the client
+    const calculatedSkew = useRef<number>(0)
     const sessionExpiryTimeValue = useRef<number | undefined>(undefined)
 
     const reset = useCallback(() => {
-        const { sessionExpiryTime } = getSessionCookie() ?? {}
-        if (sessionExpiryTime) {
-            setTime(sessionTimeoutInSeconds)
+        const { serverTime, sessionExpiryTime } = getSessionCookie() ?? {}
+
+        if (serverTime && sessionExpiryTime) {
+            const nowDate = Date.now() - calculatedSkew.current
+
+            const remainingSeconds = Math.round(
+                (sessionExpiryTime - nowDate) / 1000
+            )
+
+            setTime(remainingSeconds)
+            setExpired(false)
         }
-    }, [sessionTimeoutInSeconds])
+    }, [])
 
     const forceExpire = () => {
         setTime(0)
@@ -32,6 +43,10 @@ export const useCheckCookie = (sessionTimeoutInSeconds: number) => {
     }
 
     useEffect(() => {
+        const { serverTime } = getSessionCookie() ?? {}
+        if (serverTime) {
+            calculatedSkew.current = calculateSkew(serverTime)
+        }
         reset()
     }, [reset, warningThresholdInSeconds])
 
@@ -39,7 +54,7 @@ export const useCheckCookie = (sessionTimeoutInSeconds: number) => {
         if (!time) {
             return
         }
-        
+
         const focusListener = () => {
             const sessionExpiryTime = getSessionCookie()?.sessionExpiryTime
             if (
