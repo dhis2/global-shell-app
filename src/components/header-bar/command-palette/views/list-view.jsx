@@ -13,7 +13,8 @@ const ListView = ({ grid, currentItem, resetModal }) => {
         <>
             {listItems.length > 0 ? (
                 <div data-test="headerbar-list">
-                    {listItems.map((item, idx) => {
+                    {listItems.map((listItem, idx) => {
+                        const { item } = listItem
                         const {
                             appName,
                             action,
@@ -38,7 +39,7 @@ const ListView = ({ grid, currentItem, resetModal }) => {
                                 image={isImage ? icon : undefined}
                                 icon={isIcon ? icon : undefined}
                                 description={description}
-                                highlighted={currentItem === item}
+                                highlighted={currentItem === listItem}
                                 onClickHandler={action}
                                 dataTest={dataTest}
                                 resetModal={resetModal}
