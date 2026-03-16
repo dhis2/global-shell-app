@@ -1,3 +1,12 @@
+## [1.11.2](https://github.com/dhis2/global-shell-app/compare/v1.11.1...v1.11.2) (2026-03-16)
+
+
+### Bug Fixes
+
+* ensure timer are on sync on window focus ([272ff36](https://github.com/dhis2/global-shell-app/commit/272ff36a77e5528d89d291da83d9e3803468aa0a))
+* handle error on extending ([e26bcca](https://github.com/dhis2/global-shell-app/commit/e26bcca48c39cfae029a0527caa6e9d258eaa3da))
+* **DHIS2-21006:** add dismiss clarification note ([872d39b](https://github.com/dhis2/global-shell-app/commit/872d39bebed27d5f79cb891c0d7141a8a59fec04))
+
 ## [1.11.1](https://github.com/dhis2/global-shell-app/compare/v1.11.0...v1.11.1) (2026-03-09)
 
 
