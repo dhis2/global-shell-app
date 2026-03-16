@@ -73,7 +73,7 @@ const MyApp = () => {
 
     return (
         <ClientPWAProvider>
-            <CssVariables colors />
+            <CssVariables colors spacers />
             <BrowserRouter basename={basename}>
                 <Routes>
                     <Route element={<Layout appsInfoQuery={appsInfoQuery} />}>

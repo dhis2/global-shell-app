@@ -10,6 +10,8 @@ import {
     ModalTitle,
 } from '@dhis2/ui'
 import * as React from 'react'
+import NoNetworkIcon from './components/NoNetworkIcon'
+import styles from './modal-expired.module.css'
 
 type ExpiredModalProps = {
     dismissModal: () => void
@@ -34,10 +36,20 @@ export const ExpiredModal: React.FC<ExpiredModalProps> = ({
         <Modal>
             <ModalTitle>{i18n.t('You have been logged out')}</ModalTitle>
             <ModalContent>
-                {i18n.t(
-                    'Your session ended after {{sessionTimeoutInMinutes}} minutes without network activity. Log in again to continue.',
-                    { sessionTimeoutInMinutes }
-                )}
+                <div>
+                    {i18n.t(
+                        'Your session ended after {{sessionTimeoutInMinutes}} minutes without network activity. Log in again to continue.',
+                        { sessionTimeoutInMinutes }
+                    )}
+                </div>
+                <div className={styles.noNetworkConnectionWrapper}>
+                    <NoNetworkIcon />
+                    <span>
+                        {i18n.t(
+                            'No network connection? Dismiss to continue working in an offline-capable app.'
+                        )}
+                    </span>
+                </div>
             </ModalContent>
             <ModalActions>
                 <ButtonStrip end>
