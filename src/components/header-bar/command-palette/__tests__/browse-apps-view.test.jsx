@@ -110,7 +110,7 @@ describe('Command Palette - List View - Browse Apps View', () => {
         expect(backActionListItem).not.toHaveClass('highlighted')
 
         // first app item highlighted
-        expect(listItems[1]).toHaveClass('highlighted')
+        expect(listItems[1].querySelector('.item')).toHaveClass('highlighted')
         expect(listItems[1].querySelector('span')).toHaveTextContent(
             'Test App 1'
         )
@@ -118,7 +118,7 @@ describe('Command Palette - List View - Browse Apps View', () => {
 
         await user.keyboard('{ArrowDown}')
         expect(listItems[1]).not.toHaveClass('highlighted')
-        expect(listItems[2]).toHaveClass('highlighted')
+        expect(listItems[2].querySelector('.item')).toHaveClass('highlighted')
         expect(listItems[2].querySelector('span')).toHaveTextContent(
             'Test App 2'
         )
@@ -126,7 +126,7 @@ describe('Command Palette - List View - Browse Apps View', () => {
 
         await user.keyboard('{ArrowDown}')
         expect(listItems[2]).not.toHaveClass('highlighted')
-        expect(listItems[3]).toHaveClass('highlighted')
+        expect(listItems[3].querySelector('.item')).toHaveClass('highlighted')
         expect(listItems[3].querySelector('span')).toHaveTextContent(
             'Test App 3'
         )
@@ -134,7 +134,7 @@ describe('Command Palette - List View - Browse Apps View', () => {
 
         await user.keyboard('{ArrowUp}')
         expect(listItems[3]).not.toHaveClass('highlighted')
-        expect(listItems[2]).toHaveClass('highlighted')
+        expect(listItems[2].querySelector('.item')).toHaveClass('highlighted')
         expect(listItems[2].querySelector('span')).toHaveTextContent(
             'Test App 2'
         )
@@ -144,19 +144,28 @@ describe('Command Palette - List View - Browse Apps View', () => {
         await user.type(searchField, 'Test App')
         expect(searchField).toHaveValue('Test App')
 
-        // first item highlighted
-        expect(listItems[1]).not.toHaveClass('highlighted')
-        expect(listItems[0]).toHaveClass('highlighted')
-        expect(listItems[0].querySelector('span')).toHaveTextContent(
+        // new filtered list
+        const filteredListItems = queryAllByTestId('headerbar-list')[0].children
+
+        // first searchable item highlighted
+        expect(filteredListItems[0]).not.toHaveClass('highlighted')
+        expect(filteredListItems[1].querySelector('.item')).toHaveClass(
+            'highlighted'
+        )
+        expect(filteredListItems[1].querySelector('span')).toHaveTextContent(
             'Test App 1'
         )
 
         // simulate hover - no highlight
-        await user.hover(listItems[8])
-        expect(listItems[0]).toHaveClass('highlighted')
-        expect(listItems[8]).not.toHaveClass('highlighted')
-        expect(listItems[8].querySelector('span')).toHaveTextContent(
-            'Test App 9'
+        await user.hover(filteredListItems[8])
+        expect(filteredListItems[1].querySelector('.item')).toHaveClass(
+            'highlighted'
+        )
+        expect(filteredListItems[8].querySelector('.item')).not.toHaveClass(
+            'highlighted'
+        )
+        expect(filteredListItems[8].querySelector('span')).toHaveTextContent(
+            'Test App 8'
         )
 
         const clearButton = getAllByRole('button')[1]
@@ -164,8 +173,10 @@ describe('Command Palette - List View - Browse Apps View', () => {
 
         // first app item - highlighted
         expect(backActionListItem).not.toHaveClass('highlighted')
-        expect(listItems[1]).toHaveClass('highlighted')
-        expect(listItems[1].querySelector('span')).toHaveTextContent(
+        expect(filteredListItems[1].querySelector('.item')).toHaveClass(
+            'highlighted'
+        )
+        expect(filteredListItems[1].querySelector('span')).toHaveTextContent(
             'Test App 1'
         )
     })

@@ -14,7 +14,7 @@ export const fuseOptions = {
     ignoreLocation: true,
     ignoreDiacritics: true,
     shouldSort: true,
-    keys: ['displayName', 'name'],
+    keys: ['displayName', 'name', 'appName'],
     includeMatches: true,
     minMatchCharLength: 2,
 }

@@ -1,4 +1,5 @@
-import { filterItemsArray, processString } from './filter.js'
+import Fuse from 'fuse.js'
+import { filterItemsArray, fuseOptions } from './filter.js'
 
 describe('filter helper functions', () => {
     const itemsToSearch = [
@@ -9,66 +10,40 @@ describe('filter helper functions', () => {
         { name: "Facility's Dashboard" },
         { name: '{App}' },
     ]
-    test('processString function - handles different string inputs', () => {
-        expect(processString('ABC')).toBe('ABC')
 
-        // strips away spaces
-        expect(processString('a b c')).toBe('abc')
-
-        // remove diacritics from accented characters
-        expect(processString('èéêëēėę')).toBe('eeeeeee')
-
-        // punctuation marks are removed
-        expect(processString('.?!')).toBe('')
-        expect(processString('hello, world!')).toBe('helloworld')
-    })
+    const getResults = (items, searchTerm) => {
+        const fuseObject = new Fuse(items, fuseOptions)
+        const filteredResults = filterItemsArray(fuseObject, searchTerm)
+        return filteredResults.map(({ item }) => item)
+    }
 
     test.each([
         {
-            searchTerm: 'e',
-            expected: [
-                { name: 'Médic' },
-                { name: 'Medical Records' },
-                { name: 'Import/Export App' },
-            ],
+            searchTerm: 'ed',
+            expected: [{ name: 'Médic' }, { name: 'Medical Records' }],
         },
-        { searchTerm: "'", expected: [{ name: "Facility's Dashboard" }] },
+        {
+            searchTerm: 'e',
+            expected: [],
+        },
+        { searchTerm: "'", expected: [] },
         {
             searchTerm: 'FACILITYSDASHBOARD',
             expected: [{ name: "Facility's Dashboard" }],
         },
-        { searchTerm: '/', expected: [{ name: 'Import/Export App' }] },
+        { searchTerm: '/', expected: [] },
 
         { searchTerm: 'Covid19', expected: [{ name: 'Covid 19' }] },
         { searchTerm: 'Covid-19', expected: [{ name: 'Covid 19' }] },
-        { searchTerm: '{', expected: [{ name: '{App}' }] },
-        {
-            searchTerm: '',
-            expected: [
-                { name: 'Médic' },
-                { name: 'Medical Records' },
-                { name: 'Import/Export App' },
-                { name: 'Covid 19' },
-                { name: "Facility's Dashboard" },
-                { name: '{App}' },
-            ],
-        },
-
+        { searchTerm: '{', expected: [] },
         {
             searchTerm: ' ',
-            expected: [
-                { name: 'Medical Records' },
-                { name: 'Import/Export App' },
-                { name: 'Covid 19' },
-                { name: "Facility's Dashboard" },
-            ],
+            expected: [],
         },
     ])(
         'filterItemsArray function handles search for $searchTerm',
         ({ searchTerm, expected }) => {
-            expect(filterItemsArray(itemsToSearch, searchTerm)).toEqual(
-                expected
-            )
+            expect(getResults(itemsToSearch, searchTerm)).toEqual(expected)
         }
     )
 
@@ -76,10 +51,8 @@ describe('filter helper functions', () => {
         const itemsToSearch = [
             { name: 'category options', displayName: 'فئات الخيارت' },
         ]
-        expect(filterItemsArray(itemsToSearch, 'فئات')).toEqual(itemsToSearch)
-        expect(filterItemsArray(itemsToSearch, 'category')).toEqual(
-            itemsToSearch
-        )
+        expect(getResults(itemsToSearch, 'فئات')).toEqual(itemsToSearch)
+        expect(getResults(itemsToSearch, 'category')).toEqual(itemsToSearch)
     })
 
     test('filterItemsArray should consider appName if it is available', () => {
@@ -88,10 +61,10 @@ describe('filter helper functions', () => {
             { name: 'Indicators', appName: 'Maintenance' },
             { name: 'notifications', appName: 'System Settings' },
         ]
-        expect(filterItemsArray(itemsToSearch, 'maintenance')).toEqual(
+        expect(getResults(itemsToSearch, 'maintenance')).toEqual(
             itemsToSearch.slice(0, 2)
         )
-        expect(filterItemsArray(itemsToSearch, 'system')).toEqual(
+        expect(getResults(itemsToSearch, 'system')).toEqual(
             itemsToSearch.slice(-1)
         )
     })

@@ -72,7 +72,10 @@ const CommandPalette = ({ apps, commands, shortcuts }) => {
         ]
     )
 
-    const gridItems = currentView === HOME_VIEW && !filter ? apps : []
+    const gridItems = useMemo(
+        () => (currentView === HOME_VIEW && !filter ? apps : []),
+        [currentView, filter, apps]
+    )
     const listItems = useMemo(() => {
         const nonSearchableActions = actions.filter(
             (action) => action.type === ACTION
@@ -119,12 +122,9 @@ const CommandPalette = ({ apps, commands, shortcuts }) => {
 
             handleGridNavigation(event)
 
-            const action = currentItem.item
-                ? currentItem.item['action']
-                : currentItem['action']
-            const type = currentItem.item
-                ? currentItem.item['type']
-                : currentItem['type']
+            const action =
+                currentItem?.item?.['action'] ?? currentItem?.['action']
+            const type = currentItem?.item?.['type'] ?? currentItem?.['type']
 
             switch (event.key) {
                 case 'Escape':
