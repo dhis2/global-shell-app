@@ -10,13 +10,11 @@ import {
 
 export const fuseOptions = {
     includeScore: true,
-    threshold: 0.2,
-    ignoreLocation: true,
+    threshold: 0.3,
     ignoreDiacritics: true,
     shouldSort: true,
     keys: ['displayName', 'name', 'appName'],
     includeMatches: true,
-    minMatchCharLength: 2,
 }
 
 export const filterItemsArray = (fuse, filter) =>
