@@ -24,21 +24,33 @@ describe('filter helper functions', () => {
         },
         {
             searchTerm: 'e',
-            expected: [],
+            expected: [
+                { name: 'Médic' },
+                { name: 'Medical Records' },
+                { name: 'Import/Export App' },
+            ],
         },
-        { searchTerm: "'", expected: [] },
+        {
+            searchTerm: "'",
+            expected: [{ name: "Facility's Dashboard" }],
+        },
         {
             searchTerm: 'FACILITYSDASHBOARD',
             expected: [{ name: "Facility's Dashboard" }],
         },
-        { searchTerm: '/', expected: [] },
+        { searchTerm: '/', expected: [{ name: 'Import/Export App' }] },
 
         { searchTerm: 'Covid19', expected: [{ name: 'Covid 19' }] },
         { searchTerm: 'Covid-19', expected: [{ name: 'Covid 19' }] },
-        { searchTerm: '{', expected: [] },
+        { searchTerm: '{', expected: [{ name: '{App}' }] },
         {
             searchTerm: ' ',
-            expected: [],
+            expected: [
+                { name: 'Covid 19' },
+                { name: 'Medical Records' },
+                { name: "Facility's Dashboard" },
+                { name: 'Import/Export App' },
+            ],
         },
     ])(
         'filterItemsArray function handles search for $searchTerm',
