@@ -4,6 +4,7 @@ import Fuse from 'fuse.js'
 import PropTypes from 'prop-types'
 import React, { useCallback, useRef, useEffect, useMemo } from 'react'
 import i18n from '../../../locales/index.js'
+import { useCustomColorContext } from '../custom-color-context.jsx'
 import { useCommandPaletteContext } from './context/command-palette-context.jsx'
 import { useAvailableActions } from './hooks/use-actions.jsx'
 import useGridNavigation from './hooks/use-grid-navigation.js'
@@ -43,6 +44,13 @@ const CommandPalette = ({ apps, commands, shortcuts }) => {
             ),
         [apps, shortcuts, commands, actions]
     )
+    const customColor = useCustomColorContext()
+    const hoverStyle = customColor?.bgColor
+        ? 'opacity: 0.6;'
+        : `background: #104f7e;`
+    const activeStyle = customColor?.bgColor
+        ? 'opacity: 0.8;'
+        : `background: #104067;`
 
     const filteredItems = useMemo(
         () =>
@@ -200,8 +208,13 @@ const CommandPalette = ({ apps, commands, shortcuts }) => {
                 data-test="headerbar-apps-icon"
                 title={i18n.t('Command palette')}
                 aria-label={i18n.t('Command palette')}
+                style={
+                    customColor?.bgColor
+                        ? { backgroundColor: customColor?.bgColor }
+                        : {}
+                }
             >
-                <IconApps24 color={colors.white} />
+                <IconApps24 color={customColor?.color ?? colors.white} />
             </button>
             {modalOpen ? (
                 <ModalContainer
@@ -251,10 +264,10 @@ const CommandPalette = ({ apps, commands, shortcuts }) => {
                     outline: none;
                 }
                 button:hover {
-                    background: #104f7e;
+                    ${hoverStyle}
                 }
                 button:active {
-                    background: #104067;
+                    ${activeStyle}
                 }
                 .headerbar-apps-menu {
                     position: relative;

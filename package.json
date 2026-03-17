@@ -51,10 +51,13 @@
         "typescript": "^5.7.3"
     },
     "dependencies": {
-        "@dhis2/app-runtime": "^3.14.0",
+        "@dhis2/app-runtime": "^3.16.0",
         "@dhis2/pwa": "^12.3.0",
         "@dhis2/ui": "^10.1.13",
+        "@types/js-cookie": "^3.0.6",
+        "apca-w3": "^0.1.9",
         "fuse.js": "^7.1.0",
+        "js-cookie": "^3.0.5",
         "react-router": "^7.2.0",
         "styled-jsx": "^4.0.1"
     },
