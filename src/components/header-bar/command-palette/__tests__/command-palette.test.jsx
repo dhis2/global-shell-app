@@ -5,7 +5,7 @@ import React from 'react'
 import { BrowserRouter } from 'react-router'
 import CommandPalette from '../command-palette.jsx'
 import { CommandPaletteContextProvider } from '../context/command-palette-context.jsx'
-import { MIN_APPS_NUM } from '../utils/constants.js'
+import { APP, COMMAND, MIN_APPS_NUM, SHORTCUT } from '../utils/constants.js'
 
 const CommandPaletteProviderWrapper = ({ children }) => {
     return (
@@ -33,6 +33,7 @@ export const testApps = new Array(minAppsNum + 1)
         displayName: `Test App ${index + 1}`,
         icon: '',
         defaultAction: '',
+        type: APP,
     }))
 
 export const testCommands = [
@@ -41,6 +42,7 @@ export const testCommands = [
         displayName: 'Test Command 1',
         icon: '',
         defaultAction: '',
+        type: COMMAND,
     },
 ]
 
@@ -50,6 +52,7 @@ export const testShortcuts = [
         displayName: 'Test Shortcut 1',
         icon: '',
         defaultAction: '',
+        type: SHORTCUT,
     },
 ]
 

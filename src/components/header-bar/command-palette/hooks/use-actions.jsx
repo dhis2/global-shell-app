@@ -25,7 +25,7 @@ import {
 
 export const useAvailableActions = ({ apps, shortcuts, commands }) => {
     const { baseUrl } = useConfig()
-    const { currentView, setCurrentView, setFilter } =
+    const { currentView, filter, setCurrentView, setFilter } =
         useCommandPaletteContext()
 
     const logoutURL = joinPath(
@@ -48,6 +48,17 @@ export const useAvailableActions = ({ apps, shortcuts, commands }) => {
 
     const actions = useMemo(() => {
         const actionsArray = []
+
+        if (currentView !== HOME_VIEW || filter) {
+            actionsArray.push({
+                type: ACTION,
+                name: i18n.t('Back'),
+                icon: <IconArrowLeft16 color={colors.grey700} />,
+                dataTest: 'headerbar-back-action',
+                action: () => switchViewAction(HOME_VIEW),
+            })
+        }
+
         if (currentView === HOME_VIEW) {
             if (apps?.length > MIN_APPS_NUM) {
                 actionsArray.push({
@@ -84,16 +95,16 @@ export const useAvailableActions = ({ apps, shortcuts, commands }) => {
                 dataTest: 'headerbar-logout',
                 action: () => logoutAction(logoutURL),
             })
-        } else {
-            actionsArray.push({
-                type: ACTION,
-                name: i18n.t('Back'),
-                icon: <IconArrowLeft16 color={colors.grey700} />,
-                dataTest: 'headerbar-back-action',
-                action: () => switchViewAction(HOME_VIEW),
-            })
         }
         return actionsArray
-    }, [apps, shortcuts, commands, currentView, logoutURL, switchViewAction])
+    }, [
+        apps,
+        shortcuts,
+        commands,
+        currentView,
+        filter,
+        logoutURL,
+        switchViewAction,
+    ])
     return actions
 }

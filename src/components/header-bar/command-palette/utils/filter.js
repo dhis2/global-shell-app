@@ -1,45 +1,33 @@
-import Fuse from 'fuse.js';
 import {
     ALL_APPS_VIEW,
     ALL_COMMANDS_VIEW,
     ALL_SHORTCUTS_VIEW,
+    APP,
+    COMMAND,
     FILTERABLE_ACTION,
+    SHORTCUT,
 } from './constants.js'
 
-function removePunctuationMarks(text) {
-    return text.replace(/[.,!;:`"'?\-_\s]/g, '')
+export const fuseOptions = {
+    includeScore: true,
+    threshold: 0.3,
+    ignoreDiacritics: true,
+    shouldSort: true,
+    keys: ['displayName', 'name', 'appName'],
+    includeMatches: true,
 }
 
-function removeAccentMarks(str) {
-    /**
-     * normalisation reference: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/normalize
-     */
-    return str.normalize('NFKD').replace(/[\u0300-\u036f]/g, '')
-}
+export const filterItemsArray = (fuse, filter) =>
+    fuse.search(filter).map(({ item, matches }) => ({ item, matches }))
 
-export function processString(text) {
-    const str = removePunctuationMarks(text)
-    return removeAccentMarks(str)
-}
-
-export const filterItemsArray = (items, filter) => {
-    if (!items?.length) return []
-
-    const fuse = new Fuse(items, {
-        includeScore: true,
-        threshold: 0.5,
-        ignoreLocation: true,
-        ignoreDiacritics: true,
-        shouldSort: true,
-        keys: ['displayName', 'name'],
-    });
-
-    const normalised = processString(filter)
-
-    return filter ? fuse?.search(normalised)?.map(result => result.item) : items
-}
+export const wrapAsFuseResult = (list) =>
+    list.map((item) => ({ item, matches: undefined }))
 
 export const filterItemsPerView = ({
+    appsFuse,
+    commandsFuse,
+    shortcutsFuse,
+    allItemsFuse,
     apps,
     commands,
     shortcuts,
@@ -47,29 +35,79 @@ export const filterItemsPerView = ({
     filter,
     currentView,
 }) => {
-    const searchableActions = actions.filter(
-        (action) => action.type === FILTERABLE_ACTION
-    )
+    if (!filter) {
+        if (currentView === ALL_APPS_VIEW) {
+            return wrapAsFuseResult([...apps])
+        }
+        if (currentView === ALL_COMMANDS_VIEW) {
+            return wrapAsFuseResult([...commands])
+        }
+        if (currentView === ALL_SHORTCUTS_VIEW) {
+            return wrapAsFuseResult([...shortcuts])
+        }
 
-    const filteredApps = filterItemsArray(apps, filter)
-    const filteredCommands = filterItemsArray(commands, filter)
-    const filteredShortcuts = filterItemsArray(shortcuts, filter)
-    const filteredActions = filterItemsArray(searchableActions, filter)
+        return [
+            ...wrapAsFuseResult(apps),
+            ...wrapAsFuseResult(commands),
+            ...wrapAsFuseResult(shortcuts),
+            ...wrapAsFuseResult(actions),
+        ]
+    }
 
+    // If there is a filter
     if (currentView === ALL_APPS_VIEW) {
-        return filteredApps
+        return filterItemsArray(appsFuse, filter)
     }
     if (currentView === ALL_COMMANDS_VIEW) {
-        return filteredCommands
+        return filterItemsArray(commandsFuse, filter)
     }
     if (currentView === ALL_SHORTCUTS_VIEW) {
-        return filteredShortcuts
+        return filterItemsArray(shortcutsFuse, filter)
     }
 
+    const filteredItems = filterItemsArray(allItemsFuse, filter)
+
+    const filteredApps = filteredItems.filter(({ item }) => item.type === APP)
+    const filteredShortcuts = filteredItems.filter(
+        ({ item }) => item.type === SHORTCUT
+    )
+    const filteredCommands = filteredItems.filter(
+        ({ item }) => item.type === COMMAND
+    )
+    const filteredActions = filteredItems.filter(
+        ({ item }) => item.type === FILTERABLE_ACTION
+    )
+
+    // Group each app with its shortcuts
+    // Filter for matched apps and return them with their shortcuts
+    // Append remaining shortcuts that match
+    const shortcutsByApp = new Map()
+    for (const shortcut of shortcuts) {
+        if (!shortcutsByApp.has(shortcut.appName)) {
+            shortcutsByApp.set(shortcut.appName, [])
+        }
+        shortcutsByApp.get(shortcut.appName).push(shortcut)
+    }
+
+    const filteredAppsWithShortcuts = filteredApps.flatMap(
+        ({ item, matches }) => [
+            { item, matches },
+            ...wrapAsFuseResult(shortcutsByApp.get(item.displayName) ?? []),
+        ]
+    )
+
+    const matchedAppNames = new Set(
+        filteredApps.map(({ item }) => item.displayName || item.name)
+    )
+
+    const remainingShortcuts = filteredShortcuts.filter(
+        ({ item }) => !matchedAppNames.has(item.appName)
+    )
+
     return [
-        ...filteredApps,
+        ...filteredAppsWithShortcuts,
+        ...remainingShortcuts,
         ...filteredCommands,
-        ...filteredShortcuts,
         ...filteredActions,
     ]
 }
