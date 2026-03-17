@@ -1,3 +1,15 @@
+# [1.12.0](https://github.com/dhis2/global-shell-app/compare/v1.11.3...v1.12.0) (2026-03-17)
+
+
+### Bug Fixes
+
+* **command-palette:** implement fuzzy search ([#59](https://github.com/dhis2/global-shell-app/issues/59)) ([cecf942](https://github.com/dhis2/global-shell-app/commit/cecf9425ac271943686822880411b1db3314f789))
+
+
+### Features
+
+* display app's shortcuts when searching for an app ([#58](https://github.com/dhis2/global-shell-app/issues/58)) ([0b7a44c](https://github.com/dhis2/global-shell-app/commit/0b7a44cbd2427d4b79ebfccf961f84ca5c6b07bd))
+
 # [1.12.0-beta.2](https://github.com/dhis2/global-shell-app/compare/v1.12.0-beta.1...v1.12.0-beta.2) (2026-03-17)
 
 
