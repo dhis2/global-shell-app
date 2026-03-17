@@ -1,3 +1,10 @@
+# [1.12.0-beta.2](https://github.com/dhis2/global-shell-app/compare/v1.12.0-beta.1...v1.12.0-beta.2) (2026-03-17)
+
+
+### Bug Fixes
+
+* make the expiry modal wide ([#68](https://github.com/dhis2/global-shell-app/issues/68)) ([89bb367](https://github.com/dhis2/global-shell-app/commit/89bb367bd0e28a66d2b6727a5762363a4befebed))
+
 # [1.12.0-beta.1](https://github.com/dhis2/global-shell-app/compare/v1.11.2...v1.12.0-beta.1) (2026-03-17)
 
 
