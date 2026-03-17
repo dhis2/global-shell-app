@@ -101,7 +101,7 @@ const useGridNavigation = (gridItems, listItems) => {
 
             if (isSameGrid) {
                 return
-            } else if (currentView === HOME_VIEW || filter) {
+            } else if (currentView === HOME_VIEW && !filter) {
                 setCurrentLocation({ x: 0, y: 0 })
             } else {
                 setCurrentLocation({ x: 0, y: 1 })
