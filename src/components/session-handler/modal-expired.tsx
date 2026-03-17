@@ -33,7 +33,7 @@ export const ExpiredModal: React.FC<ExpiredModalProps> = ({
         dismissModal()
     }
     return (
-        <Modal>
+        <Modal large>
             <ModalTitle>{i18n.t('You have been logged out')}</ModalTitle>
             <ModalContent>
                 <div>
