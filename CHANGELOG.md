@@ -1,39 +1,33 @@
-## [1.11.3](https://github.com/dhis2/global-shell-app/compare/v1.11.2...v1.11.3) (2026-03-17)
+# [1.12.0-beta.2](https://github.com/dhis2/global-shell-app/compare/v1.12.0-beta.1...v1.12.0-beta.2) (2026-03-17)
 
 
 ### Bug Fixes
 
 * make the expiry modal wide ([#68](https://github.com/dhis2/global-shell-app/issues/68)) ([89bb367](https://github.com/dhis2/global-shell-app/commit/89bb367bd0e28a66d2b6727a5762363a4befebed))
 
-## [1.11.2](https://github.com/dhis2/global-shell-app/compare/v1.11.1...v1.11.2) (2026-03-16)
+# [1.12.0-beta.1](https://github.com/dhis2/global-shell-app/compare/v1.11.2...v1.12.0-beta.1) (2026-03-17)
 
 
 ### Bug Fixes
 
-* ensure timer are on sync on window focus ([272ff36](https://github.com/dhis2/global-shell-app/commit/272ff36a77e5528d89d291da83d9e3803468aa0a))
-* handle error on extending ([e26bcca](https://github.com/dhis2/global-shell-app/commit/e26bcca48c39cfae029a0527caa6e9d258eaa3da))
-* **DHIS2-21006:** add dismiss clarification note ([872d39b](https://github.com/dhis2/global-shell-app/commit/872d39bebed27d5f79cb891c0d7141a8a59fec04))
+* **command-palette:** implement fuzzy search ([#59](https://github.com/dhis2/global-shell-app/issues/59)) ([cecf942](https://github.com/dhis2/global-shell-app/commit/cecf9425ac271943686822880411b1db3314f789))
 
-## [1.11.1](https://github.com/dhis2/global-shell-app/compare/v1.11.0...v1.11.1) (2026-03-09)
+
+### Features
+
+* display app's shortcuts when searching for an app ([#58](https://github.com/dhis2/global-shell-app/issues/58)) ([0b7a44c](https://github.com/dhis2/global-shell-app/commit/0b7a44cbd2427d4b79ebfccf961f84ca5c6b07bd))
+
+# [1.10.0-beta.1](https://github.com/dhis2/global-shell-app/compare/v1.9.1...v1.10.0-beta.1) (2026-03-17)
 
 
 ### Bug Fixes
 
-* **session-expiration:** don't return 0 from getSessionCookie ([#64](https://github.com/dhis2/global-shell-app/issues/64)) ([328545a](https://github.com/dhis2/global-shell-app/commit/328545abdb78b0040cf3e7f9c6df7a108edcb245))
-
-# [1.11.0](https://github.com/dhis2/global-shell-app/compare/v1.10.0...v1.11.0) (2026-03-03)
+* **command-palette:** implement fuzzy search ([#59](https://github.com/dhis2/global-shell-app/issues/59)) ([cecf942](https://github.com/dhis2/global-shell-app/commit/cecf9425ac271943686822880411b1db3314f789))
 
 
 ### Features
 
-* handle session expiry with warning and expiry modals ([#62](https://github.com/dhis2/global-shell-app/issues/62)) ([adfb872](https://github.com/dhis2/global-shell-app/commit/adfb872ae164a12c1cd671b002ca0f09e5b5a853))
-
-# [1.10.0](https://github.com/dhis2/global-shell-app/compare/v1.9.1...v1.10.0) (2026-03-01)
-
-
-### Features
-
-* **DHIS2-20879:** support custom colors for header bar ([#63](https://github.com/dhis2/global-shell-app/issues/63)) ([d4dc338](https://github.com/dhis2/global-shell-app/commit/d4dc338e07d1ae55a9efee43a1d0351aaffc543c))
+* display app's shortcuts when searching for an app ([#58](https://github.com/dhis2/global-shell-app/issues/58)) ([0b7a44c](https://github.com/dhis2/global-shell-app/commit/0b7a44cbd2427d4b79ebfccf961f84ca5c6b07bd))
 
 ## [1.9.1](https://github.com/dhis2/global-shell-app/compare/v1.9.0...v1.9.1) (2025-11-19)
 

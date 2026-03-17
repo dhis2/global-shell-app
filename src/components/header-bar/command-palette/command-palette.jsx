@@ -1,5 +1,6 @@
 import { colors, spacers } from '@dhis2/ui-constants'
 import { IconApps24 } from '@dhis2/ui-icons'
+import Fuse from 'fuse.js'
 import PropTypes from 'prop-types'
 import React, { useCallback, useRef, useEffect, useMemo } from 'react'
 import i18n from '../../../locales/index.js'
@@ -11,8 +12,12 @@ import useModal from './hooks/use-modal.js'
 import ModalContainer from './sections/modal-container.jsx'
 import NavigationKeysLegend from './sections/navigation-keys-legend.jsx'
 import SearchFilter from './sections/search-filter.jsx'
-import { APP, HOME_VIEW, SHORTCUT } from './utils/constants.js'
-import { filterItemsPerView } from './utils/filter.js'
+import { ACTION, APP, HOME_VIEW, SHORTCUT } from './utils/constants.js'
+import {
+    filterItemsPerView,
+    fuseOptions,
+    wrapAsFuseResult,
+} from './utils/filter.js'
 import HomeView from './views/home-view.jsx'
 import ListView from './views/list-view.jsx'
 
@@ -21,6 +26,24 @@ const CommandPalette = ({ apps, commands, shortcuts }) => {
     const { currentView, setCurrentView, filter, setFilter } =
         useCommandPaletteContext()
     const actions = useAvailableActions({ apps, shortcuts, commands })
+
+    const appsFuse = useMemo(() => new Fuse(apps, fuseOptions), [apps])
+    const commandsFuse = useMemo(
+        () => new Fuse(commands, fuseOptions),
+        [commands]
+    )
+    const shortcutsFuse = useMemo(
+        () => new Fuse(shortcuts, fuseOptions),
+        [shortcuts]
+    )
+    const allItemsFuse = useMemo(
+        () =>
+            new Fuse(
+                [...apps, ...shortcuts, ...commands, ...actions],
+                fuseOptions
+            ),
+        [apps, shortcuts, commands, actions]
+    )
     const customColor = useCustomColorContext()
     const hoverStyle = customColor?.bgColor
         ? 'opacity: 0.6;'
@@ -32,25 +55,51 @@ const CommandPalette = ({ apps, commands, shortcuts }) => {
     const filteredItems = useMemo(
         () =>
             filterItemsPerView({
+                appsFuse,
+                commandsFuse,
+                shortcutsFuse,
+                allItemsFuse,
                 apps,
-                commands,
                 shortcuts,
+                commands,
                 actions,
                 filter,
                 currentView,
             }),
-        [apps, commands, shortcuts, actions, filter, currentView]
+        [
+            appsFuse,
+            commandsFuse,
+            shortcutsFuse,
+            allItemsFuse,
+            apps,
+            shortcuts,
+            commands,
+            actions,
+            filter,
+            currentView,
+        ]
     )
-    const gridItems = currentView === HOME_VIEW && !filter ? apps : []
+
+    const gridItems = useMemo(
+        () => (currentView === HOME_VIEW && !filter ? apps : []),
+        [currentView, filter, apps]
+    )
     const listItems = useMemo(() => {
+        const nonSearchableActions = actions.filter(
+            (action) => action.type === ACTION
+        )
+
         if (filter) {
-            return [...filteredItems]
+            if (filteredItems.length === 0) {
+                return []
+            }
+            return [...wrapAsFuseResult(nonSearchableActions), ...filteredItems]
         }
 
         if (currentView === HOME_VIEW) {
             return [...actions]
         } else {
-            return [...actions, ...filteredItems]
+            return [...wrapAsFuseResult(nonSearchableActions), ...filteredItems]
         }
     }, [actions, currentView, filter, filteredItems])
 
@@ -81,6 +130,10 @@ const CommandPalette = ({ apps, commands, shortcuts }) => {
 
             handleGridNavigation(event)
 
+            const action =
+                currentItem?.item?.['action'] ?? currentItem?.['action']
+            const type = currentItem?.item?.['type'] ?? currentItem?.['type']
+
             switch (event.key) {
                 case 'Escape':
                     event.preventDefault()
@@ -88,11 +141,8 @@ const CommandPalette = ({ apps, commands, shortcuts }) => {
                     break
                 case 'Enter':
                     event.preventDefault()
-                    currentItem?.['action']?.()
-                    if (
-                        currentItem?.type === APP ||
-                        currentItem?.type === SHORTCUT
-                    ) {
+                    action()
+                    if (type === APP || type === SHORTCUT) {
                         resetModal()
                     }
                     break
