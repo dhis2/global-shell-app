@@ -1,3 +1,10 @@
+## [1.12.1](https://github.com/dhis2/global-shell-app/compare/v1.12.0...v1.12.1) (2026-04-07)
+
+
+### Bug Fixes
+
+* ensure that headerbar does not flicker when using custom color ([#70](https://github.com/dhis2/global-shell-app/issues/70)) ([eba87c1](https://github.com/dhis2/global-shell-app/commit/eba87c1fa1fbf353145a1c21b4517f987621096a))
+
 # [1.12.0](https://github.com/dhis2/global-shell-app/compare/v1.11.3...v1.12.0) (2026-03-17)
 
 
