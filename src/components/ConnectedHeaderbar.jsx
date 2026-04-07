@@ -97,7 +97,9 @@ export function ConnectedHeaderBar({ appsInfoQuery }) {
         ? selfPWAUpdateState
         : clientPWAUpdateState
 
-    const bgColor = appsInfoQuery?.data?.systemSettings.keyCustomColor
+    const bgColor =
+        appsInfoQuery?.data?.systemSettings.keyCustomColor || '#165c92'
+
     const color = useMemo(() => getContrastingColor(bgColor), [bgColor])
 
     const colorProviderProps = bgColor ? { bgColor, color } : {}

@@ -40,6 +40,7 @@ const Layout = ({ appsInfoQuery }) => {
         sessionCookie?.serverTime &&
         systemInfo?.sessionTimeout
 
+    const appInfoQueryReady = Boolean(appsInfoQuery?.data)
     return (
         <div className={styles.container}>
             {supportsSessionHandler && (
@@ -47,7 +48,9 @@ const Layout = ({ appsInfoQuery }) => {
                     sessionTimeoutInSeconds={systemInfo?.sessionTimeout}
                 />
             )}
-            <ConnectedHeaderBar appsInfoQuery={appsInfoQuery} />
+            {appInfoQueryReady && (
+                <ConnectedHeaderBar appsInfoQuery={appsInfoQuery} />
+            )}
             {/* Skip the routes in dev; they don't make the same sense */}
             {process.env.NODE_ENV !== 'development' ? <Outlet /> : null}
         </div>
