@@ -196,7 +196,6 @@ export const HeaderBar = ({
                         flex-direction: row;
                         align-items: center;
                         justify-content: space-between;
-                        background-color: #165c92;
                         color: ${colors.white};
                         height: 40px;
                     }
