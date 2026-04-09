@@ -3,7 +3,11 @@ import React from 'react'
 import { useCustomColorContext } from './custom-color-context.jsx'
 
 export const Title = ({ app, instance }) => {
-    const { hasCustomColor } = useCustomColorContext()
+    const { hasCustomColor, color } = useCustomColorContext()
+    const shadowColor = color === 'black' ? 'white' : 'black'
+    const shadow = hasCustomColor
+        ? `text-shadow: 0px 0px 2px ${shadowColor};`
+        : 'text-shadow: 0px 0px 2px rgba(0, 0, 0, 0.5);'
     return (
         <div data-test="headerbar-title">
             {app ? `${instance} - ${app}` : `${instance}`}
@@ -14,9 +18,7 @@ export const Title = ({ app, instance }) => {
                     text-overflow: ellipsis;
                     font-size: 13px;
                     letter-spacing: 0.01em;
-                    ${!hasCustomColor
-                        ? 'text-shadow: 0px 0px 2px rgba(0, 0, 0, 0.5);'
-                        : ''}
+                    ${shadow}
                     white-space: nowrap;
                 }
             `}</style>
