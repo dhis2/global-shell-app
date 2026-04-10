@@ -1,8 +1,9 @@
 import { useDataQuery } from '@dhis2/app-runtime'
-import { LogoIcon, LogoIconWhite } from '@dhis2-ui/logo'
+import { LogoIconWhite } from '@dhis2-ui/logo'
 import React from 'react'
 import css from 'styled-jsx/css'
 import { useCustomColorContext } from './custom-color-context.jsx'
+import LogoIconBlack from './logo-black.jsx'
 
 const logoStyles = css.resolve`
     svg {
@@ -31,7 +32,7 @@ const pathExists = (data) =>
 
 export const LogoImage = () => {
     const { loading, error, data } = useDataQuery(query)
-    const customColor = useCustomColorContext()
+    const { color, hasCustomColor } = useCustomColorContext()
 
     if (loading) {
         return null
@@ -47,8 +48,12 @@ export const LogoImage = () => {
             />
         )
     } else {
-        if (customColor?.color === 'black') {
-            Logo = <LogoIcon className={logoStyles.className} />
+        if (hasCustomColor) {
+            if (color === 'black') {
+                Logo = <LogoIconBlack className={logoStyles.className} />
+            } else {
+                Logo = <LogoIconWhite className={logoStyles.className} />
+            }
         } else {
             Logo = <LogoIconWhite className={logoStyles.className} />
         }
