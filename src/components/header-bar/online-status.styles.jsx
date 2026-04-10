@@ -6,14 +6,12 @@ export default () => {
     const { hasCustomColor, color } = useCustomColorContext()
 
     const customBgColor =
-        color === 'black' ? 'rgba(255,255,255, 0.45)' : 'rgba(0,0,0, 0.25)'
-
-    const customBorderColor =
-        color === 'black' ? 'rgba(0,0,0, 0.15)' : 'rgba(255,255,255, 0.25)'
+        color === 'black' ? 'rgba(255,255,255, 0.2)' : 'rgba(0,0,0, 0.2)'
 
     const shadedStyle = hasCustomColor
-        ? `background-color: ${customBgColor}; border: 1px solid ${customBorderColor}; color: ${color} !important;`
+        ? `background-color: ${customBgColor}; color: ${color} !important;`
         : 'background-color: #10436a; color: ${colors.grey050}; text-shadow: 0px 0px 2px rgba(0, 0, 0, 0.5);'
+
     return css.resolve`
         .container {
             display: flex;
