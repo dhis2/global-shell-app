@@ -61,11 +61,6 @@ export const NotificationIcon = ({
         hasCustomColor,
     } = useCustomColorContext()
 
-    const badgeBackgroundStyle = !hasCustomColor
-        ? `background-color: ${theme.secondary500};
-                    border: 1px solid ${theme.secondary700};`
-        : `background-color: ${color}; color: ${bgColor} !important;`
-
     const { className, styles } = getStyles(bgColor)
 
     return (
@@ -98,7 +93,9 @@ export const NotificationIcon = ({
                     border-radius: ${spacers.dp12};
                     box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1),
                         0 1px 2px 0 rgba(0, 0, 0, 0.06);
-                    ${badgeBackgroundStyle}
+                    background-color: ${theme.secondary500};
+                    border: 1px solid ${theme.secondary700};
+                    ${hasCustomColor ? ` color: white !important;` : ''}
                     color: ${color};
                     text-shadow: 0px 0px 2px rgba(0, 0, 0, 0.5);
                     font-size: 12px;
