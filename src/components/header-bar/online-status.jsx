@@ -10,7 +10,7 @@ import getStyles from './online-status.styles.jsx'
 
 /** A badge to display online/offline status in the header bar */
 export function OnlineStatus({ dense }) {
-    const { styles, className } = getStyles()
+    const styles = getStyles()
     const { isConnected: online } = useDhis2ConnectionStatus()
     const { onlineStatusMessage } = useOnlineStatusMessage()
 
@@ -18,7 +18,7 @@ export function OnlineStatus({ dense }) {
 
     return (
         <div
-            className={cx('container', className, dense ? 'bar' : 'badge')}
+            className={cx('container', dense ? 'bar' : 'badge')}
             data-test="headerbar-online-status"
         >
             {onlineStatusMessage && !dense && (
@@ -31,7 +31,7 @@ export function OnlineStatus({ dense }) {
                     {onlineStatusMessage}
                 </span>
             )}
-            {styles}
+            <style jsx>{styles}</style>
         </div>
     )
 }
