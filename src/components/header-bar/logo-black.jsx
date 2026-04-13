@@ -1,8 +1,14 @@
+import PropTypes from 'prop-types'
 import React from 'react'
 
-const LogoIconBlack = () => {
+const LogoIconBlack = ({ className, dataTest }) => {
     return (
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 182">
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 200 182"
+            className={className}
+            data-test={dataTest}
+        >
             <defs></defs>
             <path
                 fill="#000"
@@ -18,6 +24,10 @@ const LogoIconBlack = () => {
             ></path>
         </svg>
     )
+}
+LogoIconBlack.propTypes = {
+    className: PropTypes.string,
+    dataTest: PropTypes.string,
 }
 
 export default LogoIconBlack
