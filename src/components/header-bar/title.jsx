@@ -5,16 +5,11 @@ import { useCustomColorContext } from './custom-color-context.jsx'
 export const Title = ({ app, instance }) => {
     const { hasCustomColor, color } = useCustomColorContext()
 
-    let shadow = 'text-shadow: 0px 0px 2px rgba(0, 0, 0, 0.5);' // default used when no custom colour
-
-    if (hasCustomColor) {
-        // for custom colors, only apply shadow for white
-        if (color === 'white') {
-            shadow = 'text-shadow: 0px 0px 2px rgba(0, 0, 0, 0.5);'
-        } else {
-            shadow = ''
-        }
-    }
+    // Use text shadow for default conditions or white text
+    const shadow =
+        !hasCustomColor || color === 'white'
+            ? 'text-shadow: 0px 0px 2px rgba(0, 0, 0, 0.5);'
+            : ''
 
     return (
         <div data-test="headerbar-title">
