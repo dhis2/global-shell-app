@@ -15,10 +15,8 @@ function icon(kind, color) {
     }
 }
 
-const getStyles = (customColor) => {
-    const hoverStyle = customColor?.bgColor
-        ? 'opacity: 0.6;'
-        : `background: #104f7e;`
+const getStyles = (bgColor) => {
+    const hoverStyle = bgColor ? 'opacity: 0.6;' : `background: #104f7e;`
 
     return css.resolve`
         a {
@@ -57,10 +55,13 @@ export const NotificationIcon = ({
     title,
     'aria-label': ariaLabel,
 }) => {
-    const customColor = useCustomColorContext()
-    const color = customColor?.color ?? colors.white
+    const {
+        color = colors.white,
+        bgColor,
+        hasCustomColor,
+    } = useCustomColorContext()
 
-    const { className, styles } = getStyles(customColor)
+    const { className, styles } = getStyles(bgColor)
 
     return (
         <Link
@@ -94,6 +95,7 @@ export const NotificationIcon = ({
                         0 1px 2px 0 rgba(0, 0, 0, 0.06);
                     background-color: ${theme.secondary500};
                     border: 1px solid ${theme.secondary700};
+                    ${hasCustomColor ? ` color: white !important;` : ''}
                     color: ${color};
                     text-shadow: 0px 0px 2px rgba(0, 0, 0, 0.5);
                     font-size: 12px;

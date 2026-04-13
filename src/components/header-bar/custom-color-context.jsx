@@ -8,6 +8,7 @@ export const CustomColorProvider = ({ color, bgColor, children }) => {
         () => ({
             color,
             bgColor,
+            hasCustomColor: bgColor !== '#165c92',
         }),
         [color, bgColor]
     )

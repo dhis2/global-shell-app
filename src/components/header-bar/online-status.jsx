@@ -6,10 +6,11 @@ import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React from 'react'
 import i18n from '../../locales/index.js'
-import styles from './online-status.styles.js'
+import useOnlineStatusStyles from './online-status.styles.jsx'
 
 /** A badge to display online/offline status in the header bar */
 export function OnlineStatus({ dense }) {
+    const styles = useOnlineStatusStyles()
     const { isConnected: online } = useDhis2ConnectionStatus()
     const { onlineStatusMessage } = useOnlineStatusMessage()
 
