@@ -47,16 +47,10 @@ export const LogoImage = () => {
                 className={logoStyles.className}
             />
         )
+    } else if (hasCustomColor && color === 'black') {
+        Logo = <LogoIconBlack className={logoStyles.className} />
     } else {
-        if (hasCustomColor) {
-            if (color === 'black') {
-                Logo = <LogoIconBlack className={logoStyles.className} />
-            } else {
-                Logo = <LogoIconWhite className={logoStyles.className} />
-            }
-        } else {
-            Logo = <LogoIconWhite className={logoStyles.className} />
-        }
+        Logo = <LogoIconWhite className={logoStyles.className} />
     }
 
     return (
