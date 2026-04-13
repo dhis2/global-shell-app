@@ -2,7 +2,7 @@ import { colors, spacers } from '@dhis2/ui-constants'
 import css from 'styled-jsx/css'
 import { useCustomColorContext } from './custom-color-context.jsx'
 
-export default () => {
+const useOnlineStatusStyles = () => {
     const { hasCustomColor, color } = useCustomColorContext()
 
     // "Lighten" on light backgrounds with black text; "darken" on dark BGs
@@ -108,3 +108,5 @@ export default () => {
         }
     `
 }
+
+export default useOnlineStatusStyles
