@@ -1,3 +1,10 @@
+## [1.12.2](https://github.com/dhis2/global-shell-app/compare/v1.12.1...v1.12.2) (2026-04-13)
+
+
+### Bug Fixes
+
+* tweak custom colors ([#71](https://github.com/dhis2/global-shell-app/issues/71)) ([a5f3ff6](https://github.com/dhis2/global-shell-app/commit/a5f3ff68079fafc73ab99281d4ee717eb1a1ae90))
+
 ## [1.12.1](https://github.com/dhis2/global-shell-app/compare/v1.12.0...v1.12.1) (2026-04-07)
 
 
