@@ -5,12 +5,17 @@ import { useCustomColorContext } from './custom-color-context.jsx'
 export default () => {
     const { hasCustomColor, color } = useCustomColorContext()
 
+    // "Lighten" on light backgrounds with black text; "darken" on dark BGs
     const customBgColor =
         color === 'black' ? 'rgba(255,255,255, 0.2)' : 'rgba(0,0,0, 0.2)'
 
     const shadedStyle = hasCustomColor
         ? `background-color: ${customBgColor}; color: ${color} !important;`
-        : 'background-color: #10436a; color: ${colors.grey050}; text-shadow: 0px 0px 2px rgba(0, 0, 0, 0.5);'
+        : `background-color: #10436a; color: ${colors.grey050};`
+    const textShadow =
+        !hasCustomColor || color === 'white'
+            ? '0px 0px 2px rgba(0, 0, 0, 0.5)'
+            : ''
 
     return css`
         .container {
@@ -19,6 +24,7 @@ export default () => {
             justify-content: center; // new
             flex-shrink: 0; // ?
 
+            text-shadow: ${textShadow};
             ${shadedStyle}
         }
 
