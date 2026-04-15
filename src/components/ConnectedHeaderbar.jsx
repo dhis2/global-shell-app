@@ -75,10 +75,17 @@ export function ConnectedHeaderBar({ appsInfoQuery }) {
         if (!params.appName || !appsInfoQuery.data) {
             return
         }
+
+        // In v43, the structure of the response changed from `[...apps]`
+        // to `{ buildDate, apps: [...apps] }`
+        const bundledApps =
+            appsInfoQuery.data.bundledApps?.apps ??
+            appsInfoQuery.data.bundledApps
+
         return getAppVersion(
             params.appName,
             appsInfoQuery.data.apps,
-            appsInfoQuery.data.bundledApps
+            bundledApps
         )
     }, [appsInfoQuery.data, params.appName])
 
