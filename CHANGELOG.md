@@ -1,3 +1,10 @@
+## [1.12.3](https://github.com/dhis2/global-shell-app/compare/v1.12.2...v1.12.3) (2026-04-15)
+
+
+### Bug Fixes
+
+* **DHIS2-21312:** handle invalid app URLs in v43 ([#72](https://github.com/dhis2/global-shell-app/issues/72)) ([27ac585](https://github.com/dhis2/global-shell-app/commit/27ac58514787ab5c476615d43aca002740cba429))
+
 ## [1.12.2](https://github.com/dhis2/global-shell-app/compare/v1.12.1...v1.12.2) (2026-04-13)
 
 
