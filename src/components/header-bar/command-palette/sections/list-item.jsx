@@ -6,9 +6,12 @@ import React from 'react'
 import { Link } from 'react-router'
 import { linkClassName, linkStyles } from '../../react-router-link-styles.jsx'
 import { COMMAND, APP, SHORTCUT } from '../utils/constants.js'
+import HighlightedText from './highlighted-text.jsx'
 
 function ListItem({
     title,
+    titleMatchIndices,
+    appNameMatchIndices,
     icon,
     image,
     description,
@@ -46,15 +49,19 @@ function ListItem({
             <div className="text-content">
                 <span className="title">
                     {isShortcut && (
-                        <>
-                            <span className="shortcut-app-name">
-                                {appName}
+                        <span className="shortcut-app-name">
+                            <HighlightedText
+                                text={appName}
+                                indices={appNameMatchIndices}
+                            />
 
-                                <IconChevronRight16 />
-                            </span>
-                        </>
+                            <IconChevronRight16 />
+                        </span>
                     )}
-                    {title}
+                    <HighlightedText
+                        text={title}
+                        indices={titleMatchIndices}
+                    />
                 </span>
                 {showDescription && (
                     <span className="description">{description}</span>
@@ -156,6 +163,9 @@ function ListItem({
 
 ListItem.propTypes = {
     appName: PropTypes.string,
+    appNameMatchIndices: PropTypes.arrayOf(
+        PropTypes.arrayOf(PropTypes.number.isRequired)
+    ),
     dataTest: PropTypes.string,
     description: PropTypes.string,
     highlighted: PropTypes.bool,
@@ -164,6 +174,9 @@ ListItem.propTypes = {
     path: PropTypes.string,
     resetModal: PropTypes.func,
     title: PropTypes.string,
+    titleMatchIndices: PropTypes.arrayOf(
+        PropTypes.arrayOf(PropTypes.number.isRequired)
+    ),
     type: PropTypes.string,
     onClickHandler: PropTypes.func,
 }
