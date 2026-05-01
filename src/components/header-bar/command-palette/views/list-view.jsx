@@ -14,7 +14,7 @@ const ListView = ({ grid, currentItem, resetModal }) => {
             {listItems.length > 0 ? (
                 <div data-test="headerbar-list">
                     {listItems.map((listItem, idx) => {
-                        const { item } = listItem
+                        const { item, matches } = listItem
                         const {
                             appName,
                             action,
@@ -29,6 +29,14 @@ const ListView = ({ grid, currentItem, resetModal }) => {
                         const isImage = typeof icon === 'string'
                         const isIcon = React.isValidElement(icon)
 
+                        const titleKey = displayName ? 'displayName' : 'name'
+                        const titleMatchIndices = matches?.find(
+                            (match) => match.key === titleKey
+                        )?.indices
+                        const appNameMatchIndices = matches?.find(
+                            (match) => match.key === 'appName'
+                        )?.indices
+
                         return (
                             <ListItem
                                 type={type}
@@ -36,6 +44,8 @@ const ListView = ({ grid, currentItem, resetModal }) => {
                                 appName={appName}
                                 path={path}
                                 title={displayName || name}
+                                titleMatchIndices={titleMatchIndices}
+                                appNameMatchIndices={appNameMatchIndices}
                                 image={isImage ? icon : undefined}
                                 icon={isIcon ? icon : undefined}
                                 description={description}
