@@ -2,8 +2,9 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import EmptySearchResults from '../sections/empty-search-results.jsx'
 import ListItem from '../sections/list-item.jsx'
+import { pickHighlightRanges } from '../utils/highlighting.js'
 
-const ListView = ({ grid, currentItem, resetModal }) => {
+const ListView = ({ grid, currentItem, resetModal, filter }) => {
     const listItems = grid.reduce((acc, arr) => {
         acc.push(arr[0])
         return acc
@@ -30,12 +31,21 @@ const ListView = ({ grid, currentItem, resetModal }) => {
                         const isIcon = React.isValidElement(icon)
 
                         const titleKey = displayName ? 'displayName' : 'name'
-                        const titleMatchIndices = matches?.find(
-                            (match) => match.key === titleKey
-                        )?.indices
-                        const appNameMatchIndices = matches?.find(
-                            (match) => match.key === 'appName'
-                        )?.indices
+                        const title = displayName || name
+                        const titleMatchIndices = pickHighlightRanges({
+                            textToHighlight: title,
+                            matchedIndices: matches?.find(
+                                (match) => match.key === titleKey
+                            )?.indices,
+                            query: filter,
+                        })
+                        const appNameMatchIndices = pickHighlightRanges({
+                            textToHighlight: appName,
+                            matchedIndices: matches?.find(
+                                (match) => match.key === 'appName'
+                            )?.indices,
+                            query: filter,
+                        })
 
                         return (
                             <ListItem
@@ -43,7 +53,7 @@ const ListView = ({ grid, currentItem, resetModal }) => {
                                 key={`list-item-${idx}-${name}`}
                                 appName={appName}
                                 path={path}
-                                title={displayName || name}
+                                title={title}
                                 titleMatchIndices={titleMatchIndices}
                                 appNameMatchIndices={appNameMatchIndices}
                                 image={isImage ? icon : undefined}
@@ -66,6 +76,7 @@ const ListView = ({ grid, currentItem, resetModal }) => {
 
 ListView.propTypes = {
     currentItem: PropTypes.object,
+    filter: PropTypes.string,
     grid: PropTypes.array,
     resetModal: PropTypes.func,
 }
