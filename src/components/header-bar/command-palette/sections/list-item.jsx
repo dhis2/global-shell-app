@@ -58,10 +58,7 @@ function ListItem({
                             <IconChevronRight16 />
                         </span>
                     )}
-                    <HighlightedText
-                        text={title}
-                        indices={titleMatchIndices}
-                    />
+                    <HighlightedText text={title} indices={titleMatchIndices} />
                 </span>
                 {showDescription && (
                     <span className="description">{description}</span>

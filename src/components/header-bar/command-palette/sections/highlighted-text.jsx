@@ -32,9 +32,7 @@ function HighlightedText({ text, indices }) {
 }
 
 HighlightedText.propTypes = {
-    indices: PropTypes.arrayOf(
-        PropTypes.arrayOf(PropTypes.number.isRequired)
-    ),
+    indices: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number.isRequired)),
     text: PropTypes.string,
 }
 

@@ -14,7 +14,6 @@ const groupAppsWithShortcuts = ({
     filteredShortcuts,
     shortcuts,
 }) => {
-
     // Group each app with its shortcuts
     const shortcutsByApp = new Map()
     for (const shortcut of shortcuts) {
@@ -23,7 +22,7 @@ const groupAppsWithShortcuts = ({
         }
         shortcutsByApp.get(shortcut.appName).push(shortcut)
     }
-    
+
     const matchesByShortcut = new Map(
         // retain all the fuse matches for each filtered shortcut
         filteredShortcuts.map(({ item, matches }) => [item, matches])
@@ -32,7 +31,7 @@ const groupAppsWithShortcuts = ({
     // For all matched apps, return them with their shortcuts and their matches
     const appsWithShortcuts = filteredApps.flatMap(({ item, matches }) => {
         const appShortcuts = shortcutsByApp.get(item.displayName) ?? []
-        
+
         const appShortcutResults = appShortcuts.map((shortcut) => ({
             item: shortcut,
             matches: matchesByShortcut.get(shortcut),

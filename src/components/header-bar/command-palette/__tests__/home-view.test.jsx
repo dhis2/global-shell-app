@@ -82,11 +82,17 @@ describe('Command Palette - Home View', () => {
         const listItems = queryAllByTestId('headerbar-list-item')
         // 9 apps + 1 command + 1 shortcut
         expect(listItems.length).toBe(11)
-        const testApps = listItems.filter((item) => /Test App/.test(item.textContent))
+        const testApps = listItems.filter((item) =>
+            /Test App/.test(item.textContent)
+        )
         expect(testApps).toHaveLength(9)
-        const testCommand = listItems.filter((item) => /Test Command/.test(item.textContent))
+        const testCommand = listItems.filter((item) =>
+            /Test Command/.test(item.textContent)
+        )
         expect(testCommand).toHaveLength(1)
-        const testShortcut = listItems.filter((item) => /Test Shortcut/.test(item.textContent))
+        const testShortcut = listItems.filter((item) =>
+            /Test Shortcut/.test(item.textContent)
+        )
         expect(testShortcut).toHaveLength(1)
 
         // clear field
