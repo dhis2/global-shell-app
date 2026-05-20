@@ -36,8 +36,6 @@ describe('Command Palette - Home View', () => {
             queryByTestId,
             getAllByText,
             getByPlaceholderText,
-            queryAllByText,
-            queryByText,
             getAllByRole,
             queryAllByTestId,
         } = render(<WrappedCommandPalette />)
