@@ -4,10 +4,10 @@ import React from 'react'
 import Highlighter from 'react-highlight-words'
 
 const highlightStyle = {
-    background: colors.yellow100,
+    background: 'transparent',
     color: 'inherit',
+    fontWeight: '600',
     padding: 0,
-    borderRadius: '2px',
 }
 
 function HighlightedText({ text, indices }) {
