@@ -4,7 +4,7 @@
 
 export const fuseOptions = {
     includeScore: true,
-    threshold: 0.3,
+    threshold: 0.4,
     ignoreDiacritics: true,
     shouldSort: true,
     keys: ['displayName', 'name', 'appName'],

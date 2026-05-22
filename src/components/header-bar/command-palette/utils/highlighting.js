@@ -60,5 +60,7 @@ export const pickHighlightRanges = ({
     const queryWordCount = query?.match(/\S+/g)?.length || 1
     const wordsToHighlight = wordsWithMatches.slice(0, queryWordCount)
 
-    return wordsToHighlight.flatMap((word) => word.ranges)
+    const rangesToHighlight = wordsToHighlight.flatMap((word) => word.ranges)
+
+    return rangesToHighlight
 }
