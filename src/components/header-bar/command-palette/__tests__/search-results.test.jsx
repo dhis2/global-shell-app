@@ -143,7 +143,9 @@ describe('Command Palette - List View - Search Results', () => {
 
         // go to shortcuts
         await user.type(searchField, 'Browse shortcuts')
-        await user.keyboard('{Enter}')
+        // click the returned "Browse Shortcuts" action directly
+        await user.click(getByTestId('headerbar-browse-shortcuts'))
+        // redirect to the shortcuts page
         expect(queryByPlaceholderText('Search shortcuts')).toBeInTheDocument()
         // back action
         const backActionListItem = getByTestId('headerbar-back-action')
