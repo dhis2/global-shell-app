@@ -120,6 +120,15 @@ export const NotificationIcon = ({
 }) => {
     const { color = colors.white, bgColor } = useCustomColorContext()
     const [badgeExpanded, setBadgeExpanded] = useState(count > 0)
+    const label = i18n.t(ariaLabel)
+    const displayCount = count > 99 ? '99+' : count
+    const accessibleLabel =
+        count > 0
+            ? i18n.t('{{label}}, {{count}} unread', {
+                  label,
+                  count: displayCount,
+              })
+            : label
 
     // Briefly reveal the full counter whenever a count arrives or changes, then
     // collapse it back to a dot
@@ -148,7 +157,7 @@ export const NotificationIcon = ({
             className={className}
             data-test={dataTestId}
             title={i18n.t(title)}
-            aria-label={i18n.t(ariaLabel)}
+            aria-label={accessibleLabel}
         >
             {icon(kind, color)}
 
@@ -159,7 +168,7 @@ export const NotificationIcon = ({
                     }
                     data-test={`${dataTestId}-count`}
                 >
-                    {count > 99 ? '99+' : count}
+                    {displayCount}
                 </span>
             )}
 
