@@ -36,8 +36,6 @@ describe('Command Palette - Home View', () => {
             queryByTestId,
             getAllByText,
             getByPlaceholderText,
-            queryAllByText,
-            queryByText,
             getAllByRole,
             queryAllByTestId,
         } = render(<WrappedCommandPalette />)
@@ -82,9 +80,18 @@ describe('Command Palette - Home View', () => {
         const listItems = queryAllByTestId('headerbar-list-item')
         // 9 apps + 1 command + 1 shortcut
         expect(listItems.length).toBe(11)
-        expect(queryAllByText(/Test App/).length).toBe(9)
-        expect(queryByText(/Test Command/)).toBeInTheDocument()
-        expect(queryByText(/Test Shortcut/)).toBeInTheDocument()
+        const testApps = listItems.filter((item) =>
+            /Test App/.test(item.textContent)
+        )
+        expect(testApps).toHaveLength(9)
+        const testCommand = listItems.filter((item) =>
+            /Test Command/.test(item.textContent)
+        )
+        expect(testCommand).toHaveLength(1)
+        const testShortcut = listItems.filter((item) =>
+            /Test Shortcut/.test(item.textContent)
+        )
+        expect(testShortcut).toHaveLength(1)
 
         // clear field
         const clearButton = getAllByRole('button')[1]
