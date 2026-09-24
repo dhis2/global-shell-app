@@ -1,3 +1,10 @@
+## [1.12.4](https://github.com/dhis2/global-shell-app/compare/v1.12.3...v1.12.4) (2026-09-24)
+
+
+### Bug Fixes
+
+* support continuous release to AppHub ([#75](https://github.com/dhis2/global-shell-app/issues/75)) ([2ee5749](https://github.com/dhis2/global-shell-app/commit/2ee57495db06b44135151100d5d9e73b919cb6f7))
+
 ## [1.12.3](https://github.com/dhis2/global-shell-app/compare/v1.12.2...v1.12.3) (2026-04-15)
 
 
