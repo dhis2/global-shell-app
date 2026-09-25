@@ -31,6 +31,26 @@ const injectHeaderbarHidingStyles = (event) => {
     }
 }
 
+/**
+ * Set <base target="_blank" in the app doc,
+ * so target="_blank" is the default for links, and they open in new tabs
+ */
+const injectHtmlBaseTag = (event) => {
+    try {
+        const iframe = event?.target || document.querySelector('iframe')
+        const doc = iframe.contentDocument
+        const baseElement = doc.createElement('base')
+        baseElement.target = '_blank'
+        doc.head.appendChild(baseElement)
+    } catch (err) {
+        console.error(
+            'Failed to inject <base> element in client app.' +
+                'This could be due to the client app being hosted on a different domain.',
+            err
+        )
+    }
+}
+
 // todo: this is kinda duplicated between here and the header bar
 const getPluginEntrypoint = (appName, modules) => {
     // If core apps get a different naming scheme, this needs revisiting
@@ -186,6 +206,7 @@ export const PluginLoader = ({ appsInfoQuery }) => {
                 return
             }
             injectHeaderbarHidingStyles(event)
+            injectHtmlBaseTag(event)
             watchForHashRouteChanges(event)
             initClientOfflineInterface({
                 clientWindow: event.target.contentWindow,
