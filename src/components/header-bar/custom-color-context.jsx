@@ -1,6 +1,8 @@
 import PropTypes from 'prop-types'
 import React, { createContext, useContext, useMemo } from 'react'
 
+export const DEFAULT_HEADER_BAR_BG_COLOR = '#165c92'
+
 const customColorContext = createContext({})
 
 export const CustomColorProvider = ({ color, bgColor, children }) => {
@@ -8,7 +10,7 @@ export const CustomColorProvider = ({ color, bgColor, children }) => {
         () => ({
             color,
             bgColor,
-            hasCustomColor: bgColor !== '#165c92',
+            hasCustomColor: bgColor !== DEFAULT_HEADER_BAR_BG_COLOR,
         }),
         [color, bgColor]
     )

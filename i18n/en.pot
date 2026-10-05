@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-03-01T17:24:29.464Z\n"
-"PO-Revision-Date: 2026-03-01T17:24:29.464Z\n"
+"POT-Creation-Date: 2026-09-18T10:43:59.989Z\n"
+"PO-Revision-Date: 2026-09-18T10:43:59.989Z\n"
 
 msgid "Save your data"
 msgstr "Save your data"
@@ -48,6 +48,9 @@ msgstr "Return to home page"
 msgid "Command palette"
 msgstr "Command palette"
 
+msgid "Back"
+msgstr "Back"
+
 msgid "Browse apps"
 msgstr "Browse apps"
 
@@ -59,9 +62,6 @@ msgstr "Browse shortcuts"
 
 msgid "Logout"
 msgstr "Logout"
-
-msgid "Back"
-msgstr "Back"
 
 msgid "to navigate"
 msgstr "to navigate"
@@ -116,6 +116,11 @@ msgstr "Close"
 
 msgid "Copy debug info"
 msgstr "Copy debug info"
+
+msgid "{{label}}, {{count}} unread"
+msgid_plural "{{label}}, {{count}} unread"
+msgstr[0] "{{label}}, {{count}} unread"
+msgstr[1] "{{label}}, {{count}} unread"
 
 msgid "Interpretations"
 msgstr "Interpretations"
@@ -175,6 +180,13 @@ msgid ""
 msgstr ""
 "Your session ended after {{sessionTimeoutInMinutes}} minutes without "
 "network activity. Log in again to continue."
+
+msgid ""
+"No network connection? Dismiss to continue working in an offline-capable "
+"app."
+msgstr ""
+"No network connection? Dismiss to continue working in an offline-capable "
+"app."
 
 msgid "Dismiss"
 msgstr "Dismiss"

@@ -5,7 +5,10 @@ import { useParams } from 'react-router'
 import { useClientPWAUpdateState } from '../lib/clientPWAUpdateState.jsx'
 import { ConfirmUpdateModal } from './ConfirmUpdateModal.tsx'
 import getContrastingColor from './get-contrasting-color.js'
-import { CustomColorProvider } from './header-bar/custom-color-context.jsx'
+import {
+    CustomColorProvider,
+    DEFAULT_HEADER_BAR_BG_COLOR,
+} from './header-bar/custom-color-context.jsx'
 import { HeaderBar } from './header-bar/index.js'
 
 const getAppDisplayName = (appName, modules) => {
@@ -105,7 +108,8 @@ export function ConnectedHeaderBar({ appsInfoQuery }) {
         : clientPWAUpdateState
 
     const bgColor =
-        appsInfoQuery?.data?.systemSettings.keyCustomColor || '#165c92'
+        appsInfoQuery?.data?.systemSettings.keyCustomColor ||
+        DEFAULT_HEADER_BAR_BG_COLOR
 
     const color = useMemo(() => getContrastingColor(bgColor), [bgColor])
 
