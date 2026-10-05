@@ -1,3 +1,15 @@
+# [1.13.0](https://github.com/dhis2/global-shell-app/compare/v1.12.4...v1.13.0) (2026-10-05)
+
+
+### Bug Fixes
+
+* **notification-icon:** enhance accessibility ([b1d827c](https://github.com/dhis2/global-shell-app/commit/b1d827c0c1a0a2fdd762b9eb286468ccd791b77d))
+
+
+### Features
+
+* **header-bar:** add expandable notification dot indicator ([f7a8fe7](https://github.com/dhis2/global-shell-app/commit/f7a8fe76fc96c279ed4752b84a57b482643a5d51))
+
 ## [1.12.4](https://github.com/dhis2/global-shell-app/compare/v1.12.3...v1.12.4) (2026-09-24)
 
 
