@@ -1,3 +1,10 @@
+## [1.13.3](https://github.com/dhis2/global-shell-app/compare/v1.13.2...v1.13.3) (2026-10-07)
+
+
+### Bug Fixes
+
+* **i18n:** correct transifex resource id ([568a574](https://github.com/dhis2/global-shell-app/commit/568a5744d10f7ba30ae625803bc5c35ce3953472))
+
 ## [1.13.2](https://github.com/dhis2/global-shell-app/compare/v1.13.1...v1.13.2) (2026-10-07)
 
 
