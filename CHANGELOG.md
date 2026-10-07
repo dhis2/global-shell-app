@@ -1,3 +1,10 @@
+## [1.13.1](https://github.com/dhis2/global-shell-app/compare/v1.13.0...v1.13.1) (2026-10-07)
+
+
+### Bug Fixes
+
+* **i18n:** enable transifex ([#78](https://github.com/dhis2/global-shell-app/issues/78)) ([6207e16](https://github.com/dhis2/global-shell-app/commit/6207e16376fe51ff26838dd790e9e132e11a3dca))
+
 # [1.13.0](https://github.com/dhis2/global-shell-app/compare/v1.12.4...v1.13.0) (2026-10-05)
 
 
