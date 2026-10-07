@@ -1,22 +1,99 @@
-# 
 # Translators:
-# Ibatov <ibatovk@who.int>, 2024
+# Khurshid Ibatov <x.ibatov@dtsj.uz>, 2026
+# Andres Miguel Rubio, 2026
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2024-03-29T07:26:07.540Z\n"
-"PO-Revision-Date: 2021-06-24 12:50+0000\n"
-"Last-Translator: Ibatov <ibatovk@who.int>, 2024\n"
+"POT-Creation-Date: 2026-09-18T10:43:59.989Z\n"
+"PO-Revision-Date: 2026-10-07 21:16+0000\n"
+"Last-Translator: Andres Miguel Rubio, 2026\n"
 "Language-Team: Uzbek (Cyrillic) (https://app.transifex.com/hisp-uio/teams/100509/uz@Cyrl/)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: uz@Cyrl\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
+msgid "Save your data"
+msgstr ""
+
+msgid ""
+"Updating will reload all {{n}} open instances of this app, and any unsaved "
+"data will be lost. Save any data you need to, then click 'Reload' when "
+"ready."
+msgstr ""
+
+msgid ""
+"Updating will reload all open instances of this app, and any unsaved data "
+"will be lost. Save any data you need to, then click 'Reload' when ready."
+msgstr ""
+
+msgid "Cancel"
+msgstr "Рад этиш"
+
+msgid "Reload"
+msgstr ""
+
+msgid "Unable to find an app for this URL."
+msgstr ""
+
+msgid "The requested page is not accessible from DHIS2."
+msgstr ""
+
+msgid "Something went wrong"
+msgstr "Нимадир нотўғри бажарилди"
+
+msgid "Return to home page"
+msgstr ""
+
+msgid "Command palette"
+msgstr ""
+
+msgid "Back"
+msgstr "Орқага"
+
+msgid "Browse apps"
+msgstr ""
+
+msgid "Browse commands"
+msgstr ""
+
+msgid "Browse shortcuts"
+msgstr ""
+
+msgid "Logout"
+msgstr "Чиқиб кетиш"
+
+msgid "to navigate"
+msgstr ""
+
+msgid "to select"
+msgstr ""
+
+msgid "to close"
+msgstr ""
+
+msgid "to go back one level"
+msgstr ""
+
 msgid "Search apps"
 msgstr "Иловаларни қидириш"
+
+msgid "Search commands"
+msgstr ""
+
+msgid "Search shortcuts"
+msgstr ""
+
+msgid "Search apps, shortcuts, commands"
+msgstr ""
+
+msgid "Top apps"
+msgstr ""
+
+msgid "Actions"
+msgstr "Амаллар"
 
 msgid "DHIS2 {{dhis2Version}}"
 msgstr ""
@@ -37,10 +114,14 @@ msgid "Debug info"
 msgstr ""
 
 msgid "Close"
-msgstr "Ёпиш"
+msgstr "Ёпмоқ"
 
 msgid "Copy debug info"
 msgstr ""
+
+msgid "{{label}}, {{count}} unread"
+msgid_plural "{{label}}, {{count}} unread"
+msgstr[0] ""
 
 msgid "Interpretations"
 msgstr "Талқинлар"
@@ -54,29 +135,56 @@ msgstr "Онлайн"
 msgid "Offline"
 msgstr "Оффлайн"
 
-msgid "Edit profile"
-msgstr "Профилни таҳрир қилиш"
-
 msgid "Settings"
 msgstr "Созламалар"
 
-msgid "Account"
-msgstr "Рақами"
+msgid "Account security"
+msgstr ""
+
+msgid "My profile"
+msgstr ""
 
 msgid "Help"
 msgstr "Ёрдам"
 
-msgid "About DHIS2"
-msgstr "DHIS2 Ҳақида"
+msgid "System info"
+msgstr "Тизим ҳақида ахборот"
 
-msgid "Logout"
-msgstr "Чиқиб кетиш"
+msgid "Log out"
+msgstr "Чиқиш"
 
-msgid "New {{appName}} version available"
+msgid "App updates available — Click to reload"
 msgstr ""
 
-msgid "New app version available"
+msgid "Profile menu"
 msgstr ""
 
-msgid "Click to reload"
+msgid "Session ending"
 msgstr ""
+
+msgid ""
+"For security, you will be logged out after {{sessionTimeoutInMinutes}} "
+"minutes without any network activity."
+msgstr ""
+
+msgid "Stay logged in"
+msgstr ""
+
+msgid "You have been logged out"
+msgstr ""
+
+msgid ""
+"Your session ended after {{sessionTimeoutInMinutes}} minutes without network"
+" activity. Log in again to continue."
+msgstr ""
+
+msgid ""
+"No network connection? Dismiss to continue working in an offline-capable "
+"app."
+msgstr ""
+
+msgid "Dismiss"
+msgstr "Рад этиш"
+
+msgid "Log in"
+msgstr "Кириш"

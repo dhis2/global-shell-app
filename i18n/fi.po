@@ -1,18 +1,17 @@
 # Translators:
-# Philip Larsen Donnelly, 2026
-# Andres Miguel Rubio, 2026
+# Oi Suomi On! <oisuomion@protonmail.com>, 2026
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2026-09-18T10:43:59.989Z\n"
 "PO-Revision-Date: 2026-10-07 21:16+0000\n"
-"Last-Translator: Andres Miguel Rubio, 2026\n"
-"Language-Team: Danish (https://app.transifex.com/hisp-uio/teams/100509/da/)\n"
+"Last-Translator: Oi Suomi On! <oisuomion@protonmail.com>, 2026\n"
+"Language-Team: Finnish (https://app.transifex.com/hisp-uio/teams/100509/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: da\n"
+"Language: fi\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Save your data"
@@ -30,7 +29,7 @@ msgid ""
 msgstr ""
 
 msgid "Cancel"
-msgstr "Cancel"
+msgstr ""
 
 msgid "Reload"
 msgstr ""
@@ -42,7 +41,7 @@ msgid "The requested page is not accessible from DHIS2."
 msgstr ""
 
 msgid "Something went wrong"
-msgstr ""
+msgstr "Jokin meni pieleen"
 
 msgid "Return to home page"
 msgstr ""
@@ -51,7 +50,7 @@ msgid "Command palette"
 msgstr ""
 
 msgid "Back"
-msgstr "Back"
+msgstr ""
 
 msgid "Browse apps"
 msgstr ""
@@ -78,7 +77,7 @@ msgid "to go back one level"
 msgstr ""
 
 msgid "Search apps"
-msgstr "Search apps"
+msgstr ""
 
 msgid "Search commands"
 msgstr ""
@@ -114,7 +113,7 @@ msgid "Debug info"
 msgstr ""
 
 msgid "Close"
-msgstr "Close"
+msgstr ""
 
 msgid "Copy debug info"
 msgstr ""
@@ -125,19 +124,19 @@ msgstr[0] ""
 msgstr[1] ""
 
 msgid "Interpretations"
-msgstr "Interpretations"
+msgstr ""
 
 msgid "Messages"
-msgstr "Messages"
+msgstr ""
 
 msgid "Online"
-msgstr "Online"
+msgstr ""
 
 msgid "Offline"
-msgstr "Offline"
+msgstr ""
 
 msgid "Settings"
-msgstr "Settings"
+msgstr ""
 
 msgid "Account security"
 msgstr ""
@@ -146,13 +145,13 @@ msgid "My profile"
 msgstr ""
 
 msgid "Help"
-msgstr "Help"
+msgstr ""
 
 msgid "System info"
 msgstr ""
 
 msgid "Log out"
-msgstr "Log out"
+msgstr ""
 
 msgid "App updates available — Click to reload"
 msgstr ""

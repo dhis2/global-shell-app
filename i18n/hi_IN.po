@@ -1,18 +1,18 @@
 # Translators:
-# Philip Larsen Donnelly, 2026
-# Andres Miguel Rubio, 2026
+# Rohit Wadhwani, 2026
+# Siddharth Agarwal, 2026
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2026-09-18T10:43:59.989Z\n"
 "PO-Revision-Date: 2026-10-07 21:16+0000\n"
-"Last-Translator: Andres Miguel Rubio, 2026\n"
-"Language-Team: Danish (https://app.transifex.com/hisp-uio/teams/100509/da/)\n"
+"Last-Translator: Siddharth Agarwal, 2026\n"
+"Language-Team: Hindi (India) (https://app.transifex.com/hisp-uio/teams/100509/hi_IN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: da\n"
+"Language: hi_IN\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Save your data"
@@ -30,7 +30,7 @@ msgid ""
 msgstr ""
 
 msgid "Cancel"
-msgstr "Cancel"
+msgstr "रद्द करें"
 
 msgid "Reload"
 msgstr ""
@@ -42,7 +42,7 @@ msgid "The requested page is not accessible from DHIS2."
 msgstr ""
 
 msgid "Something went wrong"
-msgstr ""
+msgstr "कुछ गलत हुआ"
 
 msgid "Return to home page"
 msgstr ""
@@ -51,7 +51,7 @@ msgid "Command palette"
 msgstr ""
 
 msgid "Back"
-msgstr "Back"
+msgstr "वापस जाएँ"
 
 msgid "Browse apps"
 msgstr ""
@@ -63,7 +63,7 @@ msgid "Browse shortcuts"
 msgstr ""
 
 msgid "Logout"
-msgstr ""
+msgstr "लॉग आउट"
 
 msgid "to navigate"
 msgstr ""
@@ -78,7 +78,7 @@ msgid "to go back one level"
 msgstr ""
 
 msgid "Search apps"
-msgstr "Search apps"
+msgstr ""
 
 msgid "Search commands"
 msgstr ""
@@ -114,7 +114,7 @@ msgid "Debug info"
 msgstr ""
 
 msgid "Close"
-msgstr "Close"
+msgstr "बंद करें"
 
 msgid "Copy debug info"
 msgstr ""
@@ -125,19 +125,19 @@ msgstr[0] ""
 msgstr[1] ""
 
 msgid "Interpretations"
-msgstr "Interpretations"
+msgstr ""
 
 msgid "Messages"
-msgstr "Messages"
+msgstr "संदेश"
 
 msgid "Online"
-msgstr "Online"
+msgstr "ऑनलाइन"
 
 msgid "Offline"
-msgstr "Offline"
+msgstr "ऑफ़लाइन"
 
 msgid "Settings"
-msgstr "Settings"
+msgstr "सेटिंग्स"
 
 msgid "Account security"
 msgstr ""
@@ -146,19 +146,19 @@ msgid "My profile"
 msgstr ""
 
 msgid "Help"
-msgstr "Help"
+msgstr "सहायता"
 
 msgid "System info"
 msgstr ""
 
 msgid "Log out"
-msgstr "Log out"
+msgstr ""
 
 msgid "App updates available — Click to reload"
 msgstr ""
 
 msgid "Profile menu"
-msgstr ""
+msgstr "प्रोफ़ाइल मेनू"
 
 msgid "Session ending"
 msgstr ""
@@ -172,7 +172,7 @@ msgid "Stay logged in"
 msgstr ""
 
 msgid "You have been logged out"
-msgstr ""
+msgstr "आप लॉग आउट हो चुके हैं"
 
 msgid ""
 "Your session ended after {{sessionTimeoutInMinutes}} minutes without network"
@@ -188,4 +188,4 @@ msgid "Dismiss"
 msgstr ""
 
 msgid "Log in"
-msgstr ""
+msgstr "लॉग इन"

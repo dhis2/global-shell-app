@@ -1,26 +1,103 @@
-# 
 # Translators:
-# Untoro Dwi Raharjo <untoro.dwi.raharjo@mail.ugm.ac.id>, 2021
-# Raja Fathurrahim, 2022
-# Viktor Varland <viktor@dhis2.org>, 2022
-# Farida Sibuea <farida_sibuea@yahoo.com>, 2023
-# Aprisa Chrysantina <aprisa.chrysantina@gmail.com>, 2024
+# Raja Fathurrahim, 2026
+# Viktor Varland <viktor@dhis2.org>, 2026
+# Aprisa Chrysantina <aprisa.chrysantina@gmail.com>, 2026
+# Farida Sibuea <farida_sibuea@yahoo.com>, 2026
+# Untoro Dwi Raharjo <untoro.dwi.raharjo@mail.ugm.ac.id>, 2026
+# Andres Miguel Rubio, 2026
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2024-03-29T07:26:07.540Z\n"
-"PO-Revision-Date: 2021-06-24 12:50+0000\n"
-"Last-Translator: Aprisa Chrysantina <aprisa.chrysantina@gmail.com>, 2024\n"
+"POT-Creation-Date: 2026-09-18T10:43:59.989Z\n"
+"PO-Revision-Date: 2026-10-07 21:16+0000\n"
+"Last-Translator: Andres Miguel Rubio, 2026\n"
 "Language-Team: Indonesian (https://app.transifex.com/hisp-uio/teams/100509/id/)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: id\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
+msgid "Save your data"
+msgstr ""
+
+msgid ""
+"Updating will reload all {{n}} open instances of this app, and any unsaved "
+"data will be lost. Save any data you need to, then click 'Reload' when "
+"ready."
+msgstr ""
+
+msgid ""
+"Updating will reload all open instances of this app, and any unsaved data "
+"will be lost. Save any data you need to, then click 'Reload' when ready."
+msgstr ""
+
+msgid "Cancel"
+msgstr "Batal"
+
+msgid "Reload"
+msgstr ""
+
+msgid "Unable to find an app for this URL."
+msgstr ""
+
+msgid "The requested page is not accessible from DHIS2."
+msgstr ""
+
+msgid "Something went wrong"
+msgstr "Terjadi kesalahan"
+
+msgid "Return to home page"
+msgstr ""
+
+msgid "Command palette"
+msgstr ""
+
+msgid "Back"
+msgstr "Kembali"
+
+msgid "Browse apps"
+msgstr ""
+
+msgid "Browse commands"
+msgstr ""
+
+msgid "Browse shortcuts"
+msgstr ""
+
+msgid "Logout"
+msgstr "Keluar"
+
+msgid "to navigate"
+msgstr ""
+
+msgid "to select"
+msgstr ""
+
+msgid "to close"
+msgstr ""
+
+msgid "to go back one level"
+msgstr ""
+
 msgid "Search apps"
 msgstr "Cari app"
+
+msgid "Search commands"
+msgstr ""
+
+msgid "Search shortcuts"
+msgstr ""
+
+msgid "Search apps, shortcuts, commands"
+msgstr ""
+
+msgid "Top apps"
+msgstr ""
+
+msgid "Actions"
+msgstr "Tindakan / Aksi"
 
 msgid "DHIS2 {{dhis2Version}}"
 msgstr ""
@@ -46,6 +123,10 @@ msgstr "Tutup"
 msgid "Copy debug info"
 msgstr ""
 
+msgid "{{label}}, {{count}} unread"
+msgid_plural "{{label}}, {{count}} unread"
+msgstr[0] ""
+
 msgid "Interpretations"
 msgstr "Interpretasi"
 
@@ -58,29 +139,56 @@ msgstr "Online"
 msgid "Offline"
 msgstr "Offline"
 
-msgid "Edit profile"
-msgstr "Edit profil"
-
 msgid "Settings"
 msgstr "Setting"
 
-msgid "Account"
-msgstr "Akun"
+msgid "Account security"
+msgstr ""
+
+msgid "My profile"
+msgstr ""
 
 msgid "Help"
 msgstr "Bantuan"
 
-msgid "About DHIS2"
-msgstr "Tentang DHIS2"
+msgid "System info"
+msgstr ""
 
-msgid "Logout"
+msgid "Log out"
 msgstr "Keluar"
 
-msgid "New {{appName}} version available"
-msgstr "Baru {{appName}} Versi tersedia"
+msgid "App updates available — Click to reload"
+msgstr ""
 
-msgid "New app version available"
-msgstr "Tersedia aplikasi versi baru"
+msgid "Profile menu"
+msgstr ""
 
-msgid "Click to reload"
-msgstr "Klik untuk mengunggah ulang"
+msgid "Session ending"
+msgstr ""
+
+msgid ""
+"For security, you will be logged out after {{sessionTimeoutInMinutes}} "
+"minutes without any network activity."
+msgstr ""
+
+msgid "Stay logged in"
+msgstr ""
+
+msgid "You have been logged out"
+msgstr ""
+
+msgid ""
+"Your session ended after {{sessionTimeoutInMinutes}} minutes without network"
+" activity. Log in again to continue."
+msgstr ""
+
+msgid ""
+"No network connection? Dismiss to continue working in an offline-capable "
+"app."
+msgstr ""
+
+msgid "Dismiss"
+msgstr ""
+
+msgid "Log in"
+msgstr ""
