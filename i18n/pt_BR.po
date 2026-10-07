@@ -1,23 +1,99 @@
-# 
 # Translators:
-# Thiago Rocha, 2024
-# Philip Larsen Donnelly, 2024
+# Thiago Rocha, 2026
+# Philip Larsen Donnelly, 2026
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2024-03-29T07:26:07.540Z\n"
-"PO-Revision-Date: 2021-06-24 12:50+0000\n"
-"Last-Translator: Philip Larsen Donnelly, 2024\n"
+"POT-Creation-Date: 2026-09-18T10:43:59.989Z\n"
+"PO-Revision-Date: 2026-10-07 21:16+0000\n"
+"Last-Translator: Philip Larsen Donnelly, 2026\n"
 "Language-Team: Portuguese (Brazil) (https://app.transifex.com/hisp-uio/teams/100509/pt_BR/)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: pt_BR\n"
 "Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
 
+msgid "Save your data"
+msgstr ""
+
+msgid ""
+"Updating will reload all {{n}} open instances of this app, and any unsaved "
+"data will be lost. Save any data you need to, then click 'Reload' when "
+"ready."
+msgstr ""
+
+msgid ""
+"Updating will reload all open instances of this app, and any unsaved data "
+"will be lost. Save any data you need to, then click 'Reload' when ready."
+msgstr ""
+
+msgid "Cancel"
+msgstr "Cancelar"
+
+msgid "Reload"
+msgstr ""
+
+msgid "Unable to find an app for this URL."
+msgstr ""
+
+msgid "The requested page is not accessible from DHIS2."
+msgstr ""
+
+msgid "Something went wrong"
+msgstr ""
+
+msgid "Return to home page"
+msgstr ""
+
+msgid "Command palette"
+msgstr ""
+
+msgid "Back"
+msgstr "Voltar"
+
+msgid "Browse apps"
+msgstr ""
+
+msgid "Browse commands"
+msgstr ""
+
+msgid "Browse shortcuts"
+msgstr ""
+
+msgid "Logout"
+msgstr ""
+
+msgid "to navigate"
+msgstr ""
+
+msgid "to select"
+msgstr ""
+
+msgid "to close"
+msgstr ""
+
+msgid "to go back one level"
+msgstr ""
+
 msgid "Search apps"
 msgstr ""
+
+msgid "Search commands"
+msgstr ""
+
+msgid "Search shortcuts"
+msgstr ""
+
+msgid "Search apps, shortcuts, commands"
+msgstr ""
+
+msgid "Top apps"
+msgstr ""
+
+msgid "Actions"
+msgstr "Ações"
 
 msgid "DHIS2 {{dhis2Version}}"
 msgstr ""
@@ -43,6 +119,12 @@ msgstr "Fechar"
 msgid "Copy debug info"
 msgstr ""
 
+msgid "{{label}}, {{count}} unread"
+msgid_plural "{{label}}, {{count}} unread"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
 msgid "Interpretations"
 msgstr "Interpretações"
 
@@ -55,29 +137,56 @@ msgstr "Ligado"
 msgid "Offline"
 msgstr "Desligado"
 
-msgid "Edit profile"
-msgstr "Editar Perfil"
-
 msgid "Settings"
 msgstr "Configurações"
 
-msgid "Account"
-msgstr "Conta"
+msgid "Account security"
+msgstr ""
+
+msgid "My profile"
+msgstr ""
 
 msgid "Help"
 msgstr "Ajuda"
 
-msgid "About DHIS2"
-msgstr "Sobre DHIS2"
+msgid "System info"
+msgstr "Informação do sistema"
 
-msgid "Logout"
+msgid "Log out"
+msgstr "Sair"
+
+msgid "App updates available — Click to reload"
 msgstr ""
 
-msgid "New {{appName}} version available"
+msgid "Profile menu"
 msgstr ""
 
-msgid "New app version available"
+msgid "Session ending"
 msgstr ""
 
-msgid "Click to reload"
+msgid ""
+"For security, you will be logged out after {{sessionTimeoutInMinutes}} "
+"minutes without any network activity."
+msgstr ""
+
+msgid "Stay logged in"
+msgstr ""
+
+msgid "You have been logged out"
+msgstr ""
+
+msgid ""
+"Your session ended after {{sessionTimeoutInMinutes}} minutes without network"
+" activity. Log in again to continue."
+msgstr ""
+
+msgid ""
+"No network connection? Dismiss to continue working in an offline-capable "
+"app."
+msgstr ""
+
+msgid "Dismiss"
+msgstr "Dispensar"
+
+msgid "Log in"
 msgstr ""

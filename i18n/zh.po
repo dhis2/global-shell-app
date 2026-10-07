@@ -1,25 +1,102 @@
-# 
 # Translators:
-# Viktor Varland <viktor@dhis2.org>, 2021
-# Philip Larsen Donnelly, 2022
-# 晓东 林 <13981924470@126.com>, 2024
-# easylin <lin_xd@126.com>, 2024
+# Philip Larsen Donnelly, 2026
+# Viktor Varland <viktor@dhis2.org>, 2026
+# 晓东 林 <13981924470@126.com>, 2026
+# Andres Miguel Rubio, 2026
+# easylin <lin_xd@126.com>, 2026
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2024-06-12T03:40:49.012Z\n"
-"PO-Revision-Date: 2021-06-24 12:50+0000\n"
-"Last-Translator: easylin <lin_xd@126.com>, 2024\n"
+"POT-Creation-Date: 2026-09-18T10:43:59.989Z\n"
+"PO-Revision-Date: 2026-10-07 21:16+0000\n"
+"Last-Translator: easylin <lin_xd@126.com>, 2026\n"
 "Language-Team: Chinese (https://app.transifex.com/hisp-uio/teams/100509/zh/)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: zh\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
+msgid "Save your data"
+msgstr ""
+
+msgid ""
+"Updating will reload all {{n}} open instances of this app, and any unsaved "
+"data will be lost. Save any data you need to, then click 'Reload' when "
+"ready."
+msgstr ""
+
+msgid ""
+"Updating will reload all open instances of this app, and any unsaved data "
+"will be lost. Save any data you need to, then click 'Reload' when ready."
+msgstr ""
+
+msgid "Cancel"
+msgstr "取消"
+
+msgid "Reload"
+msgstr ""
+
+msgid "Unable to find an app for this URL."
+msgstr ""
+
+msgid "The requested page is not accessible from DHIS2."
+msgstr ""
+
+msgid "Something went wrong"
+msgstr "出问题了"
+
+msgid "Return to home page"
+msgstr ""
+
+msgid "Command palette"
+msgstr ""
+
+msgid "Back"
+msgstr "后退"
+
+msgid "Browse apps"
+msgstr ""
+
+msgid "Browse commands"
+msgstr ""
+
+msgid "Browse shortcuts"
+msgstr ""
+
+msgid "Logout"
+msgstr "退出"
+
+msgid "to navigate"
+msgstr ""
+
+msgid "to select"
+msgstr ""
+
+msgid "to close"
+msgstr ""
+
+msgid "to go back one level"
+msgstr ""
+
 msgid "Search apps"
 msgstr "搜索 apps"
+
+msgid "Search commands"
+msgstr ""
+
+msgid "Search shortcuts"
+msgstr ""
+
+msgid "Search apps, shortcuts, commands"
+msgstr ""
+
+msgid "Top apps"
+msgstr ""
+
+msgid "Actions"
+msgstr "行动"
 
 msgid "DHIS2 {{dhis2Version}}"
 msgstr "DHIS2 {{dhis2Version}}"
@@ -45,6 +122,10 @@ msgstr "关闭"
 msgid "Copy debug info"
 msgstr "复制调试信息"
 
+msgid "{{label}}, {{count}} unread"
+msgid_plural "{{label}}, {{count}} unread"
+msgstr[0] ""
+
 msgid "Interpretations"
 msgstr "解释"
 
@@ -57,32 +138,56 @@ msgstr "在线"
 msgid "Offline"
 msgstr "离线"
 
-msgid "Edit profile"
-msgstr "编辑简历"
-
 msgid "Settings"
 msgstr "设置"
 
-msgid "Account"
-msgstr "账号"
+msgid "Account security"
+msgstr ""
+
+msgid "My profile"
+msgstr ""
 
 msgid "Help"
 msgstr "帮助"
 
-msgid "About DHIS2"
-msgstr "关于DHIS2"
+msgid "System info"
+msgstr "系统信息"
 
-msgid "Logout"
+msgid "Log out"
 msgstr "退出"
 
-msgid "New {{appName}} version available"
-msgstr "新的 {{appName}} 版本可用"
+msgid "App updates available — Click to reload"
+msgstr ""
 
-msgid "New app version available"
-msgstr "新的应用程序版本可用"
+msgid "Profile menu"
+msgstr "个人简介菜单"
 
-msgid "Click to reload"
-msgstr "点击重新加载"
+msgid "Session ending"
+msgstr ""
 
-msgid "header bar profile"
-msgstr "头条轮廓"
+msgid ""
+"For security, you will be logged out after {{sessionTimeoutInMinutes}} "
+"minutes without any network activity."
+msgstr ""
+
+msgid "Stay logged in"
+msgstr ""
+
+msgid "You have been logged out"
+msgstr "您已退出登录"
+
+msgid ""
+"Your session ended after {{sessionTimeoutInMinutes}} minutes without network"
+" activity. Log in again to continue."
+msgstr ""
+
+msgid ""
+"No network connection? Dismiss to continue working in an offline-capable "
+"app."
+msgstr ""
+
+msgid "Dismiss"
+msgstr "解除"
+
+msgid "Log in"
+msgstr "登录"
