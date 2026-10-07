@@ -1,3 +1,10 @@
+## [1.13.2](https://github.com/dhis2/global-shell-app/compare/v1.13.1...v1.13.2) (2026-10-07)
+
+
+### Bug Fixes
+
+* add app icon ([#77](https://github.com/dhis2/global-shell-app/issues/77)) ([38abecb](https://github.com/dhis2/global-shell-app/commit/38abecb47073420926aa6897832022b76b3a2637))
+
 ## [1.13.1](https://github.com/dhis2/global-shell-app/compare/v1.13.0...v1.13.1) (2026-10-07)
 
 
