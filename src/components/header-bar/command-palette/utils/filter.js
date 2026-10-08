@@ -7,21 +7,49 @@ import {
     FILTERABLE_ACTION,
     SHORTCUT,
 } from './constants.js'
+import { filterItemsArray, wrapAsFuseResult } from './fuzzy-matching.js'
 
-export const fuseOptions = {
-    includeScore: true,
-    threshold: 0.3,
-    ignoreDiacritics: true,
-    shouldSort: true,
-    keys: ['displayName', 'name', 'appName'],
-    includeMatches: true,
+const groupAppsWithShortcuts = ({
+    filteredApps,
+    filteredShortcuts,
+    shortcuts,
+}) => {
+    // Group each app with its shortcuts
+    const shortcutsByApp = new Map()
+    for (const shortcut of shortcuts) {
+        if (!shortcutsByApp.has(shortcut.appName)) {
+            shortcutsByApp.set(shortcut.appName, [])
+        }
+        shortcutsByApp.get(shortcut.appName).push(shortcut)
+    }
+
+    const matchesByShortcut = new Map(
+        // retain all the fuse matches for each filtered shortcut
+        filteredShortcuts.map(({ item, matches }) => [item, matches])
+    )
+
+    // For all matched apps, return them with their shortcuts and their matches
+    const appsWithShortcuts = filteredApps.flatMap(({ item, matches }) => {
+        const appShortcuts = shortcutsByApp.get(item.displayName) ?? []
+
+        const appShortcutResults = appShortcuts.map((shortcut) => ({
+            item: shortcut,
+            matches: matchesByShortcut.get(shortcut),
+        }))
+        return [{ item, matches }, ...appShortcutResults]
+    })
+
+    const matchedAppNames = new Set(
+        filteredApps.map(({ item }) => item.displayName || item.name)
+    )
+
+    // Filter for remaining shortcuts that matched the filter without their parent app
+    const remainingShortcuts = filteredShortcuts.filter(
+        ({ item }) => !matchedAppNames.has(item.appName)
+    )
+
+    return { appsWithShortcuts, remainingShortcuts }
 }
-
-export const filterItemsArray = (fuse, filter) =>
-    fuse.search(filter).map(({ item, matches }) => ({ item, matches }))
-
-export const wrapAsFuseResult = (list) =>
-    list.map((item) => ({ item, matches: undefined }))
 
 export const filterItemsPerView = ({
     appsFuse,
@@ -78,34 +106,14 @@ export const filterItemsPerView = ({
         ({ item }) => item.type === FILTERABLE_ACTION
     )
 
-    // Group each app with its shortcuts
-    // Filter for matched apps and return them with their shortcuts
-    // Append remaining shortcuts that match
-    const shortcutsByApp = new Map()
-    for (const shortcut of shortcuts) {
-        if (!shortcutsByApp.has(shortcut.appName)) {
-            shortcutsByApp.set(shortcut.appName, [])
-        }
-        shortcutsByApp.get(shortcut.appName).push(shortcut)
-    }
-
-    const filteredAppsWithShortcuts = filteredApps.flatMap(
-        ({ item, matches }) => [
-            { item, matches },
-            ...wrapAsFuseResult(shortcutsByApp.get(item.displayName) ?? []),
-        ]
-    )
-
-    const matchedAppNames = new Set(
-        filteredApps.map(({ item }) => item.displayName || item.name)
-    )
-
-    const remainingShortcuts = filteredShortcuts.filter(
-        ({ item }) => !matchedAppNames.has(item.appName)
-    )
+    const { appsWithShortcuts, remainingShortcuts } = groupAppsWithShortcuts({
+        filteredApps,
+        filteredShortcuts,
+        shortcuts,
+    })
 
     return [
-        ...filteredAppsWithShortcuts,
+        ...appsWithShortcuts,
         ...remainingShortcuts,
         ...filteredCommands,
         ...filteredActions,

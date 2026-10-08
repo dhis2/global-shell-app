@@ -1,5 +1,5 @@
 import Fuse from 'fuse.js'
-import { filterItemsArray, fuseOptions } from './filter.js'
+import { filterItemsArray, fuseOptions } from './fuzzy-matching.js'
 
 describe('filter helper functions', () => {
     const itemsToSearch = [

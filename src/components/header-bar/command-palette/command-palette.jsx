@@ -13,11 +13,8 @@ import ModalContainer from './sections/modal-container.jsx'
 import NavigationKeysLegend from './sections/navigation-keys-legend.jsx'
 import SearchFilter from './sections/search-filter.jsx'
 import { ACTION, APP, HOME_VIEW, SHORTCUT } from './utils/constants.js'
-import {
-    filterItemsPerView,
-    fuseOptions,
-    wrapAsFuseResult,
-} from './utils/filter.js'
+import { filterItemsPerView } from './utils/filter.js'
+import { fuseOptions, wrapAsFuseResult } from './utils/fuzzy-matching.js'
 import HomeView from './views/home-view.jsx'
 import ListView from './views/list-view.jsx'
 
@@ -238,6 +235,7 @@ const CommandPalette = ({ apps, commands, shortcuts }) => {
                                     grid={grid}
                                     currentItem={currentItem}
                                     resetModal={resetModal}
+                                    filter={filter}
                                 />
                             )}
                         </div>
