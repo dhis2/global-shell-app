@@ -19,81 +19,81 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 msgid "Save your data"
-msgstr ""
+msgstr "保存您的数据"
 
 msgid ""
 "Updating will reload all {{n}} open instances of this app, and any unsaved "
 "data will be lost. Save any data you need to, then click 'Reload' when "
 "ready."
-msgstr ""
+msgstr "更新后，{{n}} 中所有已打开的该应用实例都将被重新加载，任何未保存的数据都将丢失。请先保存所需数据，准备就绪后点击“重新加载”。"
 
 msgid ""
 "Updating will reload all open instances of this app, and any unsaved data "
 "will be lost. Save any data you need to, then click 'Reload' when ready."
-msgstr ""
+msgstr "更新后，该应用的所有已打开实例都将重新加载，任何未保存的数据都将丢失。请先保存所需的数据，准备就绪后点击“重新加载”。"
 
 msgid "Cancel"
 msgstr "取消"
 
 msgid "Reload"
-msgstr ""
+msgstr "重新加载"
 
 msgid "Unable to find an app for this URL."
-msgstr ""
+msgstr "无法找到该 URL 对应的应用程序。"
 
 msgid "The requested page is not accessible from DHIS2."
-msgstr ""
+msgstr "无法通过 DHIS2 访问所请求的页面。"
 
 msgid "Something went wrong"
 msgstr "出问题了"
 
 msgid "Return to home page"
-msgstr ""
+msgstr "返回首页"
 
 msgid "Command palette"
-msgstr ""
+msgstr "命令面板"
 
 msgid "Back"
 msgstr "后退"
 
 msgid "Browse apps"
-msgstr ""
+msgstr "浏览应用"
 
 msgid "Browse commands"
-msgstr ""
+msgstr "浏览命令"
 
 msgid "Browse shortcuts"
-msgstr ""
+msgstr "浏览快捷方式"
 
 msgid "Logout"
 msgstr "退出"
 
 msgid "to navigate"
-msgstr ""
+msgstr "用于导航"
 
 msgid "to select"
-msgstr ""
+msgstr "选择"
 
 msgid "to close"
-msgstr ""
+msgstr "关闭"
 
 msgid "to go back one level"
-msgstr ""
+msgstr "返回上一级"
 
 msgid "Search apps"
 msgstr "搜索 apps"
 
 msgid "Search commands"
-msgstr ""
+msgstr "搜索命令"
 
 msgid "Search shortcuts"
-msgstr ""
+msgstr "搜索快捷方式"
 
 msgid "Search apps, shortcuts, commands"
-msgstr ""
+msgstr "搜索应用、快捷方式、命令"
 
 msgid "Top apps"
-msgstr ""
+msgstr "热门应用"
 
 msgid "Actions"
 msgstr "行动"
@@ -124,7 +124,7 @@ msgstr "复制调试信息"
 
 msgid "{{label}}, {{count}} unread"
 msgid_plural "{{label}}, {{count}} unread"
-msgstr[0] ""
+msgstr[0] "{{label}},{{count}} 未读"
 
 msgid "Interpretations"
 msgstr "解释"
@@ -142,10 +142,10 @@ msgid "Settings"
 msgstr "设置"
 
 msgid "Account security"
-msgstr ""
+msgstr "账户安全"
 
 msgid "My profile"
-msgstr ""
+msgstr "我的个人资料"
 
 msgid "Help"
 msgstr "帮助"
@@ -157,21 +157,21 @@ msgid "Log out"
 msgstr "退出"
 
 msgid "App updates available — Click to reload"
-msgstr ""
+msgstr "有应用更新 — 点击刷新"
 
 msgid "Profile menu"
 msgstr "个人简介菜单"
 
 msgid "Session ending"
-msgstr ""
+msgstr "会话结束"
 
 msgid ""
 "For security, you will be logged out after {{sessionTimeoutInMinutes}} "
 "minutes without any network activity."
-msgstr ""
+msgstr "出于安全考虑，如果{{sessionTimeoutInMinutes}} 分钟内没有网络活动，系统将自动注销您的会话。"
 
 msgid "Stay logged in"
-msgstr ""
+msgstr "保持登录状态"
 
 msgid "You have been logged out"
 msgstr "您已退出登录"
@@ -179,12 +179,12 @@ msgstr "您已退出登录"
 msgid ""
 "Your session ended after {{sessionTimeoutInMinutes}} minutes without network"
 " activity. Log in again to continue."
-msgstr ""
+msgstr "您的会话在{{sessionTimeoutInMinutes}} 分钟内未检测到网络活动后已结束。请重新登录以继续。"
 
 msgid ""
 "No network connection? Dismiss to continue working in an offline-capable "
 "app."
-msgstr ""
+msgstr "没有网络连接？点击“关闭”继续在支持离线使用的应用中工作。"
 
 msgid "Dismiss"
 msgstr "解除"
