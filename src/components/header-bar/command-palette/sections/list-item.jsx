@@ -25,7 +25,7 @@ function ListItem({
     const isShortcut = type === SHORTCUT
     const isNavigableLink = isApp || isShortcut
 
-    const isRTL = document?.documentElement?.dir === 'rtl'
+    const isRTL = document.documentElement?.dir === 'rtl'
 
     const item = (
         <div
