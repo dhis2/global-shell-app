@@ -51,7 +51,11 @@ function ListItem({
                         <>
                             <span className="shortcut-app-name">
                                 {appName}
-                                {isRTL ? <IconChevronLeft16 /> : <IconChevronRight16 />}
+                                {isRTL ? (
+                                    <IconChevronLeft16 />
+                                ) : (
+                                    <IconChevronRight16 />
+                                )}
                             </span>
                         </>
                     )}
