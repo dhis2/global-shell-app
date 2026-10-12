@@ -1,3 +1,10 @@
+## [1.13.4](https://github.com/dhis2/global-shell-app/compare/v1.13.3...v1.13.4) (2026-10-12)
+
+
+### Bug Fixes
+
+* command palette icons and navigation in RTL mode ([#76](https://github.com/dhis2/global-shell-app/issues/76)) ([5d7bbe1](https://github.com/dhis2/global-shell-app/commit/5d7bbe15a96e08b9ea718245a12411cb5f9ebfd1))
+
 ## [1.13.3](https://github.com/dhis2/global-shell-app/compare/v1.13.2...v1.13.3) (2026-10-07)
 
 
