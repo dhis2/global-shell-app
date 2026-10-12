@@ -73,7 +73,7 @@ function ListItem({
                         padding: ${spacers.dp8};
                         margin: 0 ${spacers.dp4};
                         background: ${colors.white};
-                        border-left: 4px solid transparent;
+                        border-inline-start: 4px solid transparent;
                         border-radius: 1px;
                         text-decoration: none;
                         color: ${colors.grey900};
@@ -95,7 +95,7 @@ function ListItem({
                         width: 20px;
                         height: 20px;
                         position: relative;
-                        margin-right: ${spacers.dp8};
+                        margin-inline-end: ${spacers.dp8};
                     }
                     .icon-content {
                         width: 100%;
@@ -131,7 +131,7 @@ function ListItem({
                     }
                     .title {
                         font-size: 14px;
-                        margin-right: ${spacers.dp4};
+                        margin-inline-end: ${spacers.dp4};
                     }
                     .shortcut-app-name {
                         color: ${colors.grey600};
