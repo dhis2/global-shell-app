@@ -1,25 +1,102 @@
-# 
 # Translators:
-# Viktor Varland <viktor@dhis2.org>, 2021
-# Philip Larsen Donnelly, 2022
-# 晓东 林 <13981924470@126.com>, 2024
-# easylin <lin_xd@126.com>, 2024
+# Philip Larsen Donnelly, 2026
+# Viktor Varland <viktor@dhis2.org>, 2026
+# 晓东 林 <13981924470@126.com>, 2026
+# Andres Miguel Rubio, 2026
+# easylin <lin_xd@126.com>, 2026
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2024-06-12T03:40:49.012Z\n"
-"PO-Revision-Date: 2021-06-24 12:50+0000\n"
-"Last-Translator: easylin <lin_xd@126.com>, 2024\n"
+"POT-Creation-Date: 2026-09-18T10:43:59.989Z\n"
+"PO-Revision-Date: 2026-10-07 21:16+0000\n"
+"Last-Translator: easylin <lin_xd@126.com>, 2026\n"
 "Language-Team: Chinese (https://app.transifex.com/hisp-uio/teams/100509/zh/)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: zh\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
+msgid "Save your data"
+msgstr "保存您的数据"
+
+msgid ""
+"Updating will reload all {{n}} open instances of this app, and any unsaved "
+"data will be lost. Save any data you need to, then click 'Reload' when "
+"ready."
+msgstr "更新后，{{n}} 中所有已打开的该应用实例都将被重新加载，任何未保存的数据都将丢失。请先保存所需数据，准备就绪后点击“重新加载”。"
+
+msgid ""
+"Updating will reload all open instances of this app, and any unsaved data "
+"will be lost. Save any data you need to, then click 'Reload' when ready."
+msgstr "更新后，该应用的所有已打开实例都将重新加载，任何未保存的数据都将丢失。请先保存所需的数据，准备就绪后点击“重新加载”。"
+
+msgid "Cancel"
+msgstr "取消"
+
+msgid "Reload"
+msgstr "重新加载"
+
+msgid "Unable to find an app for this URL."
+msgstr "无法找到该 URL 对应的应用程序。"
+
+msgid "The requested page is not accessible from DHIS2."
+msgstr "无法通过 DHIS2 访问所请求的页面。"
+
+msgid "Something went wrong"
+msgstr "出问题了"
+
+msgid "Return to home page"
+msgstr "返回首页"
+
+msgid "Command palette"
+msgstr "命令面板"
+
+msgid "Back"
+msgstr "后退"
+
+msgid "Browse apps"
+msgstr "浏览应用"
+
+msgid "Browse commands"
+msgstr "浏览命令"
+
+msgid "Browse shortcuts"
+msgstr "浏览快捷方式"
+
+msgid "Logout"
+msgstr "退出"
+
+msgid "to navigate"
+msgstr "用于导航"
+
+msgid "to select"
+msgstr "选择"
+
+msgid "to close"
+msgstr "关闭"
+
+msgid "to go back one level"
+msgstr "返回上一级"
+
 msgid "Search apps"
 msgstr "搜索 apps"
+
+msgid "Search commands"
+msgstr "搜索命令"
+
+msgid "Search shortcuts"
+msgstr "搜索快捷方式"
+
+msgid "Search apps, shortcuts, commands"
+msgstr "搜索应用、快捷方式、命令"
+
+msgid "Top apps"
+msgstr "热门应用"
+
+msgid "Actions"
+msgstr "行动"
 
 msgid "DHIS2 {{dhis2Version}}"
 msgstr "DHIS2 {{dhis2Version}}"
@@ -45,6 +122,10 @@ msgstr "关闭"
 msgid "Copy debug info"
 msgstr "复制调试信息"
 
+msgid "{{label}}, {{count}} unread"
+msgid_plural "{{label}}, {{count}} unread"
+msgstr[0] "{{label}},{{count}} 未读"
+
 msgid "Interpretations"
 msgstr "解释"
 
@@ -57,32 +138,56 @@ msgstr "在线"
 msgid "Offline"
 msgstr "离线"
 
-msgid "Edit profile"
-msgstr "编辑简历"
-
 msgid "Settings"
 msgstr "设置"
 
-msgid "Account"
-msgstr "账号"
+msgid "Account security"
+msgstr "账户安全"
+
+msgid "My profile"
+msgstr "我的个人资料"
 
 msgid "Help"
 msgstr "帮助"
 
-msgid "About DHIS2"
-msgstr "关于DHIS2"
+msgid "System info"
+msgstr "系统信息"
 
-msgid "Logout"
+msgid "Log out"
 msgstr "退出"
 
-msgid "New {{appName}} version available"
-msgstr "新的 {{appName}} 版本可用"
+msgid "App updates available — Click to reload"
+msgstr "有应用更新 — 点击刷新"
 
-msgid "New app version available"
-msgstr "新的应用程序版本可用"
+msgid "Profile menu"
+msgstr "个人简介菜单"
 
-msgid "Click to reload"
-msgstr "点击重新加载"
+msgid "Session ending"
+msgstr "会话结束"
 
-msgid "header bar profile"
-msgstr "头条轮廓"
+msgid ""
+"For security, you will be logged out after {{sessionTimeoutInMinutes}} "
+"minutes without any network activity."
+msgstr "出于安全考虑，如果{{sessionTimeoutInMinutes}} 分钟内没有网络活动，系统将自动注销您的会话。"
+
+msgid "Stay logged in"
+msgstr "保持登录状态"
+
+msgid "You have been logged out"
+msgstr "您已退出登录"
+
+msgid ""
+"Your session ended after {{sessionTimeoutInMinutes}} minutes without network"
+" activity. Log in again to continue."
+msgstr "您的会话在{{sessionTimeoutInMinutes}} 分钟内未检测到网络活动后已结束。请重新登录以继续。"
+
+msgid ""
+"No network connection? Dismiss to continue working in an offline-capable "
+"app."
+msgstr "没有网络连接？点击“关闭”继续在支持离线使用的应用中工作。"
+
+msgid "Dismiss"
+msgstr "解除"
+
+msgid "Log in"
+msgstr "登录"

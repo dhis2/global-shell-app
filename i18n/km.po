@@ -1,23 +1,100 @@
-# 
 # Translators:
-# channara rin, 2023
-# Philip Larsen Donnelly, 2024
+# Em Le <em.hispvietnam@gmail.com>, 2026
+# channara rin, 2026
+# Philip Larsen Donnelly, 2026
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2024-03-29T07:26:07.540Z\n"
-"PO-Revision-Date: 2021-06-24 12:50+0000\n"
-"Last-Translator: Philip Larsen Donnelly, 2024\n"
+"POT-Creation-Date: 2026-09-18T10:43:59.989Z\n"
+"PO-Revision-Date: 2026-10-07 21:16+0000\n"
+"Last-Translator: Philip Larsen Donnelly, 2026\n"
 "Language-Team: Khmer (https://app.transifex.com/hisp-uio/teams/100509/km/)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: km\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
+msgid "Save your data"
+msgstr ""
+
+msgid ""
+"Updating will reload all {{n}} open instances of this app, and any unsaved "
+"data will be lost. Save any data you need to, then click 'Reload' when "
+"ready."
+msgstr ""
+
+msgid ""
+"Updating will reload all open instances of this app, and any unsaved data "
+"will be lost. Save any data you need to, then click 'Reload' when ready."
+msgstr ""
+
+msgid "Cancel"
+msgstr "បោះបង់"
+
+msgid "Reload"
+msgstr ""
+
+msgid "Unable to find an app for this URL."
+msgstr ""
+
+msgid "The requested page is not accessible from DHIS2."
+msgstr ""
+
+msgid "Something went wrong"
+msgstr "មានអ្វីមួយខុសប្រក្រតី"
+
+msgid "Return to home page"
+msgstr ""
+
+msgid "Command palette"
+msgstr ""
+
+msgid "Back"
+msgstr "ថយក្រោយ"
+
+msgid "Browse apps"
+msgstr ""
+
+msgid "Browse commands"
+msgstr ""
+
+msgid "Browse shortcuts"
+msgstr ""
+
+msgid "Logout"
+msgstr ""
+
+msgid "to navigate"
+msgstr ""
+
+msgid "to select"
+msgstr ""
+
+msgid "to close"
+msgstr ""
+
+msgid "to go back one level"
+msgstr ""
+
 msgid "Search apps"
 msgstr "ស្វែងរកកម្មវិធី"
+
+msgid "Search commands"
+msgstr ""
+
+msgid "Search shortcuts"
+msgstr ""
+
+msgid "Search apps, shortcuts, commands"
+msgstr ""
+
+msgid "Top apps"
+msgstr ""
+
+msgid "Actions"
+msgstr ""
 
 msgid "DHIS2 {{dhis2Version}}"
 msgstr ""
@@ -43,6 +120,10 @@ msgstr "បិទ"
 msgid "Copy debug info"
 msgstr ""
 
+msgid "{{label}}, {{count}} unread"
+msgid_plural "{{label}}, {{count}} unread"
+msgstr[0] ""
+
 msgid "Interpretations"
 msgstr "កន្លែងសន្ទនារ"
 
@@ -55,29 +136,56 @@ msgstr "លើបណ្ដាញអិនធឺរណែត"
 msgid "Offline"
 msgstr "ក្រៅ​បណ្ដាញអិនធឺរណែត"
 
-msgid "Edit profile"
-msgstr "កែសម្រួល​​ជីវប្រវត្តិ"
-
 msgid "Settings"
 msgstr "ការ​កំណត់"
 
-msgid "Account"
-msgstr "គណនី"
+msgid "Account security"
+msgstr ""
+
+msgid "My profile"
+msgstr ""
 
 msgid "Help"
 msgstr "ជំនួយ​"
 
-msgid "About DHIS2"
+msgid "System info"
 msgstr ""
 
-msgid "Logout"
+msgid "Log out"
+msgstr "ចេញពីគណនី"
+
+msgid "App updates available — Click to reload"
 msgstr ""
 
-msgid "New {{appName}} version available"
+msgid "Profile menu"
 msgstr ""
 
-msgid "New app version available"
+msgid "Session ending"
 msgstr ""
 
-msgid "Click to reload"
+msgid ""
+"For security, you will be logged out after {{sessionTimeoutInMinutes}} "
+"minutes without any network activity."
+msgstr ""
+
+msgid "Stay logged in"
+msgstr ""
+
+msgid "You have been logged out"
+msgstr ""
+
+msgid ""
+"Your session ended after {{sessionTimeoutInMinutes}} minutes without network"
+" activity. Log in again to continue."
+msgstr ""
+
+msgid ""
+"No network connection? Dismiss to continue working in an offline-capable "
+"app."
+msgstr ""
+
+msgid "Dismiss"
+msgstr ""
+
+msgid "Log in"
 msgstr ""
