@@ -1,4 +1,4 @@
-import { IconChevronRight16 } from '@dhis2/ui'
+import { IconChevronRight16, IconChevronLeft16 } from '@dhis2/ui'
 import { colors, spacers } from '@dhis2/ui-constants'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
@@ -25,6 +25,8 @@ function ListItem({
     const isShortcut = type === SHORTCUT
     const isNavigableLink = isApp || isShortcut
 
+    const isRTL = document.documentElement?.dir === 'rtl'
+
     const item = (
         <div
             onClick={isNavigableLink ? undefined : onClickHandler}
@@ -49,8 +51,11 @@ function ListItem({
                         <>
                             <span className="shortcut-app-name">
                                 {appName}
-
-                                <IconChevronRight16 />
+                                {isRTL ? (
+                                    <IconChevronLeft16 />
+                                ) : (
+                                    <IconChevronRight16 />
+                                )}
                             </span>
                         </>
                     )}
@@ -68,7 +73,7 @@ function ListItem({
                         padding: ${spacers.dp8};
                         margin: 0 ${spacers.dp4};
                         background: ${colors.white};
-                        border-left: 4px solid transparent;
+                        border-inline-start: 4px solid transparent;
                         border-radius: 1px;
                         text-decoration: none;
                         color: ${colors.grey900};
@@ -90,7 +95,7 @@ function ListItem({
                         width: 20px;
                         height: 20px;
                         position: relative;
-                        margin-right: ${spacers.dp8};
+                        margin-inline-end: ${spacers.dp8};
                     }
                     .icon-content {
                         width: 100%;
@@ -103,11 +108,14 @@ function ListItem({
                         content: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0nMTAnIGhlaWdodD0nMTAnIHZpZXdCb3g9JzAgMCAxMCAxMCcgZmlsbD0nbm9uZScgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJz48cGF0aCBkPSdNMCAwSDhDOS4xMDQ1NyAwIDEwIDAuODk1NDMxIDEwIDJWMTBIMFYwWicgZmlsbD0nd2hpdGUnLz48cGF0aCBmaWxsLXJ1bGU9J2V2ZW5vZGQnIGNsaXAtcnVsZT0nZXZlbm9kZCcgZD0nTTYuMjkyOTcgM0gzVjJIOFY3SDdWMy43MDcxOEwxLjg1MzU5IDguODUzNTlMMS4xNDY0OCA4LjE0NjQ4TDYuMjkyOTcgM1onIGZpbGw9JyMyMTI5MzQnLz48L3N2Zz4K');
                         position: absolute;
                         bottom: 0;
-                        left: 0;
+                        inset-inline-start: 0;
                         width: 10px;
                         height: 10px;
                         display: flex;
                         align-items: center;
+                    }
+                    :global([dir='rtl']) .icon-shortcut::before {
+                        transform: scaleX(-1);
                     }
                     .text-content {
                         display: flex;
@@ -123,7 +131,7 @@ function ListItem({
                     }
                     .title {
                         font-size: 14px;
-                        margin-right: ${spacers.dp4};
+                        margin-inline-end: ${spacers.dp4};
                     }
                     .shortcut-app-name {
                         color: ${colors.grey600};

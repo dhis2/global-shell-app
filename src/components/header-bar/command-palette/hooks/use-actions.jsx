@@ -3,6 +3,7 @@ import { colors } from '@dhis2/ui-constants'
 import {
     IconApps16,
     IconArrowLeft16,
+    IconArrowRight16,
     IconLogOut16,
     IconRedo16,
     IconTerminalWindow16,
@@ -38,6 +39,8 @@ export const useAvailableActions = ({ apps, shortcuts, commands }) => {
         window.location.assign(href)
     }
 
+    const isRTL = document.documentElement?.dir === 'rtl'
+
     const switchViewAction = useCallback(
         (type) => {
             setCurrentView(type)
@@ -53,7 +56,11 @@ export const useAvailableActions = ({ apps, shortcuts, commands }) => {
             actionsArray.push({
                 type: ACTION,
                 name: i18n.t('Back'),
-                icon: <IconArrowLeft16 color={colors.grey700} />,
+                icon: isRTL ? (
+                    <IconArrowRight16 color={colors.grey700} />
+                ) : (
+                    <IconArrowLeft16 color={colors.grey700} />
+                ),
                 dataTest: 'headerbar-back-action',
                 action: () => switchViewAction(HOME_VIEW),
             })
@@ -105,6 +112,7 @@ export const useAvailableActions = ({ apps, shortcuts, commands }) => {
         filter,
         logoutURL,
         switchViewAction,
+        isRTL,
     ])
     return actions
 }

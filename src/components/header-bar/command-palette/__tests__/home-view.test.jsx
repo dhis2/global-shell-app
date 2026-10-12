@@ -183,6 +183,40 @@ describe('Command Palette - Home View', () => {
         }
     })
 
+    it('reverses left and right arrow navigation in the grid in RTL mode', async () => {
+        document.documentElement.dir = 'rtl'
+        try {
+            const user = userEvent.setup()
+            const { container, getByTestId } = render(<WrappedCommandPalette />)
+
+            // open modal with (Ctrl + k) keys
+            fireEvent.keyDown(container, { key: 'k', ctrlKey: true })
+
+            const topApps = getByTestId(
+                'headerbar-top-apps-list'
+            ).querySelectorAll('.item')
+            const firstApp = topApps[0]
+            const secondApp = topApps[1]
+            const lastAppInFirstRow = topApps[3]
+            expect(firstApp).toHaveClass('highlighted')
+
+            // left moves to the next item (visually left in RTL)
+            await user.keyboard('{ArrowLeft}')
+            expect(firstApp).not.toHaveClass('highlighted')
+            expect(secondApp).toHaveClass('highlighted')
+
+            // right moves back to the previous item
+            await user.keyboard('{ArrowRight}')
+            expect(firstApp).toHaveClass('highlighted')
+
+            // right from the first item loops to the end of the row
+            await user.keyboard('{ArrowRight}')
+            expect(lastAppInFirstRow).toHaveClass('highlighted')
+        } finally {
+            document.documentElement.dir = ''
+        }
+    })
+
     it('handles down arrow navigation on the home view', async () => {
         const user = userEvent.setup()
         const { queryByTestId, container } = render(<WrappedCommandPalette />)

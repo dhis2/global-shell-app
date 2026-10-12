@@ -65,6 +65,11 @@ const useGridNavigation = (gridItems, listItems) => {
                 return location
             }
 
+            // the grid follows the document direction, so in RTL the
+            // visually-left item is the next one in the row
+            const isRTL = document.documentElement.dir === 'rtl'
+            const leftStep = isRTL ? 1 : -1
+
             switch (event.key) {
                 case 'ArrowUp':
                     event.preventDefault()
@@ -80,12 +85,12 @@ const useGridNavigation = (gridItems, listItems) => {
                     break
                 case 'ArrowLeft':
                     setCurrentLocation((prev) =>
-                        updateLocation({ x: prev.x - 1, y: prev.y })
+                        updateLocation({ x: prev.x + leftStep, y: prev.y })
                     )
                     break
                 case 'ArrowRight':
                     setCurrentLocation((prev) =>
-                        updateLocation({ x: prev.x + 1, y: prev.y })
+                        updateLocation({ x: prev.x - leftStep, y: prev.y })
                     )
                     break
             }
