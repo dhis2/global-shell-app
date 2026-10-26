@@ -17,7 +17,7 @@ import React, { useState } from 'react'
 import { Link } from 'react-router'
 import i18n from '../../../locales/index.js'
 import { DebugInfoMenuItem } from '../debug-info/debug-info-menu-item.jsx'
-import { joinPath } from '../join-path.js'
+import { getLogoutUrl, logOut } from '../log-out.js'
 import { linkClassName, linkStyles } from '../react-router-link-styles.jsx'
 import { ProfileHeader } from './profile-header.jsx'
 import { UpdateNotification } from './update-notification.jsx'
@@ -118,23 +118,16 @@ const ProfileContents = ({
 
                 <MenuItem
                     dense
-                    href={joinPath(
-                        baseUrl,
-                        'dhis-web-commons-security/logout.action'
-                    )}
-                    // NB: By MenuItem implementation, this callback
-                    // overwrites default navigation behavior but maintains
-                    // the href attribute
+                    // The href keeps the item focusable and a link for
+                    // assistive technology. By MenuItem implementation,
+                    // onClick overrides the default navigation, so a plain
+                    // click or Enter logs out with a POST
+                    href={getLogoutUrl(baseUrl)}
                     onClick={async () => {
                         setLoading(true)
                         await clearSensitiveCaches()
                         setLoading(false)
-                        window.location.assign(
-                            joinPath(
-                                baseUrl,
-                                'dhis-web-commons-security/logout.action'
-                            )
-                        )
+                        logOut(baseUrl)
                     }}
                     label={i18n.t('Log out')}
                     value="logout"
