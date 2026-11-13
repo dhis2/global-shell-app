@@ -1,53 +1,136 @@
-# 
 # Translators:
-# Jaime Bosque <jaime.bosque@dhis2.org>, 2022
-# Enzo Nicolas Rossi <enzo@dhis2.org>, 2024
+# Jaime Bosque <jaime.bosque@dhis2.org>, 2026
+# Enzo Nicolas Rossi <enzo@dhis2.org>, 2026
+# Andres Miguel Rubio, 2026
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2024-03-29T07:26:07.540Z\n"
-"PO-Revision-Date: 2021-06-24 12:50+0000\n"
-"Last-Translator: Enzo Nicolas Rossi <enzo@dhis2.org>, 2024\n"
+"POT-Creation-Date: 2026-09-18T10:43:59.989Z\n"
+"PO-Revision-Date: 2026-10-07 21:16+0000\n"
+"Last-Translator: Andres Miguel Rubio, 2026\n"
 "Language-Team: Spanish (Latin America) (https://app.transifex.com/hisp-uio/teams/100509/es_419/)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: es_419\n"
 "Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
 
+msgid "Save your data"
+msgstr ""
+
+msgid ""
+"Updating will reload all {{n}} open instances of this app, and any unsaved "
+"data will be lost. Save any data you need to, then click 'Reload' when "
+"ready."
+msgstr ""
+
+msgid ""
+"Updating will reload all open instances of this app, and any unsaved data "
+"will be lost. Save any data you need to, then click 'Reload' when ready."
+msgstr ""
+
+msgid "Cancel"
+msgstr "Cancelar"
+
+msgid "Reload"
+msgstr ""
+
+msgid "Unable to find an app for this URL."
+msgstr ""
+
+msgid "The requested page is not accessible from DHIS2."
+msgstr ""
+
+msgid "Something went wrong"
+msgstr "Algo ha ido mal"
+
+msgid "Return to home page"
+msgstr ""
+
+msgid "Command palette"
+msgstr ""
+
+msgid "Back"
+msgstr "Atrás"
+
+msgid "Browse apps"
+msgstr ""
+
+msgid "Browse commands"
+msgstr ""
+
+msgid "Browse shortcuts"
+msgstr ""
+
+msgid "Logout"
+msgstr "Cerrar sesión"
+
+msgid "to navigate"
+msgstr ""
+
+msgid "to select"
+msgstr ""
+
+msgid "to close"
+msgstr ""
+
+msgid "to go back one level"
+msgstr ""
+
 msgid "Search apps"
-msgstr "Buscar aplicaciones"
+msgstr ""
+
+msgid "Search commands"
+msgstr ""
+
+msgid "Search shortcuts"
+msgstr ""
+
+msgid "Search apps, shortcuts, commands"
+msgstr ""
+
+msgid "Top apps"
+msgstr ""
+
+msgid "Actions"
+msgstr ""
 
 msgid "DHIS2 {{dhis2Version}}"
-msgstr "DHIS2 {{dhis2Version}}"
+msgstr ""
 
 msgid "DHIS2 version unknown"
-msgstr "Versión DHIS2 desconocida"
+msgstr ""
 
 msgid "{{appName}} version unknown"
-msgstr "{{appName}} versión desconocida"
+msgstr ""
 
 msgid "App {{appVersion}}"
-msgstr "Aplicación {{appVersion}}"
+msgstr ""
 
 msgid "App version unknown"
-msgstr "Versión de la aplicación desconocida"
+msgstr ""
 
 msgid "Debug info"
-msgstr "Información de depuración"
+msgstr ""
 
 msgid "Close"
 msgstr "Cerrar"
 
 msgid "Copy debug info"
-msgstr "Copiar información de depuración"
+msgstr ""
+
+msgid "{{label}}, {{count}} unread"
+msgid_plural "{{label}}, {{count}} unread"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
 
 msgid "Interpretations"
-msgstr "Interpretaciones"
+msgstr ""
 
 msgid "Messages"
-msgstr "Mensajes"
+msgstr ""
 
 msgid "Online"
 msgstr "En línea"
@@ -55,29 +138,56 @@ msgstr "En línea"
 msgid "Offline"
 msgstr "Offline"
 
-msgid "Edit profile"
-msgstr "Editar perfil"
-
 msgid "Settings"
 msgstr "Configuración"
 
-msgid "Account"
-msgstr "Cuenta"
+msgid "Account security"
+msgstr ""
+
+msgid "My profile"
+msgstr ""
 
 msgid "Help"
-msgstr "Ayuda"
+msgstr ""
 
-msgid "About DHIS2"
-msgstr "Acerca de DHIS2"
+msgid "System info"
+msgstr ""
 
-msgid "Logout"
-msgstr "Cerrar sesión"
+msgid "Log out"
+msgstr ""
 
-msgid "New {{appName}} version available"
-msgstr "Nueva versión disponible en {{appName}} "
+msgid "App updates available — Click to reload"
+msgstr ""
 
-msgid "New app version available"
-msgstr "Nueva versión de la aplicación disponible"
+msgid "Profile menu"
+msgstr ""
 
-msgid "Click to reload"
-msgstr "Haga clic para recargar"
+msgid "Session ending"
+msgstr ""
+
+msgid ""
+"For security, you will be logged out after {{sessionTimeoutInMinutes}} "
+"minutes without any network activity."
+msgstr ""
+
+msgid "Stay logged in"
+msgstr ""
+
+msgid "You have been logged out"
+msgstr ""
+
+msgid ""
+"Your session ended after {{sessionTimeoutInMinutes}} minutes without network"
+" activity. Log in again to continue."
+msgstr ""
+
+msgid ""
+"No network connection? Dismiss to continue working in an offline-capable "
+"app."
+msgstr ""
+
+msgid "Dismiss"
+msgstr ""
+
+msgid "Log in"
+msgstr ""
