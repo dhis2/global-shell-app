@@ -10,7 +10,7 @@ import {
 } from '@dhis2/ui-icons'
 import React, { useCallback, useMemo } from 'react'
 import i18n from '../../../../locales/index.js'
-import { joinPath } from '../../join-path.js'
+import { logOut } from '../../log-out.js'
 import { useCommandPaletteContext } from '../context/command-palette-context.jsx'
 import {
     ACTION,
@@ -29,15 +29,10 @@ export const useAvailableActions = ({ apps, shortcuts, commands }) => {
     const { currentView, filter, setCurrentView, setFilter } =
         useCommandPaletteContext()
 
-    const logoutURL = joinPath(
-        baseUrl,
-        'dhis-web-commons-security/logout.action'
-    )
-
-    const logoutAction = async (href) => {
+    const logoutAction = useCallback(async () => {
         await clearSensitiveCaches()
-        window.location.assign(href)
-    }
+        logOut(baseUrl)
+    }, [baseUrl])
 
     const isRTL = document.documentElement?.dir === 'rtl'
 
@@ -100,7 +95,7 @@ export const useAvailableActions = ({ apps, shortcuts, commands }) => {
                 name: i18n.t('Logout'),
                 icon: <IconLogOut16 color={colors.grey700} />,
                 dataTest: 'headerbar-logout',
-                action: () => logoutAction(logoutURL),
+                action: logoutAction,
             })
         }
         return actionsArray
@@ -110,7 +105,7 @@ export const useAvailableActions = ({ apps, shortcuts, commands }) => {
         commands,
         currentView,
         filter,
-        logoutURL,
+        logoutAction,
         switchViewAction,
         isRTL,
     ])
