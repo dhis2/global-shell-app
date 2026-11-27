@@ -5,9 +5,9 @@ import { UserAvatar } from '@dhis2-ui/user-avatar'
 import PropTypes from 'prop-types'
 import React, { useCallback, useRef, useState } from 'react'
 import i18n from '../../locales/index.js'
+import { useCustomColorContext } from './custom-color-context.jsx'
 import { DebugInfoModal } from './debug-info/debug-info-modal.jsx'
 import { ProfileMenu } from './profile-menu/index.js'
-import { useCustomColorContext } from './custom-color-context.jsx'
 
 const Profile = ({ name, avatarId, helpUrl, username }) => {
     const [showProfileMenu, setShowProfileMenu] = useState(false)
@@ -20,11 +20,9 @@ const Profile = ({ name, avatarId, helpUrl, username }) => {
         []
     )
 
-    const customColor = useCustomColorContext()
+    const { hasCustomColor } = useCustomColorContext()
 
-    const hoverStyle = customColor?.bgColor
-        ? 'opacity: 0.8;'
-        : 'background: #104f7e;'
+    const hoverStyle = hasCustomColor ? 'opacity: 0.8;' : 'background: #104f7e;'
 
     return (
         <div
