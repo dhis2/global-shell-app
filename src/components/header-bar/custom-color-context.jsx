@@ -10,7 +10,9 @@ export const CustomColorProvider = ({ color, bgColor, children }) => {
         () => ({
             color,
             bgColor,
-            hasCustomColor: bgColor !== DEFAULT_HEADER_BAR_BG_COLOR,
+            hasCustomColor:
+                Boolean(bgColor) &&
+                bgColor.trim().toLowerCase() !== DEFAULT_HEADER_BAR_BG_COLOR,
         }),
         [color, bgColor]
     )

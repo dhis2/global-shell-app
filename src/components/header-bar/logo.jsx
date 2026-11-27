@@ -5,9 +5,9 @@ import { LogoImage } from './logo-image.jsx'
 
 export const Logo = () => {
     const { baseUrl } = useConfig()
-    const customColor = useCustomColorContext()
+    const { bgColor, hasCustomColor } = useCustomColorContext()
 
-    const backgroundColor = customColor?.bgColor ?? '#104f7e'
+    const backgroundColor = hasCustomColor ? bgColor : '#104f7e'
 
     return (
         <div data-test="headerbar-logo">

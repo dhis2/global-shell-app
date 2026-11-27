@@ -45,10 +45,10 @@ const CommandPalette = ({ apps, commands, shortcuts }) => {
         [apps, shortcuts, commands, actions]
     )
     const customColor = useCustomColorContext()
-    const hoverStyle = customColor?.bgColor
+    const hoverStyle = customColor?.hasCustomColor
         ? 'opacity: 0.6;'
         : `background: #104f7e;`
-    const activeStyle = customColor?.bgColor
+    const activeStyle = customColor?.hasCustomColor
         ? 'opacity: 0.8;'
         : `background: #104067;`
 
@@ -209,8 +209,8 @@ const CommandPalette = ({ apps, commands, shortcuts }) => {
                 title={i18n.t('Command palette')}
                 aria-label={i18n.t('Command palette')}
                 style={
-                    customColor?.bgColor
-                        ? { backgroundColor: customColor?.bgColor }
+                    customColor?.hasCustomColor
+                        ? { backgroundColor: customColor.bgColor }
                         : {}
                 }
             >
