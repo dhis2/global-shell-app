@@ -248,14 +248,15 @@ export const NotificationIcon = ({
         }
         const fitToEvenWidth = () => {
             pill.style.inlineSize = ''
-            const width = parseFloat(getComputedStyle(pill).inlineSize)
+            const width = Number.parseFloat(getComputedStyle(pill).inlineSize)
             if (width) {
                 pill.style.inlineSize = `${Math.ceil(width / 2) * 2}px`
             }
         }
         fitToEvenWidth()
-        // The width changes if the badge's font finishes loading later
-        document.fonts?.ready.then(fitToEvenWidth)
+        // The width changes if the badge's font finishes loading later. If
+        // fonts fail to load, the width measured above stands.
+        document.fonts?.ready.then(fitToEvenWidth).catch(() => {})
     }, [displayCount])
 
     const { className, styles } = useMemo(

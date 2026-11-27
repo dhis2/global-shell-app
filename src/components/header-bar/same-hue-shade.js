@@ -22,7 +22,7 @@ const parseHex = (hex) => {
                   .map((d) => d + d)
                   .join('')
             : match[1]
-    return [0, 2, 4].map((i) => parseInt(digits.slice(i, i + 2), 16))
+    return [0, 2, 4].map((i) => Number.parseInt(digits.slice(i, i + 2), 16))
 }
 
 const toLinear = (channel) => {

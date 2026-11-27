@@ -40,8 +40,8 @@ export function OnlineStatus({ dense }) {
                 strokeLinecap={glyph.strokeLinecap}
                 strokeLinejoin={glyph.strokeLinejoin}
             >
-                {paths.map((d, index) => (
-                    <path key={index} d={d} />
+                {paths.map((d) => (
+                    <path key={d} d={d} />
                 ))}
             </g>
         </svg>
